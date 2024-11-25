@@ -1,3 +1,7 @@
+// pages/404.tsx
+
+"use client";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 const NotFoundPage: React.FC = () => {
@@ -8,20 +12,31 @@ const NotFoundPage: React.FC = () => {
         <div className="relative">
           {/* 404 Image with a girl sitting */}
           <div className="relative">
-            <img
+            <motion.img
               src="https://i.ibb.co/G9DC8S0/404-2.png"
               alt="404 Error Image"
               className="relative z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
             />
             {/* Girl sitting on 404 */}
-            <img
-              src="/404/girl.png" // Transparent PNG for girl
+            <motion.img
+              src="/404/girl.png"
               alt="Girl sitting on 404 text"
               className="absolute z-20 top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.5 }}
             />
           </div>
           {/* Text */}
-          <div className="mt-8">
+          <motion.div
+            className="mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
             <h1 className="my-2 text-secondary font-bold text-2xl">
               Looks like you've found the doorway to the great nothing
             </h1>
@@ -30,18 +45,27 @@ const NotFoundPage: React.FC = () => {
             </p>
             {/* Button with Link */}
             <Link href="/" passHref>
-              <button className="sm:w-full lg:w-auto my-2 border-indigo-600 rounded-md py-4 px-8 text-center bg-indigo-600 hover:bg-indigo-800 text-white">
+              <motion.button
+                className="sm:w-full lg:w-auto my-2 border-indigo-600 rounded-md py-4 px-8 text-center bg-indigo-600 hover:bg-indigo-800 text-white"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.7 }}
+              >
                 Go back to home
-              </button>
+              </motion.button>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Right Section: Another Image */}
-      <div>
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
         <img src="https://i.ibb.co/ck1SGFJ/Group.png" alt="Illustration" />
-      </div>
+      </motion.div>
     </div>
   );
 };
