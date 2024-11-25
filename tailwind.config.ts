@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
-  
+const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,5 +9,23 @@ export default {
   theme: {
     extend: {},
   },
+  daisyui: {
+    themes: [
+      "light",
+      "night",
+      {
+        mytheme: {
+          primary: "#2A2A2A", 
+          secondary: "#9333EA",
+          accent: "#F43F5E",
+          neutral: "#2A2A2A",
+          "base-100": "#F9FAFB",
+        },
+      },
+    ],
+  },
+  darkMode: "class",
   plugins: [require('daisyui')],
-} satisfies Config;
+};
+
+export default config;
