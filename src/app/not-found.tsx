@@ -4,8 +4,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+
 const NotFoundPage: React.FC = () => {
+  
   return (
+    
     <div className="lg:px-24 md:px-44 px-4 items-center min-h-screen flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16 bg-primary-content">
       {/* Left Section: Text and Button */}
       <div className="w-full xl:w-1/2 relative lg:pb-0">
