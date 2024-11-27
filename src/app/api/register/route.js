@@ -1,27 +1,24 @@
-import bcrypt from "bcrypt";
-import connectDB from "../../../lib/mongodb";
-import User from "../../../models/User";
+import { connectToDatabase } from "../../lib/utils";
+import { User } from "../../lib/models";
+import bcrypt from "bcryptjs";
 
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { name, email, password } = req.body;
+export async function POST(req) {
+  const { email, password, role, name, number } = await req.json();
 
-    try {
-      await connectDB();
-
-      const userExists = await User.findOne({ email });
-      if (userExists) return res.status(400).json({ message: "User already exists" });
-
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const newUser = new User({ name, email, password: hashedPassword });
-      await newUser.save();
-
-      res.status(201).json({ message: "User registered successfully" });
-    } catch (error) {
-      res.status(500).json({ message: "Server error", error: error.message });
-    }
-  } else {
-    res.status(405).json({ message: "Method not allowed" });
+  if (!email || !password || !name || !number) {
+    return new Response(JSON.stringify({ message: "All fields are required" }), { status: 400 });
   }
+
+  await connectToDatabase();
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return new Response(JSON.stringify({ message: "User already exists" }), { status: 400 });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = new User({ email, password: hashedPassword, role, name, number });
+
+  await newUser.save();
+  return new Response(JSON.stringify({ message: "User created successfully" }), { status: 201 });
 }

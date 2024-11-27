@@ -1,4 +1,3 @@
-import Image from "next/image";
 import ThemeButton from "./components/themebutton/ThemeButton";
 
 export default async function Home() {
