@@ -1,3 +1,4 @@
+import { SessionContext } from "next-auth/react";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -7,7 +8,29 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        colors: {
+          SessionContext:"#000000",
+          'primary-a0': '#570df8',  // Directly accessible via bg-primary-a0
+          'primary-a10': '#7435fa',
+          'primary-a20': '#8b50fc',
+          'primary-a30': '#a06afd',
+          'primary-a40': '#b282fe',
+          'primary-a50': '#c49bff',
+          'surface-a0': '#000000',
+          'surface-a10': '#1e1e1e',
+          'surface-a20': '#353535',
+          'surface-a30': '#4e4e4e',
+          'surface-a40': '#696969',
+          'surface-a50': '#858585',
+          'surface-mixed-a0': '#241146',
+          'surface-mixed-a10': '#3b2759',
+          'surface-mixed-a20': '#523f6c',
+          'surface-mixed-a30': '#695880',
+          'surface-mixed-a40': '#817194',
+          'surface-mixed-a50': '#998ca9',
+        },
+    },
   },
   daisyui: {
     themes: [
@@ -16,7 +39,9 @@ const config: Config = {
       {
         mytheme: {
           primary: "#570df8", // Light blue
+          primarycontent:"#570df8",
           secondary: "#9333ea", // Purple
+          SessionContext:"#7435fa",
           accent: "#f59e0b", // Amber
           neutral: "#1f2937", // Dark gray
           "base-100": "#f9fafb", // Very light gray
@@ -27,8 +52,6 @@ const config: Config = {
           success: "#10b981", // Green
           warning: "#f59e0b", // Amber
           error: "#ef4444", // Red
-
-          // Dark theme colors
           "color-primary-a0": "#570df8", // Dark theme primary a0
           "color-primary-a10": "#7435fa", // Dark theme primary a10
           "color-primary-a20": "#8b50fc", // Dark theme primary a20

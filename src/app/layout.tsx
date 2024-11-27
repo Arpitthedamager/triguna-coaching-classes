@@ -32,7 +32,7 @@ export default function RootLayout({
       >
 <SessionWrapper>
 
-        <ThemeButton />
+        {/* <ThemeButton /> */}
         {children}
 </SessionWrapper>
       </body>

@@ -8,9 +8,9 @@ export default async function Home() {
     <>
       <div className="min-h-screen bg-primary-content">
         <ThemeButton />
-        <p className="text-primary">hi i am a devloper</p>
+        <p className="text-secondary p-20 bg-primarycontent">hi i am a devloper</p>
         <Link href="/notes">link</Link>
-        <div className="grid gap-4">
+        {/* <div className="grid gap-4">
           <div className="bg-secondary text-white p-4 rounded">
             Secondary: #f000b8
           </div>
@@ -45,7 +45,7 @@ export default async function Home() {
           <div className="bg-success text-success-content p-4 rounded">Success</div>
           <div className="bg-warning text-warning-content p-4 rounded">Warning</div>
           <div className="bg-error text-error-content p-4 rounded">Error</div>
-        </div>
+        </div> */}
       </div>
     </>
   );
