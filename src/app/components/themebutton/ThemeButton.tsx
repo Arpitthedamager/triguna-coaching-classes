@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { signOut } from "next-auth/react";
 
 const ThemeButton: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'night' | 'mytheme' | null>(null); // Initial state as null
@@ -27,9 +28,17 @@ const ThemeButton: React.FC = () => {
   }
 
   return (
+    <>
     <button onClick={toggleTheme} className="btn btn-primary mt-4">
       Toggle Theme
     </button>
+     <button
+     onClick={() => signOut({ callbackUrl: "/" })}
+     className="btn btn-primary text-white py-2 px-4 rounded-lg"
+     >
+     Sign Out
+   </button>
+     </>
   );
 };
 
