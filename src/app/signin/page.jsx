@@ -40,14 +40,14 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-primary to-secondary">
+    <div className="min-h-screen flex items-center justify-center bg-primary-content">
       <div className="flex flex-col lg:flex-row bg-base-100 shadow-xl rounded-lg overflow-hidden w-full max-w-screen-xl p-10">
         {/* Left Section: Informational Content */}
-        <div className="w-full lg:w-1/2 p-10 flex flex-col justify-center bg-neutral text-base-100">
+        <div className="w-full lg:w-1/2 p-10 flex flex-col justify-center bg- text-base-100">
           <h2 className="text-4xl font-bold text-secondary mb-6">
             Welcome Back!
           </h2>
-          <p className="mt-4 text-xl text-secondary-content mb-8">
+          <p className="mt-4 text-xl text-secondary mb-8">
             Log in to your account to access all features.
           </p>
 
@@ -81,8 +81,8 @@ export default function SignIn() {
             </button>
           </form>
           <div className="text-center mt-8">
-            <p className="text-lg text-secondary-content">
-              Don't have an account?{" "}
+            <p className="text-lg text-secondary">
+              Don&apos;t have an account?{" "}
               <a
                 href="/register"
                 className="text-secondary font-semibold text-xl"

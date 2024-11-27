@@ -36,7 +36,7 @@ const NotFoundPage: React.FC = () => {
             transition={{ duration: 1, delay: 0.3 }}
           >
             <h1 className="my-2 text-secondary font-bold text-2xl sm:text-3xl md:text-4xl">
-              Looks like you've found the doorway to the great nothing
+              Looks like you&apos;ve found the doorway to the great nothing
             </h1>
             <p className="my-2 text-white text-sm sm:text-base">
               Sorry about that! Please visit our homepage to get where you need to go.

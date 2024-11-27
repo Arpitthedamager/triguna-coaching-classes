@@ -1,9 +1,9 @@
 interface Props {
-    params: { classId: string; subjectId: string; chapterId: string };
+    params: { subjectId: string; chapterId: string };
   }
   
   const ChapterNotes = ({ params }: Props) => {
-    const { classId, subjectId, chapterId } = params;
+    const {  subjectId, chapterId } = params;
   
     const notes = [
       { title: "Definition", content: "A detailed explanation of key terms..." },

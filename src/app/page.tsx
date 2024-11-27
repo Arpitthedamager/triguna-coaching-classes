@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ThemeButton from "./components/themebutton/ThemeButton";
 
 export default async function Home() {
@@ -8,7 +9,7 @@ export default async function Home() {
       <div className="min-h-screen bg-primary-content">
         <ThemeButton />
         <p className="text-primary">hi i am a devloper</p>
-        <a href="/notes" >link</a>
+        <Link href="/notes" >link</Link>
       </div>
     </>
   );
