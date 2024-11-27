@@ -1,5 +1,4 @@
 "use client";
-import UserProfile from "../components/userprofile/UserProfile";
 import Sidebar from "../components/sidebar/Sidebar";
 import Header from "../components/header/Header";
 import StatisticsGraph from "../components/statisticsgraph/StatisticsGraph";
@@ -22,8 +21,14 @@ const userdashboard = () => {
               <StatCard title="Total Courses" value="15" bgColor="bg-green-500" />
               <StatCard title="Faculty Room" value="100" bgColor="bg-yellow-500" />
             </div>
-            <StatisticsGraph />
-            <CircularProgress percentage={75} />
+            <div className="flex gap-4">
+              <div className="flex-1">
+                <StatisticsGraph />
+              </div>
+              <div className="flex-none">
+                <CircularProgress percentage={75} />
+              </div>
+            </div>
           </div>
           <div className="space-y-6">
             <Calendar />
