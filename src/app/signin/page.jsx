@@ -96,7 +96,7 @@ export default function SignIn() {
         {/* Right Section: Image or Illustration */}
         <div
           className="w-full lg:w-1/2 bg-cover bg-center bg-primary-content rounded-lg"
-          style={{ backgroundImage: "url('/signin/loginIMG2.svg')" }}
+          style={{ backgroundImage: "url('/signin/loginIMG.svg')" }}
         >
           {/* Replace '/signin/loginIMG.svg' with an actual image URL */}
         </div>
