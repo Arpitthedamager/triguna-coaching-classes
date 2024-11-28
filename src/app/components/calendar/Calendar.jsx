@@ -20,13 +20,13 @@ const Calendar = () => {
   // State to manage the current month
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  // Example event data
+  // Example event data with 'test' status added
   const events = [
     {
       date: "2024-11-13",
       subjects: {
         Physics: { status: "on", teacher: "Mr. John" },
-        Chemistry: { status: "on", teacher: "Ms. Smith" },
+        Chemistry: { status: "test", teacher: "Ms. Smith" }, // Chemistry test
         Math: { status: "off", teacher: "Mr. Alan" },
       },
     },
@@ -35,7 +35,7 @@ const Calendar = () => {
       subjects: {
         Physics: { status: "off", teacher: "Mr. John" },
         Chemistry: { status: "off", teacher: "Ms. Smith" },
-        Math: { status: "on", teacher: "Mr. Alan" },
+        Math: { status: "test", teacher: "Mr. Alan" }, // Math test
       },
     },
     {
@@ -58,12 +58,22 @@ const Calendar = () => {
     return events.find((event) => event.date === format(date, "yyyy-MM-dd"));
   };
 
-  // Helper: Get class based on the number of "off" subjects
+  // Helper: Get class based on the number of "off" subjects and the test status
   const getColorForDate = (date) => {
     const event = getEventsForDate(date);
 
     if (event) {
-      const offCount = Object.values(event.subjects).filter((subj) => subj.status === "off").length;
+      const testSubjects = Object.entries(event.subjects).filter(
+        ([subject, info]) => info.status === "test"
+      );
+
+      if (testSubjects.length > 0) {
+        return "bg-red-900 text-white"; // Dark red for test days
+      }
+
+      const offCount = Object.values(event.subjects).filter(
+        (subj) => subj.status === "off"
+      ).length;
 
       if (offCount === 1) return "bg-green-100 text-green-700"; // 1 subject off
       if (offCount === 2) return "bg-blue-100 text-blue-700"; // 2 subjects off
@@ -188,6 +198,10 @@ const Calendar = () => {
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-red-500"></span>
             <span>All Subjects Off</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-red-900"></span>
+            <span>Test Day</span>
           </div>
         </div>
       </motion.div>
