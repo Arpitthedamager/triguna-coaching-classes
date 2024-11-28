@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const Sidebar: FC = () => {
   // Variants for Framer Motion animations
@@ -74,7 +75,7 @@ const Sidebar: FC = () => {
               initial="hidden"
               animate="visible"
             >
-              <a>{item.label}</a>
+              <Link href={item.path}>{item.label}</Link>
             </motion.li>
           ))}
         </ul>

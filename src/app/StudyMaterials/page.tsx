@@ -8,7 +8,7 @@ import NoticeBoard from "../components/noticeboard/NoticeBoard";
 import StatCard from "../components/statcard/StatCard";
 import DatabaseTable from "../components/databasetable/DatabaseTable";
 
-const userdashboard = () => {
+const StudyMaterials = () => {
   return (
     <div className="flex overflow-x-hidden bg-primary-content">
       <div className="fixed top-0 left-0 h-full z-10">
@@ -40,7 +40,7 @@ const userdashboard = () => {
                 bgColor="bg-yellow-200"
               />
             </div>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <div className="flex-1">
                 <StatisticsGraph />
               </div>
@@ -48,7 +48,8 @@ const userdashboard = () => {
                 <CircularProgress percentage={75} />
               </div>
             </div>
-              <DatabaseTable />
+              <DatabaseTable /> */}
+              
           </div>
           <div className="space-y-6">
             <Calendar />
@@ -60,4 +61,4 @@ const userdashboard = () => {
   );
 };
 
-export default userdashboard;
+export default StudyMaterials;
