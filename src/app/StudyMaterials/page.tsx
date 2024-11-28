@@ -7,7 +7,7 @@ import Calendar from "../components/calendar/Calendar";
 import NoticeBoard from "../components/noticeboard/NoticeBoard";
 import StatCard from "../components/statcard/StatCard";
 import DatabaseTable from "../components/databasetable/DatabaseTable";
-
+  
 const StudyMaterials = () => {
   return (
     <div className="flex overflow-x-hidden bg-primary-content">
@@ -49,7 +49,7 @@ const StudyMaterials = () => {
               </div>
             </div>
               <DatabaseTable /> */}
-              
+
           </div>
           <div className="space-y-6">
             <Calendar />

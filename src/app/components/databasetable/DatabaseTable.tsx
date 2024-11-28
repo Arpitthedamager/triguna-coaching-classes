@@ -46,29 +46,6 @@ const DatabaseTable: FC = () => {
       subject: "Mathematics",
       avatar: "https://via.placeholder.com/40",
     },
-    {
-        name: "Jane Smith",
-        score: 55,
-        subject: "Chemistry",
-        avatar: "https://via.placeholder.com/40",
-      },
-      {
-        name: "Emily Watson",
-        score: 75,
-        subject: "Mathematics",
-        avatar: "https://via.placeholder.com/40",
-      },{
-        name: "Jane Smith",
-        score: 55,
-        subject: "Chemistry",
-        avatar: "https://via.placeholder.com/40",
-      },
-      {
-        name: "Emily Watson",
-        score: 75,
-        subject: "Mathematics",
-        avatar: "https://via.placeholder.com/40",
-      },
   ];
 
   // State for filtering and sorting
@@ -91,20 +68,36 @@ const DatabaseTable: FC = () => {
         }));
 
   // Framer Motion variants for animation
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 }, // Start from below
+    visible: {
+      opacity: 1,
+      y: 0, // Move to original position
+      transition: {
+        duration: 0.5, // Smooth transition for entire component
+      },
+    },
+  };
+
   const rowVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, x: -50 }, // Start from the left
     visible: (i: number) => ({
       opacity: 1,
-      y: 0,
+      x: 0, // Move to original position
       transition: {
-        delay: i * 0.1,
-        duration: 0.3,
+        delay: i * 0.1, // Delay animation for each row
+        duration: 0.5,   // Smooth transition for each row
       },
     }),
   };
 
   return (
-    <div className="p-4 rounded-2xl bg-slate-50">
+    <motion.div
+      className="p-4 rounded-2xl bg-slate-50"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       {/* Header and Dropdown */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold text-primary-a30">Database</h2>
@@ -126,7 +119,7 @@ const DatabaseTable: FC = () => {
       <div className="overflow-x-auto h-96 text-surface-a0">
         <table className="table w-full text-neutral border border-base-200">
           <thead>
-            <tr className="">
+            <tr>
               <th className="text-base px-4 py-4 text-left text-surface-a0">Student Name</th>
               <th className="text-base px-4 py-4 text-center text-surface-a0">Score</th>
               <th className="text-base px-4 py-4 text-center text-surface-a0">Subject</th>
@@ -135,8 +128,6 @@ const DatabaseTable: FC = () => {
             </tr>
           </thead>
           <motion.tbody
-            initial="hidden"
-            animate="visible"
             className="divide-x"
             style={{
               maxHeight: "300px", // Limit the height to show only 6 rows
@@ -149,8 +140,11 @@ const DatabaseTable: FC = () => {
                 className="hover:bg-primary-content"
                 custom={index}
                 variants={rowVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }} // Animate once the row enters the viewport
               >
-                <td className=" px-4 py-3 flex items-center">
+                <td className="px-4 py-3 flex items-center">
                   <img
                     src={student.avatar}
                     alt={student.name}
@@ -158,7 +152,7 @@ const DatabaseTable: FC = () => {
                   />
                   <span className="font-semibold text-base-content">{student.name}</span>
                 </td>
-                <td className=" px-4 py-3 text-base text-center">
+                <td className="px-4 py-3 text-base text-center">
                   {student.score}/100
                 </td>
                 <td className="px-4 py-3 text-base text-center">
@@ -183,7 +177,7 @@ const DatabaseTable: FC = () => {
           </motion.tbody>
         </table>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

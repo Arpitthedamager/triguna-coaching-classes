@@ -98,7 +98,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="flex flex-col bg-white text-gray-600 items-center w-full p-4">
+    <div className="flex flex-col bg-white rounded-2xl text-gray-600 items-center w-full p-4">
       {/* Profile Header */}
       <div className="flex items-center justify-between w-full mb-4">
         <div className="flex items-center space-x-4">
