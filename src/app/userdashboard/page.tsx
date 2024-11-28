@@ -6,12 +6,13 @@ import CircularProgress from "../components/circularprogress/CircularProgress";
 import Calendar from "../components/calendar/Calendar";
 import NoticeBoard from "../components/noticeboard/NoticeBoard";
 import StatCard from "../components/statcard/StatCard";
+import DatabaseTable from "../components/databasetable/DatabaseTable";
 
 const userdashboard = () => {
   return (
     <div className="flex overflow-x-hidden bg-primary-content">
       <div className="fixed top-0 left-0 h-full z-10">
-        <Sidebar /> 
+        <Sidebar />
       </div>
       <div className="flex-1 flex flex-col ml-64 ">
         <main className="p-6 grid grid-cols-3 gap-6">
@@ -47,6 +48,7 @@ const userdashboard = () => {
                 <CircularProgress percentage={75} />
               </div>
             </div>
+              <DatabaseTable />
           </div>
           <div className="space-y-6">
             <Calendar />
