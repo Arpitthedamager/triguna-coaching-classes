@@ -4,7 +4,7 @@ const Sidebar: FC = () => {
   return (
     <aside className="w-64 bg-base-100 shadow-lg h-screen flex flex-col justify-between">
       <div className="p-4">
-        <h2 className="text-2xl font-bold text-primary">Education Dashboard</h2>
+        <h2 className="text-2xl font-bold text-primary">Triguna Coaching Classes</h2>
         <ul className="menu p-4">
           <li className="text-purple-600 font-semibold">
             <a>Dashboard</a>
