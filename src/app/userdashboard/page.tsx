@@ -9,17 +9,35 @@ import StatCard from "../components/statcard/StatCard";
 
 const userdashboard = () => {
   return (
-    <div className="flex bg-primary-content">
-      <Sidebar />
-      <div className="flex-1 flex flex-col ">
+    <div className="flex overflow-x-hidden bg-primary-content">
+      <div className="fixed top-0 left-0 h-full z-10">
+        <Sidebar /> 
+      </div>
+      <div className="flex-1 flex flex-col ml-64 ">
         <main className="p-6 grid grid-cols-3 gap-6">
           <div className="col-span-2 space-y-6">
-        <Header />
+            <Header />
             <div className="grid grid-cols-4 gap-4">
-              <StatCard title="Total Students" value="1220" bgColor="bg-blue-500" />
-              <StatCard title="Total Teachers" value="120" bgColor="bg-red-500" />
-              <StatCard title="Total Courses" value="15" bgColor="bg-green-500" />
-              <StatCard title="Faculty Room" value="100" bgColor="bg-yellow-500" />
+              <StatCard
+                title="Total Students"
+                value="1220"
+                bgColor="bg-blue-500"
+              />
+              <StatCard
+                title="Total Teachers"
+                value="120"
+                bgColor="bg-red-500"
+              />
+              <StatCard
+                title="Total Courses"
+                value="15"
+                bgColor="bg-green-500"
+              />
+              <StatCard
+                title="Faculty Room"
+                value="100"
+                bgColor="bg-yellow-500"
+              />
             </div>
             <div className="flex gap-4">
               <div className="flex-1">
