@@ -11,16 +11,19 @@ import StatCard from "../components/statcard/StatCard";
 import DatabaseTable from "../components/databasetable/DatabaseTable";
 import { motion } from "framer-motion";
 import StudyMaterial from "../components/study-materials/Study-Materials";
+import Profile from "../components/profile/Profile"; // Import Profile Component
 
 const UserDashboard = () => {
   const [activeContent, setActiveContent] = useState("dashboard"); // State for selected content
 
+  // Define animation variants for content transition
   const contentVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 100 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
 
-  // Define content based on state
+  // Define content based on the state
   const renderContent = () => {
     if (activeContent === "dashboard") {
       return (
@@ -28,7 +31,7 @@ const UserDashboard = () => {
           key="dashboard"
           initial="hidden"
           animate="visible"
-          exit="hidden"
+          exit="exit"
           variants={contentVariants}
         >
           <Header />
@@ -46,7 +49,9 @@ const UserDashboard = () => {
               <CircularProgress percentage={75} />
             </div>
           </div>
-          <DatabaseTable />
+          <div className="mt-8">
+            <DatabaseTable />
+          </div>
         </motion.div>
       );
     } else if (activeContent === "studyMaterials") {
@@ -55,10 +60,23 @@ const UserDashboard = () => {
           key="studyMaterials"
           initial="hidden"
           animate="visible"
-          exit="hidden"
+          exit="exit"
           variants={contentVariants}
         >
           <StudyMaterial />
+        </motion.div>
+      );
+    } else if (activeContent === "profile") {
+      return (
+        <motion.div
+          key="profile"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Header/>
+          <Profile /> {/* Profile Section */}
         </motion.div>
       );
     }

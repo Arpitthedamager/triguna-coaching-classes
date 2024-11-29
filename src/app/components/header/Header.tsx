@@ -17,7 +17,7 @@ const Header: FC = () => {
           <input
             type="text"
             placeholder="Search"
-            className="input input-bordered rounded-full w-full max-w-xs pr-0" // Increased padding-right for the icon
+            className="input input-bordered rounded-full w-full max-w-xs pr-0"
             />
           <div className="bg-primary-a30 right-0 top-1/2 transform -translate-y-1/2 absolute text-neutral-content rounded-full w-12 h-12 flex items-center justify-center">
             <span>👤</span>
