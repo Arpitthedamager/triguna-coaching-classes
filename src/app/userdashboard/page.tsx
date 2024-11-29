@@ -21,21 +21,21 @@ const userdashboard = () => {
             <div className="grid grid-cols-4 gap-4">
               <StatCard
                 title="Total Students"
-                value="1220"
+                value="220"
                 bgColor="bg-blue-200"
               />
               <StatCard
-                title="Total Teachers"
+                title="Total Books"
                 value="120"
                 bgColor="bg-red-200"
               />
               <StatCard
-                title="Total Courses"
+                title="Total Notes"
                 value="15"
                 bgColor="bg-green-200"
               />
               <StatCard
-                title="Faculty Room"
+                title="Total Test"
                 value="100"
                 bgColor="bg-yellow-200"
               />

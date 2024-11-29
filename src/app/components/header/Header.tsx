@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const Header: FC = () => {
   return (
@@ -12,14 +13,16 @@ const Header: FC = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="relative">
+          <Link href="/StudyMaterials">
           <input
             type="text"
             placeholder="Search"
             className="input input-bordered rounded-full w-full max-w-xs pr-0" // Increased padding-right for the icon
-          />
+            />
           <div className="bg-primary-a30 right-0 top-1/2 transform -translate-y-1/2 absolute text-neutral-content rounded-full w-12 h-12 flex items-center justify-center">
             <span>👤</span>
           </div>
+            </Link>
         </div>
       </motion.div>
     </header>

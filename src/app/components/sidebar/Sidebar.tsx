@@ -22,9 +22,9 @@ const Sidebar: FC = () => {
   };
 
   const menuItems = [
-    { label: 'Dashboard', path: '/dashboard', active: true },
+    { label: 'Dashboard', path: '/userdashboard', active: true },
     { label: 'Profile', path: '/profile' },
-    { label: 'Study Materials', path: '/study-materials' },
+    { label: 'Study Materials', path: '/StudyMaterials' },
     { label: 'Students', path: '/students' },
     { label: 'Exams', path: '/exams' },
     { label: 'Results', path: '/results' },
