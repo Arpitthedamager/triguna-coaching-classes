@@ -87,7 +87,7 @@ const UserDashboard = () => {
       <div className="fixed top-0 left-0 h-full z-10">
         <Sidebar onMenuClick={setActiveContent}  />
       </div>
-      <div className="flex-1 flex flex-col ml-64">
+      <div className="flex-1 flex flex-col lg:ml-64">
         <main className="p-6 grid grid-cols-3 gap-6">
           <div className="col-span-2 space-y-6">{renderContent()}</div>
           <div className="space-y-6">
