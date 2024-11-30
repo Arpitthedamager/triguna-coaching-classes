@@ -9,7 +9,7 @@ const CircularProgress: FC<{ percentage: number }> = ({ percentage }) => {
   const strokeDashoffset = strokeDasharray - (percentage / 100) * strokeDasharray; // The stroke to be removed to indicate progress
 
   return (
-    <div className="flex flex-col items-center py-4 space-y-4 bg-base-100 w-56 h-72 ">
+    <div className="flex flex-col  rounded-xl items-center py-4 space-y-4 bg-base-100 w-56 h-72 ">
       {/* Title */}
       <h2 className="text-xl font-semibold text-gray-700">Course Activities</h2>
       

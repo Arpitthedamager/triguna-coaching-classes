@@ -69,7 +69,7 @@ const Sidebar: FC<{ onMenuClick: (menu: string) => void }> = ({ onMenuClick }) =
               animate="visible"
               onClick={() => onMenuClick(item.key)} // Update active content
             >
-              <Link href="#">{item.label}</Link>
+              <Link href="#" className="">{item.label}</Link>
             </motion.li>
           ))}
         </ul>
