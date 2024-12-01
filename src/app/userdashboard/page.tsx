@@ -11,19 +11,19 @@ import StatCard from "../components/statcard/StatCard";
 import DatabaseTable from "../components/databasetable/DatabaseTable";
 import { motion } from "framer-motion";
 import StudyMaterial from "../components/study-materials/Study-Materials";
-import Profile from "../components/profile/Profile"; // Import Profile Component
+import Profile from "../components/profile/Profile";
+import { FaCalendarAlt, FaBell } from "react-icons/fa"; // Add icons
 
 const UserDashboard = () => {
-  const [activeContent, setActiveContent] = useState("dashboard"); // State for selected content
+  const [activeContent, setActiveContent] = useState("dashboard");
+  const [modalContent, setModalContent] = useState(null); // Track modal content
 
-  // Define animation variants for content transition
   const contentVariants = {
     hidden: { opacity: 0, x: 50 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 100 } },
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
 
-  // Define content based on the state
   const renderContent = () => {
     if (activeContent === "dashboard") {
       return (
@@ -75,8 +75,8 @@ const UserDashboard = () => {
           exit="exit"
           variants={contentVariants}
         >
-          <Header/>
-          <Profile /> {/* Profile Section */}
+          <Header />
+          <Profile />
         </motion.div>
       );
     }
@@ -85,16 +85,49 @@ const UserDashboard = () => {
   return (
     <div className="flex overflow-x-hidden bg-primary-content">
       <div className="fixed top-0 left-0 h-full z-10">
-        <Sidebar onMenuClick={setActiveContent}  />
+        <Sidebar onMenuClick={setActiveContent} />
       </div>
       <div className="flex-1 flex flex-col lg:ml-64">
-        <main className="p-6 grid grid-cols-3 gap-6">
-          <div className="col-span-2 space-y-6">{renderContent()}</div>
-          <div className="space-y-6">
+        {/* Mobile Icons */}
+        <div className="flex justify-end space-x-4 p-4 lg:hidden">
+          <button
+            onClick={() => setModalContent("calendar")}
+            className="text-primary hover:text-primary-focus"
+          >
+            <FaCalendarAlt size={24} />
+          </button>
+          <button
+            onClick={() => setModalContent("notice")}
+            className="text-primary hover:text-primary-focus"
+          >
+            <FaBell size={24} />
+          </button>
+        </div>
+
+        {/* Main Content */}
+        <main className="p-6 grid lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">{renderContent()}</div>
+          <div className="hidden lg:block space-y-6">
             <Calendar />
             <NoticeBoard />
           </div>
         </main>
+
+        {/* Modal */}
+        {modalContent && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-6 w-11/12 max-w-md shadow-lg">
+              <button
+                onClick={() => setModalContent(null)}
+                className="text-primary mb-4 hover:text-primary-focus"
+              >
+                Close
+              </button>
+              {modalContent === "calendar" && <Calendar />}
+              {modalContent === "notice" && <NoticeBoard />}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

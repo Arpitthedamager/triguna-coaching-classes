@@ -133,7 +133,7 @@ const StudyMaterial: FC = () => {
     materials.map((material, index) => (
       <motion.div
         key={material.id}
-        className="card bg-transparent p-4 rounded-lg shadow hover:shadow-lg"
+        className="card bg-transparent p-4 bg-white rounded-lg shadow hover:shadow-lg"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.1, duration: 0.3 }}
@@ -142,7 +142,8 @@ const StudyMaterial: FC = () => {
           src={material.image}
           alt={material.title}
           className="w-full h-40 object-cover rounded-lg mb-4"
-        />
+        /><div className="">
+
         <h4 className="font-bold text-gray-800">{material.title}</h4>
         <p className="text-sm text-gray-600 mb-2">{material.description}</p>
         <span className="text-xs text-gray-500">By {material.teacher}</span>
@@ -152,7 +153,7 @@ const StudyMaterial: FC = () => {
             className="text-primary-a20 hover:underline"
             target="_blank"
             rel="noopener noreferrer"
-          >
+            >
             Download PDF
           </a>
           <a
@@ -160,9 +161,10 @@ const StudyMaterial: FC = () => {
             className="text-green-500 hover:underline"
             target="_blank"
             rel="noopener noreferrer"
-          >
+            >
             Open PDF
           </a>
+            </div>
         </div>
       </motion.div>
     ));
