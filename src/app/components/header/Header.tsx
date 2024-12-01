@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Header: FC = () => {
   return (
-    <header className="flex items-center justify-between p-4 bg-transparent">
+    <header className="flex items-center justify-between p-4 pt-0  bg-transparent">
       <h1 className="text-xl font-bold text-SessionContext">My Dashboard</h1>
       <motion.div
         className="flex items-center space-x-4"

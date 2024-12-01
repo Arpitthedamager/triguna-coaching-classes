@@ -12,11 +12,11 @@ import DatabaseTable from "../components/databasetable/DatabaseTable";
 import { motion } from "framer-motion";
 import StudyMaterial from "../components/study-materials/Study-Materials";
 import Profile from "../components/profile/Profile";
-import { FaCalendarAlt, FaBell } from "react-icons/fa"; // Add icons
+import { FaCalendarAlt, FaBell } from "react-icons/fa";
 
 const UserDashboard = () => {
   const [activeContent, setActiveContent] = useState("dashboard");
-  const [modalContent, setModalContent] = useState(null); // Track modal content
+  const [modalContent, setModalContent] = useState<"calendar" | "notice" | null>(null);
 
   const contentVariants = {
     hidden: { opacity: 0, x: 50 },
@@ -84,27 +84,26 @@ const UserDashboard = () => {
 
   return (
     <div className="flex overflow-x-hidden bg-primary-content">
-      <div className="fixed top-0 left-0 h-full z-10">
-        <Sidebar onMenuClick={setActiveContent} />
-      </div>
-      <div className="flex-1 flex flex-col lg:ml-64">
-        {/* Mobile Icons */}
-        <div className="flex justify-end space-x-4 p-4 lg:hidden">
-          <button
-            onClick={() => setModalContent("calendar")}
-            className="text-primary hover:text-primary-focus"
-          >
-            <FaCalendarAlt size={24} />
-          </button>
-          <button
-            onClick={() => setModalContent("notice")}
-            className="text-primary hover:text-primary-focus"
-          >
-            <FaBell size={24} />
-          </button>
+        <div className="fixed top-0 left-0 h-full z-10">
+          <Sidebar onMenuClick={setActiveContent} />
         </div>
+        
+        <div className="flex-1 flex flex-col lg:ml-64">
+          <div className="flex justify-end space-x-4 p-4 lg:hidden">
+            <button
+              onClick={() => setModalContent("calendar")}
+              className="text-primary hover:text-primary-focus"
+            >
+              <FaCalendarAlt size={24} />
+            </button>
+            <button
+              onClick={() => setModalContent("notice")}
+              className="text-primary hover:text-primary-focus"
+            >
+              <FaBell size={24} />
+            </button>
+          </div>
 
-        {/* Main Content */}
         <main className="p-6 grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">{renderContent()}</div>
           <div className="hidden lg:block space-y-6">

@@ -64,7 +64,7 @@ const Calendar = () => {
 
     if (event) {
       const testSubjects = Object.entries(event.subjects).filter(
-        ([subject, info]) => info.status === "test"
+        ([, info]) => info.status === "test"
       );
 
       if (testSubjects.length > 0) {

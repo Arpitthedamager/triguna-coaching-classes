@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import ThemeButton from "./components/themebutton/ThemeButton";
 import SessionWrapper from "./components/sessionwraper/SessionWraper";
 
 const geistSans = localFont({
