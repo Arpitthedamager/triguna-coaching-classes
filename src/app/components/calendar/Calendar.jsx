@@ -23,7 +23,7 @@ const Calendar = () => {
   // Example event data with 'test' status added
   const events = [
     {
-      date: "2024-11-13",
+      date: "2024-12-13",
       subjects: {
         Physics: { status: "on", teacher: "Mr. John" },
         Chemistry: { status: "test", teacher: "Ms. Smith" }, // Chemistry test
@@ -31,7 +31,7 @@ const Calendar = () => {
       },
     },
     {
-      date: "2024-11-20",
+      date: "2024-12-20",
       subjects: {
         Physics: { status: "off", teacher: "Mr. John" },
         Chemistry: { status: "off", teacher: "Ms. Smith" },
@@ -39,7 +39,29 @@ const Calendar = () => {
       },
     },
     {
-      date: "2024-11-25",
+      date: "2024-12-25",
+      subjects: {
+        Physics: { status: "off", teacher: "Mr. John" },
+        Chemistry: { status: "off", teacher: "Ms. Smith" },
+        Math: { status: "off", teacher: "Mr. Alan" },
+      },
+    },
+    {
+      date: "2024-12-21",
+      subjects: {
+        Physics: { status: "on", teacher: "Mr. John" },
+        Chemistry: { status: "off", teacher: "Ms. Smith" },
+        Math: { status: "off", teacher: "Mr. Alan" },
+      },
+    },{
+      date: "2024-12-23",
+      subjects: {
+        Physics: { status: "on", teacher: "Mr. John" },
+        Chemistry: { status: "on", teacher: "Ms. Smith" },
+        Math: { status: "off", teacher: "Mr. Alan" },
+      },
+    },{
+      date: "2024-12-22",
       subjects: {
         Physics: { status: "off", teacher: "Mr. John" },
         Chemistry: { status: "off", teacher: "Ms. Smith" },
@@ -162,8 +184,8 @@ const Calendar = () => {
 
                   {/* Tooltip */}
                   {event && (
-                    <div className="absolute flex top-10 left-1/2 transform -translate-x-1/2 bg-white text-gray-700 text-sm p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 z-10">
-                      <div className="font-bold">Date: {format(day, "MMMM d, yyyy")}</div>
+                    <div className="absolute flex top-10 left-1/2 transform -translate-x-1/2 bg-white text-gray-700 text-sm p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 z-30">
+                      {/* <div className="font-bold">Date: {format(day, "MMMM d, yyyy")}</div> */}
                       {Object.entries(event.subjects).map(([subject, info], idx) => (
                         <div key={idx}>
                           <span className="font-medium">{subject}</span>: {info.status}{" "}

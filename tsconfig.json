@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -22,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/loading.tsx", "src/app/register/page.js", "src/app/signin/page.jsx", "src/app/api/auth/[...nextauth]/route.js", "src/app/components/circularprogress/CircularProgress.tsx", "src/app/components/calendar/Calendar.jsx", "src/app/components/study-materials/Study-Materials.tsx", "src/app/components/profile/Profile.jsx", "src/app/components/sidebar/Sidebar.jsx", "src/app/userdashboard/page.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/loading.tsx", "src/app/register/page.tsx", "src/app/signin/page.jsx", "src/app/api/auth/[...nextauth]/route.ts", "src/app/components/circularprogress/CircularProgress.tsx", "src/app/components/calendar/Calendar.jsx", "src/app/components/study-materials/Study-Materials.tsx", "src/app/components/profile/Profile.jsx", "src/app/components/sidebar/Sidebar.jsx", "src/app/userdashboard/page.tsx"],
   "exclude": ["node_modules"]
 }

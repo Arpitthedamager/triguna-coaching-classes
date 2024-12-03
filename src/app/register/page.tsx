@@ -1,27 +1,45 @@
 "use client";
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+
+interface FormState {
+  email: string;
+  password: string;
+  name: string;
+  number: string;
+  role: string;
+}
 
 export default function Register() {
-  const [form, setForm] = useState({ email: "", password: "", name: "", number: "", role: "user" });
-  const [error, setError] = useState("");
+  const [form, setForm] = useState<FormState>({
+    email: "",
+    password: "",
+    name: "",
+    number: "",
+    role: "user",
+  });
+  const [error, setError] = useState<string>("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    if (res.ok) {
-      window.location.href = "/signin";
-    } else {
-      const data = await res.json();
-      setError(data.message);
+      if (res.ok) {
+        window.location.href = "/signin";
+      } else {
+        const data = await res.json();
+        setError(data.message || "An error occurred.");
+      }
+    } catch (error) {
+      setError("Failed to register. Please try again later.");
     }
   };
 

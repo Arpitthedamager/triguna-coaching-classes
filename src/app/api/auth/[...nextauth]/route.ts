@@ -1,10 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectToDatabase } from "../../../lib/utils";
-import { User } from "../../../lib/models";
+import { User as UserModel } from "../../../lib/models";
+import { JWT } from "next-auth/jwt";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -13,33 +14,34 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("Credentials received:", credentials);
+        if (!credentials) return null;
 
         await connectToDatabase();
 
-        const user = await User.findOne({ email: credentials.username });
+        const user = await UserModel.findOne({ email: credentials.username });
         if (user) {
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
           if (isPasswordValid) {
-            console.log("User authorized:", user);
-            return { id: user._id, name: user.name, role: user.role };
+            return {
+              id: user._id.toString(),
+              name: user.name,
+              email: user.email,
+              role: user.role,
+            };
           }
-          console.log("Invalid password");
-        } else {
-          console.log("User not found");
         }
         return null;
       },
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user.role = token.role;
+    async session({ session, token }: { session: Session; token: JWT }) {
+      if (token && session.user) {
+        session.user.role = token.role as string; // Cast role to string since it's added to token
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.role = user.role;
       }
