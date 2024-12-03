@@ -100,7 +100,7 @@ const DatabaseTable: FC = () => {
     >
       {/* Header and Dropdown */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-primary-a30">Database</h2>
+        <h2 className="text-3xl font-bold text-primary-a30">Class Database</h2>
 
         {/* Dropdown Filter */}
         <select

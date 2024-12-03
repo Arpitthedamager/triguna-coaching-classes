@@ -1,18 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Sidebar from "../components/sidebar/Sidebar";
-import Header from "../components/header/Header";
-import StatisticsGraph from "../components/statisticsgraph/StatisticsGraph";
-import CircularProgress from "../components/circularprogress/CircularProgress";
-import Calendar from "../components/calendar/Calendar";
-import NoticeBoard from "../components/noticeboard/NoticeBoard";
-import StatCard from "../components/statcard/StatCard";
-import DatabaseTable from "../components/databasetable/DatabaseTable";
+import Sidebar from "../components/UserDashboardcomponents/reused/sidebar/Sidebar";
+import Header from "../components/UserDashboardcomponents/reused/header/Header";
+import StatisticsGraph from "../components/UserDashboardcomponents/main/statisticsgraph/StatisticsGraph";
+import CircularProgress from "../components/UserDashboardcomponents/main/circularprogress/CircularProgress";
+import Calendar from "../components/UserDashboardcomponents/reused/calendar/Calendar";
+import NoticeBoard from "../components/UserDashboardcomponents/reused/noticeboard/NoticeBoard";
+import StatCard from "../components/UserDashboardcomponents/main/statcard/StatCard";
+import DatabaseTable from "../components/UserDashboardcomponents/main/databasetable/DatabaseTable";
 import { motion } from "framer-motion";
-import StudyMaterial from "../components/study-materials/Study-Materials";
-import Profile from "../components/profile/Profile";
+import StudyMaterial from "../components/UserDashboardcomponents/links/study-materials/Study-Materials";
+import Profile from "../components/UserDashboardcomponents/links/profile/Profile";
 import { FaCalendarAlt, FaBell } from "react-icons/fa";
+import Students from "../components/UserDashboardcomponents/links/students/Students";
 
 const UserDashboard = () => {
   const [activeContent, setActiveContent] = useState("dashboard");
@@ -75,8 +76,19 @@ const UserDashboard = () => {
           exit="exit"
           variants={contentVariants}
         >
-          <Header />
           <Profile />
+        </motion.div>
+      );
+    }else if (activeContent === "students") {
+      return (
+        <motion.div
+          key="students"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Students />
         </motion.div>
       );
     }

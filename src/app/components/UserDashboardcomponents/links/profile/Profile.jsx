@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import StatisticsGraph from "../statisticsgraph/StatisticsGraph";
-import CircularProgress from "../circularprogress/CircularProgress";
+import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
+import CircularProgress from "../../main/circularprogress/CircularProgress";
+import Header from "../../reused/header/Header";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -53,6 +54,7 @@ const Profile = () => {
 
   return (
     <>
+    <Header/>
       <div className="text-gray-500  rounded-full bg-gradient-to-br from-pink-100 via-primary-content  to-blue-100 min-h-screen flex items-center justify-center p-6">
         <motion.div
           className=" bg-white p-8 rounded-full shadow-lg w-full max-w-4xl"

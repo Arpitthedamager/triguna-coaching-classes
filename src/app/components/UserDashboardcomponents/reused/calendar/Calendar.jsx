@@ -12,7 +12,7 @@ import {
 } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
-import Timetable from "../timetable/Timetable"; // Include Timetable if needed
+import Timetable from "../../main/timetable/Timetable"; // Include Timetable if needed
 
 const Calendar = () => {
   const { data: session } = useSession();
