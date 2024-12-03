@@ -17,7 +17,7 @@ export default function Register() {
     number: "",
     role: "user",
   });
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string | null>(null); // Explicitly typing the error state
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,6 +25,7 @@ export default function Register() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setError(null); // Reset any previous errors before submitting
     try {
       const res = await fetch("/api/register", {
         method: "POST",
