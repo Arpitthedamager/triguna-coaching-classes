@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import { motion } from "framer-motion";
 
 const DatabaseTable: FC = () => {
-  // Dummy data
   const initialData = [
     {
       name: "Glenn Maxwell",
@@ -48,45 +47,42 @@ const DatabaseTable: FC = () => {
     },
   ];
 
-  // State for filtering and sorting
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
 
-  // Filter and sort data based on the subject filter or entire dataset
   const filteredData = subjectFilter
     ? initialData
         .filter((student) => student.subject === subjectFilter)
         .sort((a, b) => b.score - a.score)
         .map((student, index) => ({
           ...student,
-          rank: index + 1, // Reassign rank based on filtered and sorted scores
+          rank: index + 1,
         }))
     : initialData
-        .sort((a, b) => b.score - a.score) // Sort globally by score
+        .sort((a, b) => b.score - a.score)
         .map((student, index) => ({
           ...student,
-          rank: index + 1, // Reassign rank globally based on scores
+          rank: index + 1,
         }));
 
-  // Framer Motion variants for animation
   const containerVariants = {
-    hidden: { opacity: 0, y: 50 }, // Start from below
+    hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
-      y: 0, // Move to original position
+      y: 0,
       transition: {
-        duration: 0.5, // Smooth transition for entire component
+        duration: 0.5,
       },
     },
   };
 
   const rowVariants = {
-    hidden: { opacity: 0, x: -50 }, // Start from the left
+    hidden: { opacity: 0, x: -50 },
     visible: (i: number) => ({
       opacity: 1,
-      x: 0, // Move to original position
+      x: 0,
       transition: {
-        delay: i * 0.1, // Delay animation for each row
-        duration: 0.5,   // Smooth transition for each row
+        delay: i * 0.1,
+        duration: 0.5,
       },
     }),
   };
@@ -98,11 +94,9 @@ const DatabaseTable: FC = () => {
       animate="visible"
       variants={containerVariants}
     >
-      {/* Header and Dropdown */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold text-primary-a30">Class Database</h2>
 
-        {/* Dropdown Filter */}
         <select
           className="select select-bordered max-w-xs bg-transparent text-primary-a40"
           value={subjectFilter || ""}
@@ -115,7 +109,6 @@ const DatabaseTable: FC = () => {
         </select>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto h-96 text-surface-a0">
         <table className="table w-full text-neutral border border-base-200">
           <thead>
@@ -130,8 +123,8 @@ const DatabaseTable: FC = () => {
           <motion.tbody
             className="divide-x"
             style={{
-              maxHeight: "300px", // Limit the height to show only 6 rows
-              overflowY: "auto",   // Enable vertical scrollbar when more than 6 rows
+              maxHeight: "300px",
+              overflowY: "auto",
             }}
           >
             {filteredData.map((student, index) => (
@@ -142,7 +135,7 @@ const DatabaseTable: FC = () => {
                 variants={rowVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }} // Animate once the row enters the viewport
+                viewport={{ once: true, amount: 0.1 }}
               >
                 <td className="px-4 py-3 flex items-center">
                   <img

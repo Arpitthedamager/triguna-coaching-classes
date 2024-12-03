@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ThemeButton from "./components/themebutton/ThemeButton";
+import ThemeButton from "./components/mainpage/themebutton/ThemeButton";
 
 export default async function Home() {
   await new Promise((resolve) => setTimeout(resolve, 3000));

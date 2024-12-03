@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Sidebar from "../components/UserDashboardcomponents/reused/sidebar/Sidebar";
 import Header from "../components/UserDashboardcomponents/reused/header/Header";
@@ -13,7 +12,9 @@ import { motion } from "framer-motion";
 import StudyMaterial from "../components/UserDashboardcomponents/links/study-materials/Study-Materials";
 import Profile from "../components/UserDashboardcomponents/links/profile/Profile";
 import { FaCalendarAlt, FaBell } from "react-icons/fa";
-import Students from "../components/UserDashboardcomponents/links/students/Students";
+import Results from "../components/UserDashboardcomponents/links/results/Results";
+import Exams from "../components/UserDashboardcomponents/links/exams/Exams";
+import Fees from "../components/UserDashboardcomponents/links/fees/Fees";
 
 const UserDashboard = () => {
   const [activeContent, setActiveContent] = useState("dashboard");
@@ -79,16 +80,40 @@ const UserDashboard = () => {
           <Profile />
         </motion.div>
       );
-    }else if (activeContent === "students") {
+    }else if (activeContent === "results") {
       return (
         <motion.div
-          key="students"
+          key="results"
           initial="hidden"
           animate="visible"
           exit="exit"
           variants={contentVariants}
         >
-          <Students />
+          <Results />
+        </motion.div>
+      );
+    }else if (activeContent === "exams") {
+      return (
+        <motion.div
+          key="exams"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Exams />
+        </motion.div>
+      );
+    }else if (activeContent === "fees") {
+      return (
+        <motion.div
+          key="fees"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Fees />
         </motion.div>
       );
     }
@@ -124,7 +149,6 @@ const UserDashboard = () => {
           </div>
         </main>
 
-        {/* Modal */}
         {modalContent && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg p-6 w-11/12 max-w-md shadow-lg">

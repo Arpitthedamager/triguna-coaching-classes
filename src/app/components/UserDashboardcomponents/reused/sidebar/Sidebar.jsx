@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const Sidebar = ({ onMenuClick }) => {
-  const [isOpen, setIsOpen] = useState(false); // State for sidebar toggle in mobile view
-  const [isClient, setIsClient] = useState(false); // Track if we're in client-side rendering
+  const [isOpen, setIsOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); // Set flag once we know we're in the browser
+    setIsClient(true);
   }, []);
 
   if (!isClient) {
-    return null; // Prevent rendering until we know we're on the client
+    return null;
   }
 
   const sidebarVariants = {
@@ -20,7 +20,7 @@ const Sidebar = ({ onMenuClick }) => {
     visible: {
       x: 0,
       transition: {
-        type: "spring", // Smooth bounce effect
+        type: "spring",
         stiffness: 120,
         damping: 15,
         duration: 0.5,
@@ -35,7 +35,7 @@ const Sidebar = ({ onMenuClick }) => {
       opacity: 1,
       transition: {
         duration: 0.4,
-        delay: i * 0.1, // Stagger effect
+        delay: i * 0.1,
         ease: "easeOut",
       },
     }),
@@ -64,7 +64,7 @@ const Sidebar = ({ onMenuClick }) => {
     { label: "Dashboard", key: "dashboard" },
     { label: "Profile", key: "profile" },
     { label: "Study Materials", key: "studyMaterials" },
-    { label: "Students", key: "students" },
+    // { label: "Students", key: "students" },
     { label: "Exams", key: "exams" },
     { label: "Results", key: "results" },
     { label: "Fees", key: "fees" },
@@ -72,7 +72,6 @@ const Sidebar = ({ onMenuClick }) => {
 
   return (
     <>
-      {/* Hamburger Button for Mobile View */}
       <button
         className="lg:hidden fixed top-4 left-4 z-50 bg-primary-a20 text-white p-2 rounded-full shadow-md"
         onClick={() => setIsOpen((prev) => !prev)}
@@ -80,7 +79,6 @@ const Sidebar = ({ onMenuClick }) => {
         {isOpen ? "✖" : "☰"}
       </button>
 
-      {/* Sidebar */}
       <motion.aside
         className={`fixed top-0 left-0 z-40 bg-base-100 shadow-lg h-screen flex flex-col justify-between lg:static lg:w-64 ${
           isOpen ? "w-64" : "w-0 overflow-hidden"
@@ -102,7 +100,7 @@ const Sidebar = ({ onMenuClick }) => {
                 animate="visible"
                 onClick={() => {
                   onMenuClick(item.key);
-                  setIsOpen(false); // Close sidebar on mobile after clicking a menu item
+                  setIsOpen(false);
                 }}
               >
                 <Link href="#">{item.label}</Link>
@@ -110,7 +108,6 @@ const Sidebar = ({ onMenuClick }) => {
             ))}
           </ul>
         </div>
-        {/* Sidebar footer */}
         <motion.div
           className="p-4 bg-transparent text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -139,7 +136,6 @@ const Sidebar = ({ onMenuClick }) => {
         </motion.div>
       </motion.aside>
 
-      {/* Overlay for mobile view */}
       {isOpen && (
         <motion.div
           className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-30 lg:hidden"

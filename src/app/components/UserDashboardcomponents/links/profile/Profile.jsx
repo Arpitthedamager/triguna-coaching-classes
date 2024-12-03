@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
 import CircularProgress from "../../main/circularprogress/CircularProgress";
 import Header from "../../reused/header/Header";
+import AttendanceCalendar from "../../onetimeusedcomponents/AttendanceCalendar/AttendanceCalendar";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -51,10 +52,15 @@ const Profile = () => {
   const buttonHover = {
     hover: { scale: 1.05, boxShadow: "0px 8px 15px rgba(0,0,0,0.2)" },
   };
-
+  const attendanceData = {
+    "2024-12-01": ["present", "absent", "present"],
+    "2024-12-02": ["absent", "present", null],
+    "2024-12-03": ["present", "present", "present"],
+    "2024-12-04": [null, null, null], // No class
+  };
   return (
     <>
-    <Header/>
+      <Header />
       <div className="text-gray-500  rounded-full bg-gradient-to-br from-pink-100 via-primary-content  to-blue-100 min-h-screen flex items-center justify-center p-6">
         <motion.div
           className=" bg-white p-8 rounded-full shadow-lg w-full max-w-4xl"
@@ -77,7 +83,7 @@ const Profile = () => {
                 className="w-full h-full object-cover"
               />
             </motion.div>
-  
+
             {/* Profile Information */}
             <div className="flex-1">
               <AnimatePresence mode="wait">
@@ -211,15 +217,16 @@ const Profile = () => {
         </motion.div>
       </div>
       <div className="flex gap-4 ">
-            <div className="flex-1">
-              <StatisticsGraph />
-            </div>
-            <div className="flex-none">
-              <CircularProgress percentage={75} />
-            </div>
-          </div>
-          
-      
+        <div className="flex-1">
+          <StatisticsGraph />
+        </div>
+        <div className="flex-none">
+          <CircularProgress percentage={75} />
+        </div>
+      </div>
+        <div className="flex-none">
+        <AttendanceCalendar attendanceData={attendanceData} />
+        </div>
     </>
   );
 };
