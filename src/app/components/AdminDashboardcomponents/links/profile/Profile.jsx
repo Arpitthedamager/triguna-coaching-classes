@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
 import CircularProgress from "../../main/circularprogress/CircularProgress";
 import Header from "../../reused/header/Header";
-import AttendanceCalendar from "../../onetimeusedcomponents/attendancecalendar/AttendanceCalendar";
+// import AttendanceCalendar from "../../onetimeusedcomponents/attendancecalendar/AttendanceCalendar";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -225,7 +225,7 @@ const Profile = () => {
         </div>
       </div>
         <div className="flex-none">
-        <AttendanceCalendar attendanceData={attendanceData} />
+        {/* <AttendanceCalendar attendanceData={attendanceData} /> */}
         </div>
     </>
   );

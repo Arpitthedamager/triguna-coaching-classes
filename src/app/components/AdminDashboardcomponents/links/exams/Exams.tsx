@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
+import TestPapers from "../../onetimeusedcomponents/testpapers/TestPapers";
+import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
 import DatabaseTable from "../../main/databasetable/DatabaseTable";
 import TopRankingStudents from "../../onetimeusedcomponents/toprankingstudents/TopRankingStudents";
-import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
-import TestPapers from "../../onetimeusedcomponents/testpapers/TestPapers";
 
 const Exams = () => {
   return (

@@ -14,7 +14,7 @@ interface TestData {
 
 const StatisticsGraph: FC = () => {
   // Test data with test date and percentage
-  const testData: TestData[] = [
+  const initialTestData: TestData[] = [
     { testDate: "2024-12-01", testPercentage: 90 },
     { testDate: "2024-12-02", testPercentage: 60 },
     { testDate: "2024-12-05", testPercentage: 40 },
@@ -26,6 +26,12 @@ const StatisticsGraph: FC = () => {
     { testDate: "2024-09-30", testPercentage: 85 },
   ];
 
+  const [testData, setTestData] = useState<TestData[]>(initialTestData);
+  const [currentMonth, setCurrentMonth] = useState<string>("12");
+  const [newTestDate, setNewTestDate] = useState<string>("");
+  const [newTestPercentage, setNewTestPercentage] = useState<number>(0);
+  const [editTestData, setEditTestData] = useState<TestData | null>(null);
+
   // Group data by month
   const groupByMonth = (data: TestData[]) => {
     return data.reduce((acc, curr) => {
@@ -36,12 +42,8 @@ const StatisticsGraph: FC = () => {
     }, {} as Record<string, TestData[]>);
   };
 
-  // Group data by month
   const groupedData = groupByMonth(testData);
   const months = Object.keys(groupedData); // Array of months (e.g., "12", "11", etc.)
-  
-  // Initial state: display data for December (month "12")
-  const [currentMonth, setCurrentMonth] = useState(months[0]);
 
   // Get the test dates and percentages for the selected month
   const selectedMonthData = groupedData[currentMonth];
@@ -82,7 +84,6 @@ const StatisticsGraph: FC = () => {
       x: {
         title: {
           display: true,
-          // text: "Test Date",
         },
         ticks: {
           autoSkip: true, // Skip some dates to avoid clutter
@@ -114,10 +115,36 @@ const StatisticsGraph: FC = () => {
     }
   };
 
+  // Add or Edit Test Data
+  const handleAddOrEditTestData = () => {
+    if (editTestData) {
+      // Update existing test data
+      setTestData(testData.map((item) =>
+        item.testDate === editTestData.testDate ? { ...item, testPercentage: newTestPercentage } : item
+      ));
+      setEditTestData(null); // Reset edit mode
+    } else {
+      // Add new test data
+      setTestData([
+        ...testData,
+        { testDate: newTestDate, testPercentage: newTestPercentage },
+      ]);
+    }
+
+    // Reset form after adding/editing
+    setNewTestDate("");
+    setNewTestPercentage(0);
+  };
+
+  // Delete Test Data
+  const handleDeleteTestData = (testDate: string) => {
+    setTestData(testData.filter((item) => item.testDate !== testDate));
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 h-72 w-full flex flex-col">
       {/* Header */}
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold text-gray-800">Test Progress</h2>
         <div className="flex space-x-4">
           <button onClick={goToPreviousMonth} className="text-sm bg-primary-a20 px-4 py-2 rounded-lg">Previous</button>
@@ -126,8 +153,74 @@ const StatisticsGraph: FC = () => {
       </div>
 
       {/* Chart.js Graph */}
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-full items-center justify-center mb-4">
         <Line data={chartData} options={options} />
+      </div>
+
+      {/* Admin Controls: Add or Edit Test Data */}
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold">Add / Edit Test Data</h3>
+        <div className="flex flex-col gap-3">
+          <input
+            type="text"
+            placeholder="Test Date (YYYY-MM-DD)"
+            value={newTestDate}
+            onChange={(e) => setNewTestDate(e.target.value)}
+            className="input input-bordered"
+          />
+          <input
+            type="number"
+            placeholder="Test Percentage"
+            value={newTestPercentage}
+            onChange={(e) => setNewTestPercentage(Number(e.target.value))}
+            className="input input-bordered"
+          />
+          <button
+            onClick={handleAddOrEditTestData}
+            className="btn btn-primary mt-3"
+          >
+            {editTestData ? "Update Test Data" : "Add Test Data"}
+          </button>
+        </div>
+      </div>
+
+      {/* Admin Controls: List of Test Data */}
+      <div className="overflow-x-auto">
+        <table className="table w-full text-neutral">
+          <thead>
+            <tr>
+              <th className="text-base">Test Date</th>
+              <th className="text-base">Percentage</th>
+              <th className="text-base">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {testData.map((item, index) => (
+              <tr key={index}>
+                <td>{item.testDate}</td>
+                <td>{item.testPercentage}%</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      setEditTestData(item);
+                      setNewTestDate(item.testDate);
+                      setNewTestPercentage(item.testPercentage);
+                    }}
+                    className="btn btn-sm btn-secondary mr-2"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteTestData(item.testDate)}
+                    className="btn btn-sm btn-error"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

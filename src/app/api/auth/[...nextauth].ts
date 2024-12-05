@@ -6,6 +6,7 @@ import { User as UserModel } from "../../lib/models";
 import { AuthOptions } from "next-auth";
 
 export const authOptions: AuthOptions = {
+  debug: true,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -34,6 +35,7 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
       if (token) {
