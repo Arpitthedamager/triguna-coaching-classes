@@ -77,7 +77,7 @@ const FeedbackSection: React.FC = () => {
       transition={{ duration: 0.6 }}
     >
       <motion.h2
-        className="text-2xl font-bold text-black mb-2"
+        className="text-6xl  text-black mb-2"
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -86,7 +86,7 @@ const FeedbackSection: React.FC = () => {
         Students Feedback
       </motion.h2>
       <motion.p
-        className="text-gray-600 mb-6"
+        className="text-gray-600 text-xl mb-6"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
@@ -150,7 +150,7 @@ const FeedbackSection: React.FC = () => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   >
-                    <span className="font-semibold">{item.name}</span>,{" "}
+                    <span className="font-semibold text-primary-a20">{item.name}</span>,{" "}
                     {item.achievement}
                   </motion.p>
                 </div>

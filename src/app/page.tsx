@@ -6,6 +6,7 @@ import CallToAction from "./components/mainpage/calltoaction/CallToAction";
 import CoachingProcess from "./components/mainpage/coachingprocess/CoachingProcess";
 import FeaturesSection from "./components/mainpage/featuressection/FeaturesSection";
 import FeedbackSection from "./components/mainpage/feedbacksection/FeedbackSection";
+import Game from "./components/mainpage/game/Game";
 import HeroSection from "./components/mainpage/herosection/HeroSection";
 import TeacherSlideshow from "./components/mainpage/teacherslideshow/TeacherSlideshow";
 
@@ -24,8 +25,16 @@ export default async function Home() {
         <TopRankingStudents/>
         <FeedbackSection/>
         <FeaturesSection/>
-        <TeacherSlideshow/>
-        <CoachingProcess/>
+        <div className="">
+      <div className="flex flex-col md:flex-row justify-between">
+        <div className="md:w-1/2 w-full mt-10 md:mt-0">
+          <TeacherSlideshow />
+        </div>
+        <div className="md:w-1/2 w-full">
+          <Game />
+        </div>
+      </div>
+    </div>        <CoachingProcess/>
         <AcademicTimeline/>
       </div>
     </>

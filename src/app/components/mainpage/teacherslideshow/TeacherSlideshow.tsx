@@ -1,4 +1,7 @@
+// src/components/TeacherSlideshow.tsx
+
 "use client";
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -15,7 +18,7 @@ const teachers = [
     name: "Radhika Ma'am",
     subject: "Physics",
     description:
-      "A dedicated educator with years of experience, Radhika Ma'am inspires students to explore the wonders of physics.",
+    "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
     demoVideo: "Demo Video",
     image: "/path-to-image2.jpg", // Replace with actual image path
   },
@@ -23,7 +26,7 @@ const teachers = [
     name: "Amit Sir",
     subject: "Mathematics",
     description:
-      "A passionate math teacher, Amit Sir makes complex topics easy to understand and enjoyable to learn.",
+    "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
     demoVideo: "Demo Video",
     image: "/path-to-image3.jpg", // Replace with actual image path
   },
@@ -41,11 +44,9 @@ const TeacherSlideshow = () => {
   };
 
   return (
-    <section className="py-10 px-4 text-center">
-      <h2 className="text-3xl font-bold mb-4">Meet Our Educators</h2>
-      <p className="text-gray-600 mb-8">
-        Dedicated educators driving our mission
-      </p>
+    <section className="py-10 px-4 ">
+      <h2 className="text-6xl text-primary-a20 font-bold mb-4">Meet Our Educators</h2>
+      <p className="text-gray-600 text-2xl mb-8">Dedicated educators driving our mission</p>
 
       <div className="relative w-full max-w-4xl mx-auto">
         <AnimatePresence mode="wait">
@@ -55,9 +56,9 @@ const TeacherSlideshow = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.6 }}
-            className="bg-white shadow-md p-6 rounded-lg"
+            className="p-6 left-0"
           >
-            <div className="flex flex-col md:flex-row items-center">
+            <div className="flex flex-col">
               <div className="mb-6 md:mb-0 md:mr-8">
                 <motion.div
                   className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden"
@@ -71,36 +72,30 @@ const TeacherSlideshow = () => {
                 </motion.div>
               </div>
               <div className="text-left">
-                <h3 className="text-xl font-bold">
-                  {teachers[current].name}
-                </h3>
-                <p className="text-sm text-gray-500 mb-4">
-                  {teachers[current].subject}
-                </p>
-                <p className="text-gray-700 mb-4">
-                  {teachers[current].description}
-                </p>
-                <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-400">
+                <h3 className="text-3xl text-gray-700 font-bold">{teachers[current].name}</h3>
+                <p className="text-xl text-gray-600 mb-4">{teachers[current].subject}</p>
+                <button className="bg-yellow-500 text-white px-4 py-2 mb-5 rounded-lg hover:bg-yellow-400">
                   {teachers[current].demoVideo}
                 </button>
+                <p className="text-gray-700 text-lg mb-4 pr-20">{teachers[current].description}</p>
               </div>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        <div className="flex justify-between mt-6">
-          <button
-            onClick={handlePrev}
-            className="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300"
-          >
-            Previous
-          </button>
-          <button
-            onClick={handleNext}
-            className="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300"
-          >
-            Next
-          </button>
+        <div className="">
+        <button
+          onClick={handlePrev}
+          className="absolute -left-5 top-1/2 transform -translate-y-1/2 text-4xl hover:text-5xl text-gray-600 p-2 rounded-full transition"
+        >
+          &lt;
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-10 top-1/2 transform -translate-y-1/2 text-4xl hover:text-5xl text-gray-600 p-2 rounded-full transition"
+        >
+          &gt;
+        </button>
         </div>
       </div>
     </section>
