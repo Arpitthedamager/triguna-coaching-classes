@@ -25,7 +25,7 @@ export default async function Home() {
         <TopRankingStudents/>
         <FeedbackSection/>
         <FeaturesSection/>
-        <div className="">
+        <div className="overflow-hidden">
       <div className="flex flex-col md:flex-row justify-between">
         <div className="md:w-1/2 w-full mt-10 md:mt-0">
           <TeacherSlideshow />
