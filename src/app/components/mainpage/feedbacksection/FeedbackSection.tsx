@@ -69,7 +69,7 @@ const FeedbackSection: React.FC = () => {
 
   return (
     <motion.div
-      className="py-6 px-6 md:px-52"
+      className="pt-36 py-6 px-6 md:px-52"
       initial={{ opacity: 0, scale: 0.9, x: 50 }}
       whileInView={{ opacity: 1, scale: 1, x: 0 }}
       viewport={{ once: true }} // Trigger animation only once when the section is in view
