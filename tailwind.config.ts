@@ -10,6 +10,7 @@ const config: Config = {
   theme: {
     extend: {
         colors: {
+          buttonbg:"#FA9119",
           SessionContext:"#000000",
           'primary-a0': '#570df8',  // Directly accessible via bg-primary-a0
           'primary-a10': '#7435fa',

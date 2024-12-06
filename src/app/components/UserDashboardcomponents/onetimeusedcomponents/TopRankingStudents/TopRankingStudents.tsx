@@ -23,8 +23,8 @@ const TopRankingStudents = () => {
     <div className="p-8 my-6 rounded-3xl  bg-primary-content   ">
       {/* Header Section */}
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold text-gray-800">Meet Our Stars</h1>
-        <p className="text-lg text-gray-600">Explore our list Toppers of 2023-24</p>
+        <h1 className="text-6xl font-bold text-gray-800">Meet Our Stars</h1>
+        <p className="text-2xl mt-2 text-gray-600">Explore our list Toppers of 2023-24</p>
       </div>
 
       {/* Scrollable Grid (only if 'showAll' is true) */}

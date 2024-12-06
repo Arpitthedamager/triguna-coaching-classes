@@ -12,6 +12,11 @@ import { motion } from "framer-motion";
 // import ManageUsers from "../components/AdminDashboardcomponents/links/manage-users/ManageUsers";
 // import ManageFees from "../components/AdminDashboardcomponents/links/manage-fees/ManageFees";
 import { FaCalendarAlt, FaBell } from "react-icons/fa";
+import Profile from "../components/AdminDashboardcomponents/links/profile/Profile";
+import Exams from "../components/AdminDashboardcomponents/links/exams/Exams";
+import Fees from "../components/AdminDashboardcomponents/links/fees/Fees";
+import Results from "../components/AdminDashboardcomponents/links/results/Results";
+import StudyMaterial from "../components/AdminDashboardcomponents/links/study-materials/Study-Materials";
 
 const AdminDashboard = () => {
   const [activeContent, setActiveContent] = useState("dashboard");
@@ -33,7 +38,7 @@ const AdminDashboard = () => {
           exit="exit"
           variants={contentVariants}
         >
-          {/* <Header />
+          <Header />
           <div className="grid grid-cols-4 gap-4">
             <StatCard title="Total Users" value="500" bgColor="bg-blue-200" />
             <StatCard title="Pending Fees" value="$200" bgColor="bg-red-200" />
@@ -50,7 +55,7 @@ const AdminDashboard = () => {
           </div>
           <div className="mt-8">
             <DatabaseTable />
-          </div> */}
+          </div>
         </motion.div>
       );
     } else if (activeContent === "manageUsers") {
@@ -75,6 +80,66 @@ const AdminDashboard = () => {
           variants={contentVariants}
         >
           {/* <ManageFees /> */}
+        </motion.div>
+      );
+    } else if (activeContent === "profile") {
+      return (
+        <motion.div
+          key="profile"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Profile />
+        </motion.div>
+      );
+    }else if (activeContent === "exams") {
+      return (
+        <motion.div
+          key="exams"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Exams />
+        </motion.div>
+      );
+    }else if (activeContent === "fees") {
+      return (
+        <motion.div
+          key="fees"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Fees />
+        </motion.div>
+      );
+    }else if (activeContent === "results") {
+      return (
+        <motion.div
+          key="results"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <Results />
+        </motion.div>
+      );
+    }else if (activeContent === "study matarials") {
+      return (
+        <motion.div
+          key="study matarials"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <StudyMaterial />
         </motion.div>
       );
     }
