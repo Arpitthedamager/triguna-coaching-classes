@@ -17,25 +17,25 @@ export default async function Home() {
         {/* <ThemeButton />
         <p className="text-secondary p-20 bg-primarycontent">hi i am a devloper</p>
         <Link href="/notes">link</Link> */}
-        <HeroSection/>
+        <HeroSection />
         <div className="my-20">
-          
-        <CallToAction/>
+          <CallToAction />
         </div>
-        <TopRankingStudents/>
-        <FeedbackSection/>
-        <FeaturesSection/>
+        <TopRankingStudents />
+        <FeedbackSection />
+        <FeaturesSection />
         <div className="overflow-hidden">
-      <div className="flex flex-col md:flex-row justify-between">
-        <div className="md:w-1/2 w-full mt-10 md:mt-0">
-          <TeacherSlideshow />
-        </div>
-        <div className="md:w-1/2 w-full">
-          <Game />
-        </div>
-      </div>
-    </div>        <CoachingProcess/>
-        <AcademicTimeline/>
+          <div className="flex flex-col md:flex-row justify-between">
+            <div className="md:w-1/2 w-full mt-10 md:mt-0">
+              <TeacherSlideshow />
+            </div>
+            <div className="md:w-1/2 w-full">
+              <Game />
+            </div>
+          </div>
+        </div>{" "}
+        <CoachingProcess />
+        <AcademicTimeline />
       </div>
     </>
   );

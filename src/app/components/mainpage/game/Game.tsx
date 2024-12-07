@@ -63,8 +63,8 @@ const Game = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-10 bg-gray-100">
-      <h1 className="text-4xl font-bold mb-10 text-gray-800">
+    <div className="min-h-screen flex flex-col items-center p-10">
+      <h1 className="text-4xl font-bold mb-10 text-primary-a20">
         Drag Chapters Freely to Their Subject Buckets
       </h1>
 
@@ -79,7 +79,7 @@ const Game = () => {
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">
               {subject}
             </h2>
-            <p className="text-sm text-gray-500">Drag chapters here!</p>
+            {/* <p className="text-sm text-gray-500">Drag chapters here!</p> */}
             <div className="mt-4 flex flex-wrap gap-2">
               {chapters
                 .filter((chapter) => chapter.location === subject)
