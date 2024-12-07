@@ -45,7 +45,7 @@ const AcademicTimeline = () => {
             {timelineImages.map((imageUrl, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center mb-80"
+                className="flex items-center justify-center mb-80 mt-24"
               >
                 <img
                   src={imageUrl}
