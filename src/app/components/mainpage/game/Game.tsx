@@ -3,122 +3,162 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-// Define the Chapter type
-type Chapter = {
-  id: string;
-  name: string;
-  subject: string;
-};
-
-const chaptersData: Chapter[] = [
-  { id: "1", name: "Photosynthesis", subject: "Science" },
-  { id: "2", name: "Trigonometry", subject: "Math" },
-  { id: "3", name: "World War II", subject: "History" },
-  { id: "4", name: "Atoms and Molecules", subject: "Science" },
-  { id: "5", name: "Calculus", subject: "Math" },
-  { id: "6", name: "French Revolution", subject: "History" },
+const chaptersData = [
+  { id: "1", name: "Electrostatics", subject: "Physics" },
+  { id: "2", name: "Organic Chemistry", subject: "Chemistry" },
+  { id: "3", name: "Calculus", subject: "Math" },
+  { id: "4", name: "Magnetism", subject: "Physics" },
+  { id: "5", name: "Inorganic Chemistry", subject: "Chemistry" },
+  { id: "6", name: "Probability", subject: "Math" },
+  { id: "7", name: "Fluid Mechanics", subject: "Physics" },
+  { id: "8", name: "Astrophysics", subject: "Physics" },
+  { id: "9", name: "Biochemistry", subject: "Chemistry" },
+  { id: "10", name: "Algebra", subject: "Math" },
 ];
 
-const subjects = ["Science", "Math", "History"];
+const subjects = ["Physics", "Chemistry", "Math"];
 
 const Game = () => {
-  const [chapters, setChapters] = useState<Chapter[]>(chaptersData);
-  const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({});
-  const [correctMatches, setCorrectMatches] = useState<Record<string, boolean>>({});
   const [colors, setColors] = useState<Record<string, string>>({});
-
-  // Generate random colors for each chapter after the component mounts
   useEffect(() => {
     const newColors: Record<string, string> = {};
     chapters.forEach((chapter) => {
       newColors[chapter.id] = `hsl(${Math.random() * 360}, 70%, 60%)`;
     });
     setColors(newColors);
-  }, []); // Empty dependency array ensures this runs only once after mount
+  }, []);
 
-  // Handle drag end with proper type for chapter
-  const handleDragEnd = (event: any, chapter: Chapter) => {
-    const target = event.target as HTMLElement;
+  const [score, setScore] = useState(0);
+  const [chapters, setChapters] = useState(
+    chaptersData.map((chapter) => ({ ...chapter, location: "spawnBucket" }))
+  );
 
-    // Store the position of the dragged item
-    const { left, top } = target.getBoundingClientRect();
-    const dropTarget = event.target.closest(".bucket"); // Find the closest bucket
+  const handleDragEnd = (event: any, chapter: any, targetBucket: string) => {
+    const { left, top, right, bottom } = event.target.getBoundingClientRect();
+    const dropTarget = document.getElementById(targetBucket);
+    if (!dropTarget) return;
 
-    if (dropTarget) {
-      const targetId = dropTarget.id;
-      if (chapter.subject === targetId) {
-        setCorrectMatches((prev) => ({
-          ...prev,
-          [chapter.id]: true,
-        }));
+    const targetRect = dropTarget.getBoundingClientRect();
+    const isDropped =
+      left < targetRect.right &&
+      right > targetRect.left &&
+      top < targetRect.bottom &&
+      bottom > targetRect.top;
+
+    if (isDropped) {
+      // Update chapter location
+      setChapters((prev) =>
+        prev.map((item) =>
+          item.id === chapter.id ? { ...item, location: targetBucket } : item
+        )
+      );
+
+      // Update score if dropped correctly
+      if (targetBucket === chapter.subject) {
+        setScore((prev) => prev + 1);
+      } else if (chapter.location === chapter.subject) {
+        setScore((prev) => prev - 1); // Reduce score if a correct chapter is moved incorrectly
       }
     }
-
-    setPositions((prev) => ({
-      ...prev,
-      [chapter.id]: { x: left, y: top }, // Store the position
-    }));
   };
 
   return (
-    <div className="min-h-screenflex flex-col items-center p-10">
+    <div className="min-h-screen flex flex-col items-center p-10 bg-gray-100">
       <h1 className="text-4xl font-bold mb-10 text-gray-800">
-        Align Chapters to the Correct Subjects
+        Drag Chapters Freely to Their Subject Buckets
       </h1>
 
-      {/* Buckets (Subjects) */}
+      {/* Buckets for Subjects */}
       <div className="flex space-x-10 mb-10">
         {subjects.map((subject) => (
           <div
             id={subject}
             key={subject}
-            className="bucket bg-transparent border-4 border-gray-500 rounded-lg p-5 w-64 min-h-[300px] relative"
-            style={{
-              borderColor: correctMatches[subject] ? "green" : "gray",
-            }}
+            className="shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_1px_3px_rgba(0,0,0,0.08)] rounded-lg p-5 w-52 min-h-[300px] bg-white relative flex flex-col items-center"
           >
-            {/* Show a tag when correct match occurs */}
-            {correctMatches[subject] && (
-              <motion.div
-              className="absolute top-2 right-2 bg-green-500 text-white px-4 py-1 rounded-lg shadow-md"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              >
-                Correct!
-              </motion.div>
-            )}
-            <h2 className="text-2xl  font-semibold text-gray-700 mb-4">{subject}</h2>
+            <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+              {subject}
+            </h2>
+            <p className="text-sm text-gray-500">Drag chapters here!</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {chapters
+                .filter((chapter) => chapter.location === subject)
+                .map((chapter) => (
+                  <motion.div
+                    key={chapter.id}
+                    className="bg-blue-200 rounded-lg p-3 shadow-md cursor-pointer w-48 text-center"
+                    drag
+                    dragConstraints={{
+                      top: -500,
+                      bottom: 500,
+                      left: -500,
+                      right: 500,
+                    }}
+                    dragElastic={0.5}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onDragEnd={(event) =>
+                      handleDragEnd(event, chapter, subject)
+                    }
+                  >
+                    {chapter.name}
+                  </motion.div>
+                ))}
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Free-floating chapters */}
-      <div className="mt-10 mb-20 relative">
-        {chapters.map((chapter) => (
-          <motion.div
-            key={chapter.id}
-            className="rounded-lg p-3 mb-4 text-center z-50 shadow-md cursor-pointer absolute"
-            style={{
-              left: positions[chapter.id]?.x || 0, // Track position
-              top: positions[chapter.id]?.y || 0,  // Track position
-              backgroundColor: colors[chapter.id] || "gray", // Use the generated color
-            }}
-            drag
-            dragConstraints={{ top: -500, bottom: 500, left: -500, right: 500 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
-              duration: 0.5,
-            }}
-            onDragEnd={(event) => handleDragEnd(event, chapter)}
-          >
-            {chapter.name}
-          </motion.div>
-        ))}
+      {/* Spawn Bucket */}
+      <div
+        id="spawnBucket"
+        className="shadow-lg rounded-lg p-5 w-full max-w-3xl min-h-[300px] bg-blue-100 relative flex flex-wrap items-start justify-center gap-4"
+      >
+        <h2 className="w-full text-center text-xl font-semibold text-blue-700 mb-4">
+          All Chapters
+        </h2>
+        {chapters
+          .filter((chapter) => chapter.location === "spawnBucket")
+          .map((chapter, index) => (
+            <motion.div
+              key={chapter.id}
+              className="bg-blue-200 rounded-lg p-3 shadow-md cursor-pointer z-50 w-48 text-center"
+              drag
+              dragConstraints={{
+                top: -500,
+                bottom: 500,
+                left: -500,
+                right: 500,
+              }}
+              dragElastic={0.5}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onDragEnd={(event) =>
+                handleDragEnd(event, chapter, "spawnBucket")
+              }
+              style={{
+                position: "absolute",
+                top: `${(index % 3) * 60}px`, // Stack vertically
+                left: `${Math.floor(index / 3) * 160}px`, // Offset to next column
+                backgroundColor: colors[chapter.id] || "gray", // Use the generated color
+              }}
+            >
+              {chapter.name}
+            </motion.div>
+          ))}
       </div>
+
+      {/* Winning Message */}
+      {score === chaptersData.length && (
+        <motion.div
+          className="fixed top-10 right-10 bg-green-500 text-white px-6 py-3 rounded-full shadow-lg text-xl font-bold"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          Excellent Work!
+        </motion.div>
+      )}
     </div>
   );
 };
