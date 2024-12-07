@@ -1,6 +1,7 @@
 // import Link from "next/link";
 // import ThemeButton from "./components/mainpage/themebutton/ThemeButton";
 import TopRankingStudents from "./components/UserDashboardcomponents/onetimeusedcomponents/toprankingstudents/TopRankingStudents";
+import Banner from "./components/mainpage/Banner/Banner";
 import AcademicTimeline from "./components/mainpage/academictimeline/AcademicTimeline";
 import CallToAction from "./components/mainpage/calltoaction/CallToAction";
 import CoachingProcess from "./components/mainpage/coachingprocess/CoachingProcess";
@@ -19,7 +20,8 @@ export default async function Home() {
         <Link href="/notes">link</Link> */}
         <HeroSection />
         <div className="my-20">
-          <CallToAction />
+          <Banner/>
+          {/* <CallToAction /> */}
         </div>
         <TopRankingStudents />
         <FeedbackSection />
@@ -36,6 +38,7 @@ export default async function Home() {
         </div>{" "}
         <CoachingProcess />
         <AcademicTimeline />
+        <CoachingProcess/>
       </div>
     </>
   );
