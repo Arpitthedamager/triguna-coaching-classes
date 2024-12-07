@@ -1,75 +1,56 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const AcademicTimeline = () => {
+  // Timeline item data without images
   const timelineItems = [
     {
       title: "Important Dates",
       description: "Stay informed with our key academic dates and events",
       icon: "ℹ️",
-      image: "/images/important-dates.jpg", // Replace with actual image paths
     },
     {
       title: "Results",
       description: "Stay informed on every result",
       icon: "📈",
-      image: "/images/results.jpg", // Replace with actual image paths
     },
     {
       title: "Test Schedule",
       description: "Stay informed with our class test series",
       icon: "📝",
-      image: "/images/test-schedule.jpg", // Replace with actual image paths
     },
     {
       title: "Registration of JEE",
       description: "Stay informed with registration forms and admit cards",
       icon: "📋",
-      image: "/images/jee-registration.jpg", // Replace with actual image paths
     },
   ];
 
-  const [visibleIndex, setVisibleIndex] = useState(-1);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setVisibleIndex(index);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    const elements = document.querySelectorAll(".timeline-image");
-    elements.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+  // Separate constant for image URLs
+  const timelineImages = [
+    "/2.jpg", // Image for Important Dates
+    "/images/results.jpg", // Image for Results
+    "/2.jpg", // Image for Test Schedule
+    "/images/jee-registration.jpg", // Image for JEE Registration
+  ];
 
   return (
-    <section className="py-64 px-6 min-h-screen">
+    <section className="py-16 px-6 min-h-screen">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start">
         {/* Left Image Section */}
         <div className="flex-shrink-0 w-full md:w-1/2 mb-8 md:mb-0">
           <div className="relative">
             {/* Timeline Line */}
-            {timelineItems.map((item, index) => (
+            {timelineImages.map((imageUrl, index) => (
               <div
                 key={index}
-                className={`flex items-center justify-center mb-8 opacity-0 transition-opacity duration-500 ${
-                  visibleIndex >= index ? "opacity-100" : ""
-                }`}
+                className="flex items-center justify-center mb-80"
               >
                 <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-64 object-cover border-white shadow-md timeline-image"
+                  src={imageUrl}
+                  alt={`Timeline image ${index + 1}`}
+                  className="w-full h-64 object-cover border-white shadow-md"
                 />
               </div>
             ))}
@@ -77,9 +58,9 @@ const AcademicTimeline = () => {
         </div>
 
         {/* Right Timeline Section */}
-        <div className="w-full md:w-1/2 sticky md:pl-8">
-          <h2 className="text-3xl font-bold mb-4 sticky top-16 z-10">Academic Year Timeline:</h2>
-          <div className="space-y-6">
+        <div className="w-full md:w-1/2 md:pl-8 sticky top-16 z-10">
+          <h2 className="text-3xl font-bold mb-4">Academic Year Timeline:</h2>
+          <div className="space-y-4">
             {timelineItems.map((item, index) => (
               <div
                 key={index}
