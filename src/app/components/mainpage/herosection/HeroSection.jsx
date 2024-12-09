@@ -11,7 +11,10 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-b from-[#241448] to-[#5631AE] text-white py-10 px-6 lg:px-20 xl:px-52 overflow-hidden">
+    <section 
+    className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white py-20 px-6 lg:px-20 xl:px-52 overflow-hidden"
+    // className="relative bg-gradient-to-b from-[#241448] to-[#5631AE] text-white py-10 px-6 lg:px-20 xl:px-52 overflow-hidden"
+    >
       {/* Particle Animation */}
       {isClient && (
         <div className="absolute inset-0 pointer-events-none z-0">
@@ -135,7 +138,7 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 0.4 }}
           />
           {/* Middle Column */}
-          <div className="flex flex-col relative z-10 top-32 space-y-6">
+          <div className="flex flex-col relative z-10 top-20">
             {/* Student 1 */}
             <motion.img
               src="/path/to/image1.jpg"
