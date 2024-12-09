@@ -5,6 +5,7 @@ import Banner from "./components/mainpage/Banner/Banner";
 import AcademicTimeline from "./components/mainpage/academictimeline/AcademicTimeline";
 import CallToAction from "./components/mainpage/calltoaction/CallToAction";
 import CoachingProcess from "./components/mainpage/coachingprocess/CoachingProcess";
+import FAQs from "./components/mainpage/faqs/FAQs";
 import FeaturesSection from "./components/mainpage/featuressection/FeaturesSection";
 import FeedbackSection from "./components/mainpage/feedbacksection/FeedbackSection";
 import Game from "./components/mainpage/game/Game";
@@ -38,7 +39,7 @@ export default async function Home() {
         </div>{" "}
         <CoachingProcess />
         <AcademicTimeline />
-        <CoachingProcess/>
+        <FAQs/>
       </div>
     </>
   );

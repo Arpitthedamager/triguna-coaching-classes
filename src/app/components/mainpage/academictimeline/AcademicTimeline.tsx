@@ -36,21 +36,20 @@ const AcademicTimeline = () => {
   ];
 
   return (
-    <section className="py-16 px-6 min-h-screen">
+    <section className="py-16 px-4 min-h-screen">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start">
         {/* Left Image Section */}
         <div className="flex-shrink-0 w-full md:w-1/2 mb-8 md:mb-0">
           <div className="relative">
-            {/* Timeline Line */}
             {timelineImages.map((imageUrl, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center mb-80 mt-24"
+                className="flex items-center justify-center mb-12 md:mb-80 md:mt-24"
               >
                 <img
                   src={imageUrl}
                   alt={`Timeline image ${index + 1}`}
-                  className="w-full h-64 object-cover border-white shadow-md"
+                  className="w-full h-48 md:h-64 object-cover border-white shadow-md"
                 />
               </div>
             ))}
@@ -58,20 +57,26 @@ const AcademicTimeline = () => {
         </div>
 
         {/* Right Timeline Section */}
-        <div className="w-full md:w-1/2 md:pl-8 sticky top-16 z-10">
-          <h2 className="text-3xl font-bold mb-4">Academic Year Timeline:</h2>
-          <div className="space-y-4">
+        <div className="w-full md:w-1/2 md:pl-8 sticky md:top-16 z-10">
+          <h2 className="text-2xl md:text-3xl text-primary-a10 font-bold mb-6 text-center md:text-left">
+            Academic Year Timeline:
+          </h2>
+          <div className="space-y-6">
             {timelineItems.map((item, index) => (
               <div
                 key={index}
-                className="flex items-start space-x-4 hover:bg-gray-100 p-4 rounded-lg transition"
+                className="flex flex-col md:flex-row items-start md:space-x-4 hover:bg-primary-a50 p-4 rounded-lg transition"
               >
-                <div className="flex items-center justify-center w-12 h-12 bg-black text-white text-2xl font-bold rounded-md">
+                <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-black text-white text-xl md:text-2xl font-bold rounded-md">
                   {item.icon}
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
+                <div className="mt-2 md:mt-0">
+                  <h3 className="text-base md:text-lg text-primary-a20 font-semibold">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-gray-600">
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}
