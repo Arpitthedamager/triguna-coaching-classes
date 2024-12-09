@@ -10,6 +10,7 @@ import FeaturesSection from "./components/mainpage/featuressection/FeaturesSecti
 import FeedbackSection from "./components/mainpage/feedbacksection/FeedbackSection";
 import Game from "./components/mainpage/game/Game";
 import HeroSection from "./components/mainpage/herosection/HeroSection";
+import MapComponent from "./components/mainpage/mapcomponent/MapComponent";
 import TeacherSlideshow from "./components/mainpage/teacherslideshow/TeacherSlideshow";
 
 export default async function Home() {
@@ -40,6 +41,7 @@ export default async function Home() {
         <CoachingProcess />
         <AcademicTimeline />
         <FAQs/>
+        <MapComponent />
       </div>
     </>
   );
