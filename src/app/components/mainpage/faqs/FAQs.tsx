@@ -36,30 +36,55 @@ const FAQs: React.FC = () => {
   };
 
   return (
-    <section className="text-primary-a20 py-10 px-6">
+    <motion.section
+      className="text-primary-a20 py-10 px-6"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       <div className="py-10 px-6 lg:px-20 xl:px-52">
         {/* Heading */}
-        <h2 className="text-5xl font-bold mb-2">
-          Frequently asked questions answered
-        </h2>
-        <p className="text-gray-600 text-xl mb-6">
-          In this section, you can address common questions efficiently
-          regarding our programs.
-        </p>
+        <motion.div
+          className="mb-6"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <h2 className="text-5xl font-bold mb-2">
+            Frequently asked questions answered
+          </h2>
+          <p className="text-gray-600 text-xl">
+            In this section, you can address common questions efficiently
+            regarding our programs.
+          </p>
+        </motion.div>
 
         {/* FAQ List */}
-        <div className="space-y-4">
+        <motion.div
+          className="space-y-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ staggerChildren: 0.15 }}
+        >
           {faqs.map((faq, index) => (
-            <div
+            <motion.div
               key={index}
               className="border-b border-gray-200 pb-4 cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
               onClick={() => toggleFAQ(index)}
             >
               {/* Question Section */}
               <div className="flex justify-between items-center">
                 <h3 className="text-2xl font-medium">{faq.question}</h3>
                 <motion.button
-                  className={`transform transition-transform`}
+                  className="transform transition-transform"
                   initial={{ rotate: 0 }}
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
@@ -81,11 +106,11 @@ const FAQs: React.FC = () => {
                   <p className="mt-2 text-gray-700">{faq.answer}</p>
                 </motion.div>
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
