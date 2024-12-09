@@ -8,6 +8,7 @@ import CoachingProcess from "./components/mainpage/coachingprocess/CoachingProce
 import FAQs from "./components/mainpage/faqs/FAQs";
 import FeaturesSection from "./components/mainpage/featuressection/FeaturesSection";
 import FeedbackSection from "./components/mainpage/feedbacksection/FeedbackSection";
+import Footer from "./components/mainpage/footer/Footer";
 import Game from "./components/mainpage/game/Game";
 import HeroSection from "./components/mainpage/herosection/HeroSection";
 import MapComponent from "./components/mainpage/mapcomponent/MapComponent";
@@ -42,6 +43,7 @@ export default async function Home() {
         <AcademicTimeline />
         <FAQs/>
         <MapComponent />
+        <Footer/>
       </div>
     </>
   );
