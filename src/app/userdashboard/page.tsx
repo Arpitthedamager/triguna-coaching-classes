@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";  // Import the NextAuth session hook
 import Sidebar from "../components/UserDashboardcomponents/reused/sidebar/Sidebar";
 import Header from "../components/UserDashboardcomponents/reused/header/Header";
 import StatisticsGraph from "../components/UserDashboardcomponents/main/statisticsgraph/StatisticsGraph";
@@ -15,16 +16,30 @@ import { FaCalendarAlt, FaBell } from "react-icons/fa";
 import Results from "../components/UserDashboardcomponents/links/results/Results";
 import Exams from "../components/UserDashboardcomponents/links/exams/Exams";
 import Fees from "../components/UserDashboardcomponents/links/fees/Fees";
+import { useRouter } from "next/navigation";
 
 const UserDashboard = () => {
+  const { data: session, status } = useSession();  // Use NextAuth's session hook to get session data
   const [activeContent, setActiveContent] = useState("dashboard");
   const [modalContent, setModalContent] = useState<"calendar" | "notice" | null>(null);
+  const router = useRouter();
 
   const contentVariants = {
     hidden: { opacity: 0, x: 50 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 100 } },
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
+
+  useEffect(() => {
+    // If not logged in, redirect to the sign-in page
+    if (status === "loading") return; // Wait until session is loaded
+    if (!session) {
+      router.push("/signin");
+    } else if (session.user.role !== "student") {
+      // If user is not a student, show a message and redirect
+      setActiveContent("notStudent");
+    }
+  }, [session, status, router]);
 
   const renderContent = () => {
     if (activeContent === "dashboard") {
@@ -56,6 +71,22 @@ const UserDashboard = () => {
           </div>
         </motion.div>
       );
+    } else if (activeContent === "notStudent") {
+      return (
+        <motion.div
+          key="notStudent"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={contentVariants}
+        >
+          <h2 className="text-xl font-semibold text-red-500">You are not a student!</h2>
+          <p>If you are an admin or another type of user, please use the respective dashboard.</p>
+          <p>
+            <a href="/" className="text-blue-500 hover:text-blue-700">Go to the main page</a>
+          </p>
+        </motion.div>
+      );
     } else if (activeContent === "studyMaterials") {
       return (
         <motion.div
@@ -80,7 +111,7 @@ const UserDashboard = () => {
           <Profile />
         </motion.div>
       );
-    }else if (activeContent === "results") {
+    } else if (activeContent === "results") {
       return (
         <motion.div
           key="results"
@@ -92,7 +123,7 @@ const UserDashboard = () => {
           <Results />
         </motion.div>
       );
-    }else if (activeContent === "exams") {
+    } else if (activeContent === "exams") {
       return (
         <motion.div
           key="exams"
@@ -104,7 +135,7 @@ const UserDashboard = () => {
           <Exams />
         </motion.div>
       );
-    }else if (activeContent === "fees") {
+    } else if (activeContent === "fees") {
       return (
         <motion.div
           key="fees"
@@ -119,27 +150,29 @@ const UserDashboard = () => {
     }
   };
 
+  if (status === "loading") return <div>Loading...</div>; // Show loading while session is being fetched
+
   return (
     <div className="flex overflow-x-hidden bg-primary-content">
-        <div className="fixed top-0 left-0 h-full z-10">
-          <Sidebar onMenuClick={setActiveContent} />
+      <div className="fixed top-0 left-0 h-full z-10">
+        <Sidebar onMenuClick={setActiveContent} />
+      </div>
+      
+      <div className="flex-1 flex flex-col lg:ml-64">
+        <div className="flex justify-end space-x-4 p-4 lg:hidden">
+          <button
+            onClick={() => setModalContent("calendar")}
+            className="text-primary hover:text-primary-focus"
+          >
+            <FaCalendarAlt size={24} />
+          </button>
+          <button
+            onClick={() => setModalContent("notice")}
+            className="text-primary hover:text-primary-focus"
+          >
+            <FaBell size={24} />
+          </button>
         </div>
-        
-        <div className="flex-1 flex flex-col lg:ml-64">
-          <div className="flex justify-end space-x-4 p-4 lg:hidden">
-            <button
-              onClick={() => setModalContent("calendar")}
-              className="text-primary hover:text-primary-focus"
-            >
-              <FaCalendarAlt size={24} />
-            </button>
-            <button
-              onClick={() => setModalContent("notice")}
-              className="text-primary hover:text-primary-focus"
-            >
-              <FaBell size={24} />
-            </button>
-          </div>
 
         <main className="p-6 grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">{renderContent()}</div>
