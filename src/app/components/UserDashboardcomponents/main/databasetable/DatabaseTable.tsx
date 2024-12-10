@@ -1,6 +1,12 @@
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
+interface student{
 
+  name: "",
+  score: 0,
+  subject: "",
+  avatar: "",
+}
 const DatabaseTable: FC = () => {
   const initialData = [
     {

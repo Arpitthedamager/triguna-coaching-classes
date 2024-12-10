@@ -1,5 +1,5 @@
 // import Link from "next/link";
-// import ThemeButton from "./components/mainpage/themebutton/ThemeButton";
+import ThemeButton from "./components/mainpage/themebutton/ThemeButton";
 import TopRankingStudents from "./components/UserDashboardcomponents/onetimeusedcomponents/toprankingstudents/TopRankingStudents";
 import Banner from "./components/mainpage/Banner/Banner";
 import AcademicTimeline from "./components/mainpage/academictimeline/AcademicTimeline";
@@ -18,8 +18,8 @@ export default async function Home() {
   return (
     <>
       <div className="min-h-screen bg-primary-content">
-        {/* <ThemeButton />
-        <p className="text-secondary p-20 bg-primarycontent">hi i am a devloper</p>
+        {/* <ThemeButton /> */}
+        {/* <p className="text-secondary p-20 bg-primarycontent">hi i am a devloper</p>
         <Link href="/notes">link</Link> */}
         <HeroSection />
         <div className="my-20">

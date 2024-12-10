@@ -1,5 +1,11 @@
 "use client";
 import React, { useState } from "react";
+interface Student {
+  name: string;
+  rank: string;
+  info: string;
+  imageUrl: string;
+}
 
 const TopRankingStudents = () => {
   const allStudents = [

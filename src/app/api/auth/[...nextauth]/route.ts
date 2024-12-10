@@ -19,7 +19,7 @@ export const authOptions: AuthOptions = {
 
         await connectToDatabase();
 
-        const user = await UserModel.findOne({ email: credentials.username });
+        const user = await UserModel.findOne({ email: credentials.username }).lean();
         if (user) {
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
           if (isPasswordValid) {
@@ -27,7 +27,12 @@ export const authOptions: AuthOptions = {
               id: user._id.toString(),
               name: user.name,
               email: user.email,
+              phone: user.phone,
+              address: user.address,
+              profileImage: user.profileImage,
               role: user.role,
+              class: user.class,
+              recentlyViewed: user.recentlyViewed || [],
             };
           }
         }
@@ -40,15 +45,30 @@ export const authOptions: AuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.user = {
-          ...session.user,
+          id: token.id,
+          name: token.name,
+          email: token.email,
+          phone: token.phone,
+          address: token.address,
+          profileImage: token.profileImage,
           role: token.role,
+          class: token.class,
+          recentlyViewed: token.recentlyViewed || [],
         };
       }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.phone = user.phone;
+        token.address = user.address;
+        token.profileImage = user.profileImage;
         token.role = user.role;
+        token.class = user.class;
+        token.recentlyViewed = user.recentlyViewed;
       }
       return token;
     },
