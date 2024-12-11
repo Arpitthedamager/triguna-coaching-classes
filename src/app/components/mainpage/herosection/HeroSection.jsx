@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const HeroSection = () => {
   const [isClient, setIsClient] = useState(false);
@@ -11,9 +12,9 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section 
-    className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white py-20 px-6 lg:px-20 xl:px-52 overflow-hidden"
-    // className="relative bg-gradient-to-b from-[#241448] to-[#5631AE] text-white py-10 px-6 lg:px-20 xl:px-52 overflow-hidden"
+    <section
+      className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white py-20 px-6 lg:px-20 xl:px-52 overflow-hidden"
+      // className="relative bg-gradient-to-b from-[#241448] to-[#5631AE] text-white py-10 px-6 lg:px-20 xl:px-52 overflow-hidden"
     >
       {/* Particle Animation */}
       {isClient && (
@@ -70,13 +71,16 @@ const HeroSection = () => {
             Notes
           </a>
         </motion.div>
-        <motion.button
-          className="px-6 py-2 bg-yellow-500 text-[#241448] font-bold rounded-lg hover:bg-yellow-400"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Sign In
-        </motion.button>
+        
+        <Link href="/signin" >
+          <motion.button
+            className="px-6 py-2 bg-yellow-500 text-[#241448] font-bold rounded-lg hover:bg-yellow-400"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Sign In
+          </motion.button>
+        </Link>
       </nav>
 
       {/* Main Content */}
@@ -96,20 +100,24 @@ const HeroSection = () => {
             the best faculties and study materials.
           </p>
           <div className="flex flex-col lg:flex-row justify-center lg:justify-start space-y-4 lg:space-y-0 lg:space-x-4">
-            <motion.button
-              className="px-8 py-4 bg-yellow-500 text-[#241448] font-bold rounded-lg hover:bg-yellow-400"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Enroll Now
-            </motion.button>
-            <motion.button
-              className="px-8 py-4 bg-[#241448] text-white font-bold rounded-lg hover:bg-[#362161]"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Register
-            </motion.button>
+            <Link href="/signin">
+              <motion.button
+                className="px-8 py-4 bg-yellow-500 text-[#241448] font-bold rounded-lg hover:bg-yellow-400"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Enroll Now
+              </motion.button>
+            </Link>{" "}
+            <Link href="/signin">
+              <motion.button
+                className="px-8 py-4 bg-[#241448] text-white font-bold rounded-lg hover:bg-[#362161]"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Register
+              </motion.button>
+            </Link>
           </div>
           <motion.p
             className="text-sm text-gray-300 mt-32"
