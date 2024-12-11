@@ -8,18 +8,21 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { data: session, status } = useSession(); // Get session data
-  const router = useRouter(); // Initialize the router
+  const { data: session, status } = useSession()
+  const router = useRouter()
 
-  
   useEffect(() => {
-    if (session) {
-      // If session exists, redirect to the homepage
-      router.push("/");
+    // Check if the session is loaded and user data is available
+    if (status === "authenticated") {
+      // Redirect based on the user's role
+      if (session.user?.role === "student") {
+        router.push("/userdashboard")
+      } else if (session.user?.role === "teacher") {
+        router.push("/admindashboard")
+      }
     }
-  }, [session, router]); // Run the effect when session changes
+  }, [status, session, router])
 
-  // Optionally, show loading state or any UI while the session is being checked
   if (status === "loading") {
     return <div>Loading...</div>;
   }
