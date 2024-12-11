@@ -11,6 +11,7 @@ import {
   isToday,
 } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
+import Timetable from "../../main/timetable/Timetable"; // Include Timetable if needed
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -188,6 +189,8 @@ const Calendar = () => {
           </div>
         </div>
       )}
+            <Timetable />
+
     </div>
   );
 };
