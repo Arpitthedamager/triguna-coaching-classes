@@ -1,25 +1,19 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultUser, DefaultSession } from "next-auth";
 
 declare module "next-auth" {
-  interface Session {
-    user: {
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-      role?: string; // Add role to session.user
-    };
-  }
-
-  interface User {
+  // Extending the User interface to include custom fields
+  interface User extends DefaultUser {
     id: string;
-    name: string;
-    email: string;
-    role: string; // Add role to User
+    phone: string;
+    address: string;
+    profileImage: string;
+    role: string;
+    class: number;
+    recentlyViewed: string[]; // Array of recently viewed materials
   }
-}
 
-declare module "next-auth/jwt" {
-  interface JWT {
-    role?: string; // Add role to JWT
+  // Extending the Session interface to include custom fields
+  interface Session extends DefaultSession {
+    user: User; // Make sure the session includes all the custom user properties
   }
 }

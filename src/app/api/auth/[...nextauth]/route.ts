@@ -23,16 +23,17 @@ export const authOptions: AuthOptions = {
         if (user) {
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
           if (isPasswordValid) {
+            // Return the user, extracting material from recentlyViewed as a string array
             return {
               id: user._id.toString(),
-              name: user.name,
-              email: user.email,
-              phone: user.phone,
-              address: user.address,
-              profileImage: user.profileImage,
-              role: user.role,
-              class: user.class,
-              recentlyViewed: user.recentlyViewed || [],
+              name: user.name || "",
+              email: user.email || "",
+              phone: user.phone || "",
+              address: user.address || "",
+              profileImage: user.profileImage || "/default-avatar.jpg",
+              role: user.role || "student",
+              class: user.class || 0,
+              recentlyViewed: user.recentlyViewed ? user.recentlyViewed.map(view => view.material.toString()) : [], // Extracting only material as string
             };
           }
         }
@@ -45,15 +46,15 @@ export const authOptions: AuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.user = {
-          id: token.id,
-          name: token.name,
-          email: token.email,
-          phone: token.phone,
-          address: token.address,
-          profileImage: token.profileImage,
-          role: token.role,
-          class: token.class,
-          recentlyViewed: token.recentlyViewed || [],
+          id: token.id as string,
+          name: token.name as string,
+          email: token.email as string,
+          phone: token.phone as string,
+          address: token.address as string,
+          profileImage: token.profileImage as string,
+          role: token.role as string,
+          class: token.class as number,
+          recentlyViewed: token.recentlyViewed as string[], // Ensure it's an array of strings
         };
       }
       return session;
@@ -68,7 +69,7 @@ export const authOptions: AuthOptions = {
         token.profileImage = user.profileImage;
         token.role = user.role;
         token.class = user.class;
-        token.recentlyViewed = user.recentlyViewed;
+        token.recentlyViewed = user.recentlyViewed; // Will be a string array
       }
       return token;
     },
