@@ -150,7 +150,7 @@ const Footer: React.FC = () => {
 
       {/* Copyright Section */}
       <motion.div
-        className="text-center mt-10 text-gray-400 relative z-10"
+        className="text-center mt-10 text-xl text-gray-700 relative z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.5 }}
