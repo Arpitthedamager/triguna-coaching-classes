@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
 import CircularProgress from "../../main/circularprogress/CircularProgress";
 import Header from "../../reused/header/Header";
+import { signOut } from "next-auth/react";
 // import AttendanceCalendar from "../../onetimeusedcomponents/attendancecalendar/AttendanceCalendar";
 
 const Profile = () => {
@@ -127,6 +128,12 @@ const Profile = () => {
                     >
                       Edit Profile
                     </motion.button>
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="btn bg-red-900 text-white py-2 px-4 rounded-lg"
+                    >
+                      Sign Out
+                    </button>{" "}
                   </motion.div>
                 ) : (
                   <motion.div
@@ -224,9 +231,9 @@ const Profile = () => {
           <CircularProgress percentage={75} />
         </div>
       </div>
-        <div className="flex-none">
+      <div className="flex-none">
         {/* <AttendanceCalendar attendanceData={attendanceData} /> */}
-        </div>
+      </div>
     </>
   );
 };
