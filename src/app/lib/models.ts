@@ -10,11 +10,18 @@ interface IUser extends Document {
   profileImage?: string;
   role: "student" | "teacher";
   class?: number;
+  rollNo: number; // New rollNo field
+  subjects: { // New subjects field
+    physics: boolean;
+    math: boolean;
+    chemistry: boolean;
+  };
   recentlyViewed: {
     material: mongoose.Types.ObjectId;
     visitedDate: Date;
   }[];
 }
+
 
 interface ITestPaper extends Document {
   title: string;
@@ -57,10 +64,13 @@ interface IStudyMaterial extends Document {
 }
 
 interface INotice extends Document {
-  title: string;
-  author: string;
-  image?: string;
   class: number;
+  notices: {
+    title: string;
+    author: string;
+    image?: string;
+    link?: string;
+  }[];
 }
 
 interface ITimetable extends Document {
@@ -72,7 +82,6 @@ interface ITimetable extends Document {
   }[];
 }
 
-// Schemas
 const UserSchema = new Schema<IUser>(
   {
     name: { type: String, required: true },
@@ -83,15 +92,22 @@ const UserSchema = new Schema<IUser>(
     profileImage: { type: String, default: "/default-avatar.jpg" },
     role: { type: String, enum: ["student", "teacher"], required: true },
     class: { type: Number },
+    rollNo: { type: Number, required: true }, // New rollNo field
     recentlyViewed: [
       {
         material: { type: Schema.Types.ObjectId, ref: "StudyMaterial" },
         visitedDate: { type: Date, default: Date.now },
       },
     ],
+    subjects: {
+      physics: { type: Boolean, default: false },
+      math: { type: Boolean, default: false },
+      chemistry: { type: Boolean, default: false },
+    },
   },
   { timestamps: true }
 );
+
 
 const TestPaperSchema = new Schema<ITestPaper>({
   title: { type: String, required: true },
@@ -137,11 +153,17 @@ const StudyMaterialSchema = new Schema<IStudyMaterial>({
 });
 
 const NoticeSchema = new Schema<INotice>({
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  image: { type: String },
-  class: { type: Number, min: 9, max: 12 },
+  class: { type: Number, required: true, min: 9, max: 12 },
+  notices: [
+    {
+      title: { type: String, required: true },
+      author: { type: String, required: true },
+      image: { type: String },
+      link: { type: String },
+    },
+  ],
 });
+
 
 const TimetableSchema = new Schema<ITimetable>({
   class: { type: Number, min: 9, max: 12 },
@@ -161,8 +183,9 @@ const Statistics: Model<IStatistics> = mongoose.models.Statistics || mongoose.mo
 const Fee: Model<IFee> = mongoose.models.Fee || mongoose.model("Fee", FeeSchema);
 const Attendance: Model<IAttendance> = mongoose.models.Attendance || mongoose.model("Attendance", AttendanceSchema);
 const StudyMaterial: Model<IStudyMaterial> = mongoose.models.StudyMaterial || mongoose.model("StudyMaterial", StudyMaterialSchema);
-const Notice: Model<INotice> = mongoose.models.Notice || mongoose.model("Notice", NoticeSchema);
+const Notice: Model<INotice> = mongoose.models.Notice || mongoose.model<INotice>("Notice", NoticeSchema);
 const Timetable: Model<ITimetable> = mongoose.models.Timetable || mongoose.model("Timetable", TimetableSchema);
+
 
 export {
   User,
