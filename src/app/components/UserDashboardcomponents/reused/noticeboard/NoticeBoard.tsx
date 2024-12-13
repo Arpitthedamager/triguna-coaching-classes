@@ -92,7 +92,7 @@ export default function NoticeBoard() {
                 className="w-16 h-16 rounded-lg"
               />
               <div className="ml-4">
-                <p className="font-semibold text-primary-a20">{notice.title}</p>
+                <p className="font-semibold text-lg text-primary-a20">{notice.title}</p>
                 <p className="text-sm text-gray-500">By {notice.author}</p>
               </div>
             </motion.li>

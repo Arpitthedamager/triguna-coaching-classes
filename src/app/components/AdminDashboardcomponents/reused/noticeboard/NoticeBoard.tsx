@@ -243,7 +243,7 @@ export default function NoticeForm() {
             <Link key={notice.title} href={notice.link || "#"} passHref>
               <motion.li
                 key={index}
-                className="flex items-center bg-gray-100 p-4 rounded-lg shadow my-2"
+                className="group flex items-center bg-gray-100 p-4 rounded-lg shadow my-2"
                 custom={index}
                 variants={rowVariants}
                 initial="hidden"
@@ -256,17 +256,17 @@ export default function NoticeForm() {
                   className="w-16 h-16 rounded-lg"
                 />
                 <div className="ml-4">
-                  <p className="font-semibold text-primary-a20">
+                  <p className="font-semibold text-lg text-primary-a20">
                     {notice.title}
                   </p>
                   <p className="text-sm text-gray-500">By {notice.author}</p>
                 </div>
 
-                {/* Delete Button */}
+                {/* Delete Button (Visible only on hover) */}
                 <button
                   onClick={() => handleDeleteNotice(notice.title)}
-                  className="ml-4 text-red-500 hover:text-red-700"
-                >
+                  className=" relative -top-7 left-4 text-red-500 hover:text-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
                   Delete
                 </button>
               </motion.li>
