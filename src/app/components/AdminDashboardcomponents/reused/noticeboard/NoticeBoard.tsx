@@ -119,7 +119,7 @@ export default function NoticeForm() {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
+    <div className="p-4 max-w-md mx-auto bg-white text-gray-700">
       <h1 className="text-xl font-bold mb-4">Manage Notices</h1>
 
       {/* Class ID Dropdown */}
@@ -230,7 +230,7 @@ export default function NoticeForm() {
 
       <h2 className="text-lg font-bold mb-2">Notices</h2>
       <motion.div
-        className="card bg-white shadow-lg rounded-lg p-4 mt-8"
+        className="card bg-gray-50 shadow-lg rounded-lg p-4 mt-8"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -243,7 +243,7 @@ export default function NoticeForm() {
             <Link key={notice.title} href={notice.link || "#"} passHref>
               <motion.li
                 key={index}
-                className="flex items-center bg-gray-50 p-4 rounded-lg shadow my-2"
+                className="flex items-center bg-gray-100 p-4 rounded-lg shadow my-2"
                 custom={index}
                 variants={rowVariants}
                 initial="hidden"
