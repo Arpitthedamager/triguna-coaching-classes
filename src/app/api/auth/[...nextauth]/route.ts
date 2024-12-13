@@ -23,7 +23,7 @@ export const authOptions: AuthOptions = {
         if (user) {
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
           if (isPasswordValid) {
-            // Return the user, extracting material from recentlyViewed as a string array
+            // Return the user with the updated schema
             return {
               id: user._id.toString(),
               name: user.name || "",
@@ -33,7 +33,11 @@ export const authOptions: AuthOptions = {
               profileImage: user.profileImage || "/default-avatar.jpg",
               role: user.role || "student",
               class: user.class || 0,
-              recentlyViewed: user.recentlyViewed ? user.recentlyViewed.map(view => view.material.toString()) : [], // Extracting only material as string
+              rollNo: user.rollNo || 0,  // Default to 0 if rollNo is null
+              subjects: user.subjects || { physics: false, math: false, chemistry: false }, // Default subjects
+              recentlyViewed: user.recentlyViewed
+                ? user.recentlyViewed.map(view => view.material.toString()) // Only material ID as string
+                : [],
             };
           }
         }
@@ -54,7 +58,9 @@ export const authOptions: AuthOptions = {
           profileImage: token.profileImage as string,
           role: token.role as string,
           class: token.class as number,
-          recentlyViewed: token.recentlyViewed as string[], // Ensure it's an array of strings
+          rollNo: token.rollNo as number,  // Include rollNo
+          subjects: token.subjects as { physics: boolean, math: boolean, chemistry: boolean },  // Include subjects
+          recentlyViewed: token.recentlyViewed as string[], // Ensure it's an array of strings (material IDs)
         };
       }
       return session;
@@ -69,7 +75,9 @@ export const authOptions: AuthOptions = {
         token.profileImage = user.profileImage;
         token.role = user.role;
         token.class = user.class;
-        token.recentlyViewed = user.recentlyViewed; // Will be a string array
+        token.rollNo = user.rollNo || 0;  // Default to 0 if rollNo is null
+        token.subjects = user.subjects || { physics: false, math: false, chemistry: false };  // Default subjects
+        token.recentlyViewed = user.recentlyViewed || [];  // Default to empty array
       }
       return token;
     },

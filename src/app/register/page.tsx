@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface FormState {
   email: string;
@@ -10,6 +12,11 @@ interface FormState {
   role: string;
   address: string;
   class: number;
+  subjects: { 
+    physics: boolean;
+    math: boolean;
+    chemistry: boolean;
+  };
 }
 
 export default function Register() {
@@ -21,12 +28,45 @@ export default function Register() {
     role: "student", // Default role
     address: "",
     class: 6, // Default minimum class
+    subjects: {
+      physics: false,
+      math: false,
+      chemistry: false,
+    },
   });
 
   const [error, setError] = useState<string | null>(null);
+  const { data: session, status } = useSession();  // Get session data and status
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "loading") return; // Wait until session is loaded
+    if (session) {
+      // Redirect if the user is logged in
+      if (session.user?.role !== "teacher") {
+        router.push("/");  // Redirect non-admin users to the homepage or another page
+      }
+    }
+  }, [session, status, router]);
+
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target as HTMLInputElement;
+
+    if (type === "checkbox") {
+      setForm({
+        ...form,
+        subjects: {
+          ...form.subjects,
+          [name]: checked,
+        },
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -96,6 +136,7 @@ export default function Register() {
               placeholder="Address"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-green-300"
             />
+            
             <select
               name="role"
               value={form.role}
@@ -115,6 +156,38 @@ export default function Register() {
               placeholder="Class (6 to 14)"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-green-300"
             />
+            <div className="flex flex-col space-y-2">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="physics"
+                  checked={form.subjects.physics}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                Physics
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="math"
+                  checked={form.subjects.math}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                Math
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="chemistry"
+                  checked={form.subjects.chemistry}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                Chemistry
+              </label>
+            </div>
             <button
               type="submit"
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
@@ -130,7 +203,10 @@ export default function Register() {
           </div>
         </div>
         {/* Right Section */}
-        <div className="w-full lg:w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('/your-image-path.jpg')" }}></div>
+        <div
+          className="w-full lg:w-1/2 bg-cover bg-center"
+          style={{ backgroundImage: "url('/your-image-path.jpg')" }}
+        ></div>
       </div>
     </div>
   );
