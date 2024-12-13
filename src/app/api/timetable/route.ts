@@ -1,36 +1,70 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
+import { Timetable } from "@/app/lib/models"; // Adjust path as needed
 import { connectToDatabase } from "@/app/lib/utils";
-import { Timetable } from "../../lib/models";
 
-// Define a type for the request body
-interface TimetableRequestBody {
-  class: number;
+connectToDatabase();
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  try {
+    const { class: classId, icon, name, time } = await req.json();
+
+    if (!classId || !icon || !name || !time || isNaN(classId)) {
+      return NextResponse.json({ message: "Invalid input data" }, { status: 400 });
+    }
+
+    const timetable = await Timetable.findOneAndUpdate(
+      { class: classId },
+      { $push: { schedule: { icon, name, time } } },
+      { new: true, upsert: true }
+    );
+
+    return NextResponse.json(timetable, { status: 201 });
+  } catch (error) {
+    console.error("POST Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  await connectToDatabase();
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
+  try {
+    const { class: classId, index } = await req.json();
 
-  if (req.method === "POST") {
-    const { class: userClass } = req.body as TimetableRequestBody; // Type assertion for the request body
-
-    if (!userClass) {
-      return res.status(400).json({ error: "Class is required" });
+    if (!classId || index === undefined || isNaN(classId) || isNaN(index)) {
+      return NextResponse.json({ message: "Invalid input data" }, { status: 400 });
     }
 
-    try {
-      const timetable = await Timetable.findOne({ class: userClass });
-      if (!timetable) {
-        return res.status(404).json({ error: "Timetable not found for this class" });
-      }
-      res.status(200).json(timetable);
-    } catch (error) {
-      console.error("Error fetching timetable:", error);
-      res.status(500).json({ error: "Failed to fetch timetable data" });
+    const timetable = await Timetable.findOne({ class: classId });
+    if (!timetable) {
+      return NextResponse.json({ message: "Class not found" }, { status: 404 });
     }
-  } else {
-    res.status(405).json({ error: "Method not allowed" });
+
+    timetable.schedule.splice(index, 1); // Remove the schedule at the specified index
+    await timetable.save();
+
+    return NextResponse.json(timetable, { status: 200 });
+  } catch (error) {
+    console.error("DELETE Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  try {
+    const { searchParams } = new URL(req.url);
+    const classId = searchParams.get("class");
+
+    if (!classId || isNaN(Number(classId))) {
+      return NextResponse.json({ message: "Invalid classId" }, { status: 400 });
+    }
+
+    const timetable = await Timetable.findOne({ class: Number(classId) });
+    if (!timetable) {
+      return NextResponse.json({ message: "No timetable found for this class" }, { status: 404 });
+    }
+
+    return NextResponse.json(timetable, { status: 200 });
+  } catch (error) {
+    console.error("GET Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

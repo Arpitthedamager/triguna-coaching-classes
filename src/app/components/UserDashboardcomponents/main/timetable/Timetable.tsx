@@ -2,115 +2,98 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react"; // Import the useSession hook
 
-// Define the structure for the timetable
-interface TimetableItem {
+type Notification = {
   icon: string;
   name: string;
   time: string;
-}
+};
 
-interface TimetableData {
-  class: number;
-  schedule: TimetableItem[];
-}
+const Timetable = () => {
+  const { data: session, status } = useSession(); // Access session data
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0); // Track the current index for scrolling
 
-const Timetable: React.FC = () => {
-  const { data: session, status } = useSession();
-  const [timetable, setTimetable] = useState<TimetableData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // Get the class ID from the session
+  const classId = session?.user?.class || ""; // Fallback to empty string if class is not available
 
+  // Fetch timetable data for the selected class
   useEffect(() => {
-    if (status === "loading") return;
-
-    if (status === "unauthenticated") {
-      signIn(); // Redirect unauthenticated users to sign-in
-      return;
-    }
+    if (!classId) return; // Don't fetch if classId is not available
 
     const fetchTimetable = async () => {
-      try {
-        if (!session?.user?.class) {
-          console.error("User class is not available in the session");
-          return;
-        }
-
-        const response = await fetch("/api/timetable", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ class: session.user.class }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch timetable");
-        }
-
-        const data: TimetableData = await response.json();
-        setTimetable(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
+      const response = await fetch(`/api/timetable?class=${classId}`);
+      const data = await response.json();
+      setNotifications(data.schedule || []);
     };
 
     fetchTimetable();
-  }, [status, session]);
+  }, [classId]); // Dependency on classId from session
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (status === "loading") {
+    return <p>Loading...</p>; // Display loading message while session is being fetched
   }
 
-  if (!timetable) {
-    return <div>No timetable data available for your class.</div>;
+  if (status === "unauthenticated") {
+    return <p>Please log in to view the timetable.</p>; // Display if user is not authenticated
   }
+
+  // Scroll functions
+  const handleScrollLeft = () => {
+    setCurrentIndex(Math.max(0, currentIndex - 1)); // Scroll one item left
+  };
+
+  const handleScrollRight = () => {
+    setCurrentIndex(Math.min(notifications.length - 1, currentIndex + 1)); // Scroll one item right
+  };
 
   return (
-    <div className="mt-6 w-full flex items-center justify-center relative">
-      {/* Left Button */}
-      <button
-        onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
-        className="absolute left-0 z-10 p-2 bg-gray-200 rounded-full"
-      >
-        &lt;
-      </button>
-
+    <div className="mt-6 w-full flex flex-col items-center justify-center relative">
       {/* Timetable Notification Items */}
-      <div className="w-full overflow-hidden">
-        <motion.div
-          className="flex space-x-4"
-          initial={{ x: -100 }}
-          animate={{ x: -currentIndex * 100 + "%" }}
-          transition={{ type: "spring", stiffness: 300 }}
+      {currentIndex > 0 && (
+        <button
+          onClick={handleScrollLeft}
+          className="absolute left-0 z-10 p-2 bg-gray-200 rounded-full"
         >
-          {timetable.schedule.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center bg-yellow-100 p-4 rounded-lg min-w-[calc(95%/2)]"
-            >
-              <span className="text-2xl">{item.icon}</span>
-              <div className="ml-4">
-                <p className="font-semibold">{item.name}</p>
-                <p className="text-sm text-gray-600">{item.time}</p>
+          &lt;
+        </button>
+      )}
+
+      <div className="w-full overflow-hidden relative">
+        <motion.div
+          className="flex"
+          initial={{ x: 0 }}
+          animate={{ x: -currentIndex * 50 + "%" }} // Move one item at a time
+          transition={{ type: "spring", stiffness: 900, damping: 300 }}
+        >
+          {notifications.length === 0 ? (
+            <p>No notifications available.</p>
+          ) : (
+            notifications.map((notification, index) => (
+              <div
+                key={index}
+                className="group ml-2 flex-shrink-0 w-full max-w-52 items-center bg-yellow-100 p-4 rounded-lg shadow relative"
+              >
+                <span className="text-2xl">{notification.icon}</span>
+                <div className="ml-4">
+                  <p className="font-semibold">{notification.name}</p>
+                  <p className="text-sm text-gray-600">{notification.time}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </motion.div>
       </div>
 
-      {/* Right Button */}
-      <button
-        onClick={() =>
-          setCurrentIndex(
-            Math.min(timetable.schedule.length - 4, currentIndex + 1)
-          )
-        }
-        className="absolute right-0 z-10 p-2 bg-gray-200 rounded-full"
-      >
-        &gt;
-      </button>
+      {currentIndex < notifications.length - 1 && (
+        <button
+          onClick={handleScrollRight}
+          className="absolute right-0 z-10 p-2 bg-gray-200 rounded-full"
+        >
+          &gt;
+        </button>
+      )}
     </div>
   );
 };
