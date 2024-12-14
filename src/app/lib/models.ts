@@ -23,6 +23,18 @@ interface IUser extends Document {
 }
 
 
+interface Calendar extends Document {
+  className: string; // e.g., "9", "10", "11", "12"
+  events: {
+    date: string;
+    subjects: {
+      Physics: { status: "on" | "off" | "test" };
+      Chemistry: { status: "on" | "off" | "test" };
+      Math: { status: "on" | "off" | "test" };
+    };
+  }[];
+}
+
 interface ITestPaper extends Document {
   title: string;
   description?: string;
@@ -108,7 +120,6 @@ const UserSchema = new Schema<IUser>(
   { timestamps: true }
 );
 
-
 const TestPaperSchema = new Schema<ITestPaper>({
   title: { type: String, required: true },
   description: { type: String },
@@ -164,7 +175,6 @@ const NoticeSchema = new Schema<INotice>({
   ],
 });
 
-
 const TimetableSchema = new Schema<ITimetable>({
   class: { type: Number, min: 9, max: 12 },
   schedule: [
@@ -172,6 +182,20 @@ const TimetableSchema = new Schema<ITimetable>({
       icon: { type: String },
       name: { type: String, required: true },
       time: { type: String, required: true },
+    },
+  ],
+});
+
+const CalendarSchema = new Schema<Calendar>({
+  className: { type: String, required: true },
+  events: [
+    {
+      date: { type: String, required: true },
+      subjects: {
+        Physics: { status: { type: String, enum: ["on", "off", "test"], required: true } },
+        Chemistry: { status: { type: String, enum: ["on", "off", "test"], required: true } },
+        Math: { status: { type: String, enum: ["on", "off", "test"], required: true } },
+      },
     },
   ],
 });
@@ -185,7 +209,7 @@ const Attendance: Model<IAttendance> = mongoose.models.Attendance || mongoose.mo
 const StudyMaterial: Model<IStudyMaterial> = mongoose.models.StudyMaterial || mongoose.model("StudyMaterial", StudyMaterialSchema);
 const Notice: Model<INotice> = mongoose.models.Notice || mongoose.model<INotice>("Notice", NoticeSchema);
 const Timetable: Model<ITimetable> = mongoose.models.Timetable || mongoose.model("Timetable", TimetableSchema);
-
+const CalendarModel: Model<Calendar> =mongoose.models.Calendar || mongoose.model<Calendar>("Calendar", CalendarSchema);
 
 export {
   User,
@@ -194,6 +218,7 @@ export {
   Fee,
   Attendance,
   StudyMaterial,
+  CalendarModel,
   Notice,
   Timetable,
 };
