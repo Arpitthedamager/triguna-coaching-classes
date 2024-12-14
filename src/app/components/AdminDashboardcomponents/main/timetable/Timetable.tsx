@@ -144,7 +144,12 @@ const Timetable = () => {
       )}
 
       {/* Add Notification Button */}
-      
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="mt-4 p-2 bg-blue-500 text-white rounded"
+      >
+        Add Notification
+      </button>
 
       {/* Add Notification Modal */}
       {isModalOpen && (

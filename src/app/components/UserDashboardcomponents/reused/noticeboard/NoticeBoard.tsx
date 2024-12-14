@@ -73,13 +73,13 @@ export default function NoticeBoard() {
       animate="visible"
       variants={containerVariants}
     >
-      <h2 className="text-2xl font-semibold text-primary-a20">Notice Board</h2>
+      <h2 className="text-3xl font-semibold text-primary-a20">Notice Board</h2>
       <ul className="mt-4 space-y-4 overflow-y-auto h-96">
         {notices.map((notice, index) => (
           <Link key={notice.title} href={notice.link || "#"} passHref>
             <motion.li
               key={index}
-              className="flex items-center bg-gray-50 p-4 rounded-lg shadow"
+              className="flex items-center bg-gray-50 p-4 mb-2 rounded-xl shadow hover:shadow-xl"
               custom={index} // Custom property to control animation delay
               variants={rowVariants}
               initial="hidden"
