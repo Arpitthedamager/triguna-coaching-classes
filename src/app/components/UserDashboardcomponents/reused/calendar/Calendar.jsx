@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   format,
   startOfMonth,
@@ -16,59 +16,29 @@ import Timetable from "../../main/timetable/Timetable"; // Include Timetable if 
 
 const Calendar = () => {
   const { data: session } = useSession();
-
+  const [selectedClass, setSelectedClass] = useState(
+    session?.user?.class || "9"
+  );
+  // console.log(selectedClass);
   // State to manage the current month
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  // Example event data with 'test' status added
-  const events = [
-    {
-      date: "2024-12-13",
-      subjects: {
-        Physics: { status: "on", teacher: "Mr. John" },
-        Chemistry: { status: "test", teacher: "Ms. Smith" }, // Chemistry test
-        Math: { status: "off", teacher: "Mr. Alan" },
-      },
-    },
-    {
-      date: "2024-12-20",
-      subjects: {
-        Physics: { status: "off", teacher: "Mr. John" },
-        Chemistry: { status: "off", teacher: "Ms. Smith" },
-        Math: { status: "test", teacher: "Mr. Alan" }, // Math test
-      },
-    },
-    {
-      date: "2024-12-25",
-      subjects: {
-        Physics: { status: "off", teacher: "Mr. John" },
-        Chemistry: { status: "off", teacher: "Ms. Smith" },
-        Math: { status: "off", teacher: "Mr. Alan" },
-      },
-    },
-    {
-      date: "2024-12-21",
-      subjects: {
-        Physics: { status: "on", teacher: "Mr. John" },
-        Chemistry: { status: "off", teacher: "Ms. Smith" },
-        Math: { status: "off", teacher: "Mr. Alan" },
-      },
-    },{
-      date: "2024-12-23",
-      subjects: {
-        Physics: { status: "on", teacher: "Mr. John" },
-        Chemistry: { status: "on", teacher: "Ms. Smith" },
-        Math: { status: "off", teacher: "Mr. Alan" },
-      },
-    },{
-      date: "2024-12-22",
-      subjects: {
-        Physics: { status: "off", teacher: "Mr. John" },
-        Chemistry: { status: "off", teacher: "Ms. Smith" },
-        Math: { status: "off", teacher: "Mr. Alan" },
-      },
-    },
-  ];
+  // State to store fetched events
+  const [events, setEvents] = useState([]);
+
+  // Get class from session, fallback to '9' if class is not available
+
+  // Fetch event data when the component mounts
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const res = await fetch(`/api/calendar?className=${selectedClass}`);
+      const data = await res.json();
+      if (data.success) {
+        setEvents(data.data);
+      }
+    };
+    fetchEvents();
+  }, [selectedClass]); // Empty dependency array ensures this runs once on mount
 
   // Get all days for the current month
   const start = startOfMonth(currentMonth);
@@ -132,8 +102,14 @@ const Calendar = () => {
             alt="Profile"
             className="w-12 h-12 rounded-full"
           />
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-            <p className="font-semibold text-lg">{session?.user?.name || "User"}</p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <p className="font-semibold text-lg">
+              {session?.user?.name || "User"}
+            </p>
           </motion.div>
         </div>
       </div>
@@ -161,7 +137,12 @@ const Calendar = () => {
         <div className="grid grid-cols-7 gap-2 text-center text-gray-700">
           {/* Days of the week */}
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, i) => (
-            <motion.span key={i} initial={{ y: -20 }} animate={{ y: 0 }} transition={{ delay: i * 0.05 }}>
+            <motion.span
+              key={i}
+              initial={{ y: -20 }}
+              animate={{ y: 0 }}
+              transition={{ delay: i * 0.05 }}
+            >
               {day}
             </motion.span>
           ))}
@@ -174,7 +155,9 @@ const Calendar = () => {
               return (
                 <motion.div
                   key={index}
-                  className={`p-2 rounded-full relative group ${getColorForDate(day)} ${getTodayHighlight(day)}`}
+                  className={`p-2 rounded-full relative group ${getColorForDate(
+                    day
+                  )} ${getTodayHighlight(day)}`}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0 }}
@@ -185,12 +168,14 @@ const Calendar = () => {
                   {/* Tooltip */}
                   {event && (
                     <div className="absolute flex top-10 left-1/2 transform -translate-x-1/2 bg-white text-gray-700 text-sm p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 z-30">
-                      {/* <div className="font-bold">Date: {format(day, "MMMM d, yyyy")}</div> */}
-                      {Object.entries(event.subjects).map(([subject, info], idx) => (
-                        <div key={idx}>
-                          <span className="font-medium">{subject}</span>: {info.status}{" "}
-                        </div>
-                      ))}
+                      {Object.entries(event.subjects).map(
+                        ([subject, info], idx) => (
+                          <div key={idx}>
+                            <span className="font-medium">{subject}</span>:{" "}
+                            {info.status}{" "}
+                          </div>
+                        )
+                      )}
                     </div>
                   )}
                 </motion.div>
