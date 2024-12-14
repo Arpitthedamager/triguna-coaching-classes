@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 const NotFoundPage: React.FC = () => {
@@ -39,7 +40,8 @@ const NotFoundPage: React.FC = () => {
               Looks like you&apos;ve found the doorway to the great nothing
             </h1>
             <p className="my-2 text-white text-sm sm:text-base">
-              Sorry about that! Please visit our homepage to get where you need to go.
+              Sorry about that! Please visit our homepage to get where you need
+              to go.
             </p>
             {/* Button with Link */}
             <Link href="/" passHref>
@@ -63,9 +65,11 @@ const NotFoundPage: React.FC = () => {
         transition={{ duration: 1, delay: 0.5 }}
         className="w-full lg:w-1/2 xl:w-1/2"
       >
-        <img
+        <Image
           src="https://i.ibb.co/ck1SGFJ/Group.png"
           alt="Illustration"
+          width={500} // Set an appropriate width
+          height={500} // Set an appropriate height
           className="w-full max-w-sm md:max-w-md mx-auto"
         />
       </motion.div>

@@ -17,6 +17,7 @@ import Results from "../components/UserDashboardcomponents/links/results/Results
 import Exams from "../components/UserDashboardcomponents/links/exams/Exams";
 import Fees from "../components/UserDashboardcomponents/links/fees/Fees";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const UserDashboard = () => {
   const { data: session, status } = useSession();  // Use NextAuth's session hook to get session data
@@ -83,7 +84,7 @@ const UserDashboard = () => {
           <h2 className="text-xl font-semibold text-red-500">You are not a student!</h2>
           <p>If you are an admin or another type of user, please use the respective dashboard.</p>
           <p>
-            <a href="/" className="text-blue-500 hover:text-blue-700">Go to the main page</a>
+            <Link href="/" className="text-blue-500 hover:text-blue-700">Go to the main page</Link>
           </p>
         </motion.div>
       );

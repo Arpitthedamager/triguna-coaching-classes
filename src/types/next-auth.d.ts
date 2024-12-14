@@ -1,5 +1,5 @@
 // next-auth.d.ts
-import NextAuth, { DefaultUser, DefaultSession } from "next-auth";
+import { DefaultUser, DefaultSession } from "next-auth";
 
 declare module "next-auth" {
   interface User extends DefaultUser {

@@ -96,7 +96,8 @@ export default function Register() {
       <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden max-w-6xl">
         {/* Left Section */}
         <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center bg-green-100">
-          <h2 className="text-3xl font-bold text-white">Create an Account</h2>
+        {error && <p className="text-red-600 bg-red-100 p-2 text-center rounded-lg">{error}</p>}
+        <h2 className="text-3xl font-bold text-white">Create an Account</h2>
           <p className="text-white mt-4">Fill in the form below to create your account.</p>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {error && <p className="text-red-600 bg-red-100 p-2 text-center rounded-lg">{error}</p>}

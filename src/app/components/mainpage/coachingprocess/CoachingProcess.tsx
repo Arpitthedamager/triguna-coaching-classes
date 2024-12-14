@@ -59,7 +59,7 @@ const CoachingProcess = () => {
           Discover Our Unique Coaching Process
         </h2>
         <p className="text-2xl text-gray-600">
-          At our coaching center, we prioritize personalized learning experiences tailored to each student's needs. Our
+          At our coaching center, we prioritize personalized learning experiences tailored to each student&apos;s needs. Our
           dedicated educators guide students through a structured curriculum designed to foster academic excellence and
           confidence.
         </p>

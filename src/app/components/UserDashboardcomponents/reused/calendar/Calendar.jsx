@@ -16,7 +16,7 @@ import Timetable from "../../main/timetable/Timetable"; // Include Timetable if 
 
 const Calendar = () => {
   const { data: session } = useSession();
-  const [selectedClass, setSelectedClass] = useState(
+  const [selectedClass] = useState(
     session?.user?.class || "9"
   );
   // console.log(selectedClass);
