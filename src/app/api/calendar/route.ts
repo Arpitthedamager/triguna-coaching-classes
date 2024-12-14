@@ -1,76 +1,140 @@
-// import { NextApiRequest, NextApiResponse } from 'next';
-// import { connectToDatabase } from '@/app/lib/utils';  // Adjust this path as needed
-// import { CalendarEvent } from '@/app/lib/models'; // Adjust this path as needed
+import { NextRequest, NextResponse } from "next/server";
+import { connectToDatabase } from "@/app/lib/utils"; // Adjust the path as needed
+import { CalendarModel } from "@/app/lib/models"; // Adjust the path as needed
 
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-//   try {
-//     await connectToDatabase();
+// GET: Fetch all events for a specific class
+export async function GET(req: NextRequest): Promise<NextResponse> {
+    try {
+      await connectToDatabase(); // Ensure the database is connected
+      const { searchParams } = new URL(req.url);
+      const className = searchParams.get("className");
+  
+      if (!className || !["9", "10", "11", "12"].includes(className)) {
+        return NextResponse.json(
+          { success: false, error: "Invalid or missing className. Use '9', '10', '11', or '12'." },
+          { status: 400 }
+        );
+      }
+  
+      // Fetch events for the given class
+      const calendar = await CalendarModel.findOne({ className }, { events: 1, _id: 0 });
+  
+      if (!calendar) {
+        return NextResponse.json(
+          { success: false, error: `No class found with name: ${className}` },
+          { status: 404 }
+        );
+      }
+  
+      return NextResponse.json({ success: true, data: calendar.events });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+      }
+      return NextResponse.json({ success: false, error: "An unknown error occurred" }, { status: 500 });
+    }
+  }
+  
 
-//     switch (req.method) {
-//       case 'GET': {
-//         const { classLevel } = req.query;
-
-//         if (!classLevel || ![9, 10, 11, 12].includes(Number(classLevel))) {
-//           return res.status(400).json({ error: 'Invalid or missing class level.' });
-//         }
-
-//         const events = await CalendarEvent.find({ classLevel: Number(classLevel) });
-//         return res.status(200).json(events);
-//       }
-
-//       case 'POST': {
-//         const { classLevel, dates } = req.body;
-
-//         if (!classLevel || !dates || ![9, 10, 11, 12].includes(classLevel)) {
-//           return res.status(400).json({ error: 'Invalid data provided.' });
-//         }
-
-//         const newEvent = new CalendarEvent({ classLevel, dates });
-//         await newEvent.save();
-//         return res.status(201).json({ message: 'Event created successfully!' });
-//       }
-
-//       case 'PUT': {
-//         const { id, dates } = req.body;
-
-//         if (!id || !dates) {
-//           return res.status(400).json({ error: 'Invalid data provided.' });
-//         }
-
-//         const updatedEvent = await CalendarEvent.findByIdAndUpdate(
-//           id,
-//           { dates },
-//           { new: true }
-//         );
-
-//         if (!updatedEvent) {
-//           return res.status(404).json({ error: 'Event not found.' });
-//         }
-
-//         return res.status(200).json({ message: 'Event updated successfully!', updatedEvent });
-//       }
-
-//       case 'DELETE': {
-//         const { id } = req.body;
-
-//         if (!id) {
-//           return res.status(400).json({ error: 'Invalid data provided.' });
-//         }
-
-//         const deletedEvent = await CalendarEvent.findByIdAndDelete(id);
-
-//         if (!deletedEvent) {
-//           return res.status(404).json({ error: 'Event not found.' });
-//         }
-
-//         return res.status(200).json({ message: 'Event deleted successfully!' });
-//       }
-
-//       default:
-//         return res.status(405).json({ error: 'Method not allowed.' });
-//     }
-//   } catch (error) {
-//     console.error('API Error:', error);
-//     return res.status(500).json({ error: 'Internal server error.' });
-//   }
-// }
+  export async function POST(req: NextRequest): Promise<NextResponse> {
+    try {
+      // console.log("Received request:", req.url); // Log the incoming request URL
+      const body = await req.json();
+      // console.log("Request body:", body); // Log the body to ensure it's correct
+  
+      const { className, event } = body;
+  
+      if (!className || !event || !event.date || !event.subjects) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Invalid data. Provide className and event with date and subjects.",
+          },
+          { status: 400 }
+        );
+      }
+  
+      // Check if the class exists, if not create it
+      let calendar = await CalendarModel.findOne({ className });
+  
+      if (!calendar) {
+        // console.log(`Class ${className} not found. Creating new class.`);
+        // Create a new class if it doesn't exist
+        calendar = await CalendarModel.create({
+          className,
+          events: [],
+        });
+      }
+  
+      // Add the event to the class
+      // console.log(`Adding event to class ${className}:`, event);
+      calendar.events.push(event);
+      await calendar.save();
+  
+      return NextResponse.json(
+        { success: true, data: calendar },
+        { status: 201 }
+      );
+    } catch (error: unknown) {
+      console.error("Error during POST request:", error); // Log the error
+      if (error instanceof Error) {
+        return NextResponse.json(
+          { success: false, error: error.message },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json(
+        { success: false, error: "An unknown error occurred" },
+        { status: 500 }
+      );
+    }
+  }
+    
+  
+// DELETE: Delete a specific event for a class
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
+    try {
+      await connectToDatabase(); // Ensure the database is connected
+      const { searchParams } = new URL(req.url);
+      const className = searchParams.get("className");
+      const eventDate = searchParams.get("eventDate"); // The date of the event to delete
+  
+      // Validate className and eventDate
+      if (!className || !["9", "10", "11", "12"].includes(className)) {
+        return NextResponse.json(
+          { success: false, error: "Invalid or missing className. Use '9', '10', '11', or '12'." },
+          { status: 400 }
+        );
+      }
+  
+      if (!eventDate) {
+        return NextResponse.json({ success: false, error: "Missing eventDate parameter." }, { status: 400 });
+      }
+  
+      // Find the class and remove the specific event by date
+      const result = await CalendarModel.findOneAndUpdate(
+        { className, "events.date": eventDate },
+        { $pull: { events: { date: eventDate } } }, // Remove event with the specified date
+        { new: true } // Return the updated document
+      );
+  
+      if (!result) {
+        return NextResponse.json(
+          { success: false, error: `No event found for class: ${className} with date: ${eventDate}` },
+          { status: 404 }
+        );
+      }
+  
+      return NextResponse.json({
+        success: true,
+        message: `Event on ${eventDate} deleted successfully.`,
+        data: result.events, // Return the updated events for the class
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+      }
+      return NextResponse.json({ success: false, error: "An unknown error occurred" }, { status: 500 });
+    }
+  }
+  
