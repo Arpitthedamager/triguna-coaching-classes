@@ -18,17 +18,17 @@ const Profile = () => {
 
   const { data: session, status } = useSession(); // Getting session data with next-auth
 
-  // If session is still loading, show loading state
+  // Handle session loading state outside of hooks
   if (status === "loading") {
     return <p>Loading session...</p>;
   }
 
-  // If there's no session (user not logged in), show an error message
+  // Early return if there's no session
   if (!session) {
     return <p>You must be logged in to view your profile.</p>;
   }
 
-  // Fetch the profile only when session is available
+  // Fetch profile data when session is available
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -50,8 +50,9 @@ const Profile = () => {
       }
     };
 
+    // Only call the fetchProfile function if there's a session
     fetchProfile();
-  }, [session]); // The effect depends on session
+  }, [session?.user?.email]); // Add proper dependency to run on session change
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -108,6 +109,7 @@ const Profile = () => {
     hover: { scale: 1.05, boxShadow: "0px 8px 15px rgba(0,0,0,0.2)" },
   };
 
+  // Return loading text if profile is not fetched yet
   if (!profile) {
     return <p>Loading profile...</p>;
   }
