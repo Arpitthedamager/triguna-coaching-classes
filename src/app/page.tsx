@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 // import ThemeButton from "./components/mainpage/themebutton/ThemeButton"
-import TopRankingStudents from "./components/UserDashboardcomponents/onetimeusedcomponents/toprankingstudents/TopRankingStudents"
+// import TopRankingStudents from "./components/UserDashboardcomponents/onetimeusedcomponents/toprankingstudents/TopRankingStudents"
 import Banner from "./components/mainpage/Banner/Banner"
 import AcademicTimeline from "./components/mainpage/academictimeline/AcademicTimeline"
 // import CallToAction from "./components/mainpage/calltoaction/CallToAction"
@@ -40,7 +40,7 @@ export default function Home() {
       <div className="my-20">
         <Banner />
       </div>
-      <TopRankingStudents />
+      {/* <TopRankingStudents /> */}
       <FeedbackSection />
       <FeaturesSection />
       <div className="overflow-hidden">
