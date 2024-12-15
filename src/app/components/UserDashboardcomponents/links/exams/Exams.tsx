@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import DatabaseTable from "@/app/components/UserDashboardcomponents/main/databasetable/DatabaseTable";
-import StatisticsGraph from "@/app/components/UserDashboardcomponents/main/statisticsgraph/StatisticsGraph";
-import TestPapers from "@/app/components/UserDashboardcomponents/onetimeusedcomponents/testpapers/TestPapers";
-import TopRankingStudents from "@/app/components/UserDashboardcomponents/onetimeusedcomponents/toprankingstudents/TopRankingStudents";
+import DatabaseTable from "../../main/databasetable/DatabaseTable";
+import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
+import TestPapers from "../../onetimeusedcomponents/testpapers/TestPapers";
+import TopRankingStudents from "../../onetimeusedcomponents/toprankingstudents/TopRankingStudents";
 
 
 const Exams = () => {

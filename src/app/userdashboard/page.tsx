@@ -151,7 +151,7 @@ const UserDashboard = () => {
     }
   };
 
-  if (status === "loading") return <div>Loading...</div>; // Show loading while session is being fetched
+  // if (status === "loading") return <div>Loading...</div>; // Show loading while session is being fetched
 
   return (
     <div className="flex overflow-x-hidden bg-primary-content">
