@@ -3,39 +3,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react"; // Assuming you're using next-auth for session management
 import { signOut } from "next-auth/react";
 
-interface Profile {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  profileImage: string; // Assuming you have a profile image URL
-}
-
 const Profile = () => {
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [tempProfile, setTempProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState(null);
+  const [tempProfile, setTempProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   const { data: session, status } = useSession(); // Getting session data with next-auth
 
-  // Handle session loading state outside of hooks
-  if (status === "loading") {
-    return <p>Loading session...</p>;
-  }
-
-  // Early return if there's no session
-  if (!session) {
-    return <p>You must be logged in to view your profile.</p>;
-  }
-
-  // Fetch profile data when session is available
+  // Check if session is loaded
   useEffect(() => {
+    if (status === "loading") return;
+    if (!session) return;
+    
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`/api/profile?email=${session.user?.email}`, { 
+        const response = await fetch(`/api/profile?email=${session.user?.email}`, {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${session.user?.email}`,
+            "Authorization": `Bearer ${session.user?.email}`, // Sending email as bearer token
           },
         });
         if (response.ok) {
@@ -50,13 +35,10 @@ const Profile = () => {
       }
     };
 
-    // Only call the fetchProfile function if there's a session
     fetchProfile();
-  }, [session?.user?.email]); // Add proper dependency to run on session change
+  }, [session, status]);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e) => {
     if (tempProfile) {
       setTempProfile({
         ...tempProfile,
@@ -71,7 +53,7 @@ const Profile = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${session.user?.email}`,
+          "Authorization": `Bearer ${session.user?.email}`, // Using email to authorize the request
         },
         body: JSON.stringify(tempProfile),
       });
@@ -109,7 +91,6 @@ const Profile = () => {
     hover: { scale: 1.05, boxShadow: "0px 8px 15px rgba(0,0,0,0.2)" },
   };
 
-  // Return loading text if profile is not fetched yet
   if (!profile) {
     return <p>Loading profile...</p>;
   }
