@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-// import { useSession } from "next-auth/react";  // Import the NextAuth session hook
+import { useSession } from "next-auth/react";  // Import the NextAuth session hook
 import Sidebar from "../components/UserDashboardcomponents/reused/sidebar/Sidebar";
 import Header from "../components/UserDashboardcomponents/reused/header/Header";
 import StatisticsGraph from "../components/UserDashboardcomponents/main/statisticsgraph/StatisticsGraph";
@@ -16,14 +16,14 @@ import { FaCalendarAlt, FaBell } from "react-icons/fa";
 import Results from "../components/UserDashboardcomponents/links/results/Results";
 import Exams from "../components/UserDashboardcomponents/links/exams/Exams";
 import Fees from "../components/UserDashboardcomponents/links/fees/Fees";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const UserDashboard = () => {
-  // const { data: session, status } = useSession();  // Use NextAuth's session hook to get session data
+  const { data: session, status } = useSession();  // Use NextAuth's session hook to get session data
   const [activeContent, setActiveContent] = useState("dashboard");
   const [modalContent, setModalContent] = useState<"calendar" | "notice" | null>(null);
-  // const router = useRouter();
+  const router = useRouter();
 
   const contentVariants = {
     hidden: { opacity: 0, x: 50 },
@@ -31,16 +31,16 @@ const UserDashboard = () => {
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
 
-  // useEffect(() => {
-  //   // If not logged in, redirect to the sign-in page
-  //   if (status === "loading") return; // Wait until session is loaded
-  //   if (!session) {
-  //     router.push("/signin");
-  //   } else if (session.user.role !== "student") {
-  //     // If user is not a student, show a message and redirect
-  //     setActiveContent("notStudent");
-  //   }
-  // }, [session, status, router]);
+  useEffect(() => {
+    // If not logged in, redirect to the sign-in page
+    if (status === "loading") return; // Wait until session is loaded
+    if (!session) {
+      router.push("/signin");
+    } else if (session.user.role !== "student") {
+      // If user is not a student, show a message and redirect
+      setActiveContent("notStudent");
+    }
+  }, [session, status, router]);
 
   const renderContent = () => {
     if (activeContent === "dashboard") {
