@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
-import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
-import CircularProgress from "../../main/circularprogress/CircularProgress";
-import Header from "../../reused/header/Header";
-import AttendanceCalendar from "../../onetimeusedcomponents/attendancecalendar/AttendanceCalendar";
+import StatisticsGraph from "@/app/components/UserDashboardcomponents/main/statisticsgraph/StatisticsGraph";
+import CircularProgress from "@/app/components/UserDashboardcomponents/main/circularprogress/CircularProgress";
+import Header from "@/app/components/UserDashboardcomponents/reused/header/Header";
+import AttendanceCalendar from "@/app/components/UserDashboardcomponents/onetimeusedcomponents/attendancecalendar/AttendanceCalendar";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
