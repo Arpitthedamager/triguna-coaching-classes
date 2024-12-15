@@ -97,9 +97,9 @@ const Calendar = () => {
   const handleAddEvent = async () => {
     // Ensure that newEvent is formatted correctly with the subject statuses
     const formattedSubjects = {
-      Physics: { status: newEvent.Physics || "off" },  // Default to "off" if no status is provided
-      Chemistry: { status: newEvent.Chemistry || "off" },
-      Math: { status: newEvent.Math || "off" },
+      Physics: { status: newEvent.Physics || "on" },  // Default to "off" if no status is provided
+      Chemistry: { status: newEvent.Chemistry || "on" },
+      Math: { status: newEvent.Math || "on" },
     };
   
     // Send the data with the correct format

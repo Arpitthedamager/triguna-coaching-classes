@@ -50,7 +50,7 @@ const AdminDashboard = () => {
               <StatisticsGraph />
             </div>
             <div className="flex-none">
-              <CircularProgress percentage={85} />
+              <CircularProgress />
             </div>
           </div>
           <div className="mt-8">
