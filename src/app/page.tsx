@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 // import ThemeButton from "./components/mainpage/themebutton/ThemeButton"
-import TopRankingStudents from "./components/UserDashboardcomponents/onetimeusedcomponents/toprankingstudents/TopRankingStudents"
 import Banner from "./components/mainpage/Banner/Banner"
 import AcademicTimeline from "./components/mainpage/academictimeline/AcademicTimeline"
 // import CallToAction from "./components/mainpage/calltoaction/CallToAction"
@@ -17,6 +16,7 @@ import Game from "./components/mainpage/game/Game"
 import HeroSection from "./components/mainpage/herosection/HeroSection"
 import MapComponent from "./components/mainpage/mapcomponent/MapComponent"
 import TeacherSlideshow from "./components/mainpage/teacherslideshow/TeacherSlideshow"
+import TopRankingStudents from "./components/UserDashboardcomponents/onetimeused/toprankingstudents/TopRankingStudents"
 
 export default function Home() {
   const { data: session, status } = useSession()
