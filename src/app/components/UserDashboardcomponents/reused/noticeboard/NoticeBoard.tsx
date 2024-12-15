@@ -42,7 +42,7 @@ export default function NoticeBoard() {
   // Fetch notices automatically when the component mounts
   useEffect(() => {
     if (!classId) {
-      alert("Class ID not found in session");
+      <p>please wait</p>
       return;
     }
 

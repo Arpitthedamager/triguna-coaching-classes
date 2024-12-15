@@ -2,7 +2,7 @@
 import React from "react";
 import DatabaseTable from "../../main/databasetable/DatabaseTable";
 import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
-import TestPapers from "../../onetimeusedcomponents/testpapers/TestPapers";
+import TestPapers from "../../onetimeused/testpapers/TestPapers";
 // import TopRankingStudents from "../../onetimeusedcomponents/toprankingstudents/TopRankingStudents";
 
 
