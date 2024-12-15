@@ -18,38 +18,40 @@ const Profile = () => {
 
   const { data: session, status } = useSession(); // Getting session data with next-auth
 
-  // Check if session is loaded
+  // If session is still loading, show loading state
   if (status === "loading") {
     return <p>Loading session...</p>;
   }
 
+  // If there's no session (user not logged in), show an error message
   if (!session) {
     return <p>You must be logged in to view your profile.</p>;
   }
 
-  const fetchProfile = async () => {
-    try {
-      const response = await fetch(`/api/profile?email=${session.user?.email}`, { // Pass email directly
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${session.user?.email}`, // Sending email as bearer token
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setProfile(data);
-        setTempProfile(data);
-      } else {
-        console.error("Failed to fetch profile");
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-    }
-  };
-
+  // Fetch the profile only when session is available
   useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(`/api/profile?email=${session.user?.email}`, { 
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${session.user?.email}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setProfile(data);
+          setTempProfile(data);
+        } else {
+          console.error("Failed to fetch profile");
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
     fetchProfile();
-  }, [session]);
+  }, [session]); // The effect depends on session
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -68,7 +70,7 @@ const Profile = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${session.user?.email}`, // Using email to authorize the request
+          "Authorization": `Bearer ${session.user?.email}`,
         },
         body: JSON.stringify(tempProfile),
       });
