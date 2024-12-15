@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 // import ManageUsers from "../components/AdminDashboardcomponents/links/manage-users/ManageUsers";
 // import ManageFees from "../components/AdminDashboardcomponents/links/manage-fees/ManageFees";
 import { FaCalendarAlt, FaBell } from "react-icons/fa";
-import Profile from "../components/AdminDashboardcomponents/links/profile/Profile";
+import Profile from "../components/AdminDashboardcomponents/links/profilelink/ProfileLinks";
 import Exams from "../components/AdminDashboardcomponents/links/exams/Exams";
 import Fees from "../components/AdminDashboardcomponents/links/fees/Fees";
 import Results from "../components/AdminDashboardcomponents/links/results/Results";

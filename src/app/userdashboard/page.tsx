@@ -11,13 +11,13 @@ import StatCard from "../components/UserDashboardcomponents/main/statcard/StatCa
 import DatabaseTable from "../components/UserDashboardcomponents/main/databasetable/DatabaseTable";
 import { motion } from "framer-motion";
 import StudyMaterial from "../components/UserDashboardcomponents/links/study-materials/Study-Materials";
-import Profile from "../components/UserDashboardcomponents/links/profile/Profile";
 import { FaCalendarAlt, FaBell } from "react-icons/fa";
 import Results from "../components/UserDashboardcomponents/links/results/Results";
 import Exams from "../components/UserDashboardcomponents/links/exams/Exams";
 import Fees from "../components/UserDashboardcomponents/links/fees/Fees";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ProfileLink from "../components/UserDashboardcomponents/links/profilelink/ProfileLink";
 
 const UserDashboard = () => {
   const { data: session, status } = useSession();  // Use NextAuth's session hook to get session data
@@ -64,7 +64,7 @@ const UserDashboard = () => {
               <StatisticsGraph />
             </div>
             <div className="flex-none">
-              <CircularProgress percentage={75} />
+              <CircularProgress />
             </div>
           </div>
           <div className="mt-8">
@@ -109,7 +109,7 @@ const UserDashboard = () => {
           exit="exit"
           variants={contentVariants}
         >
-          <Profile />
+          <ProfileLink />
         </motion.div>
       );
     } else if (activeContent === "results") {
