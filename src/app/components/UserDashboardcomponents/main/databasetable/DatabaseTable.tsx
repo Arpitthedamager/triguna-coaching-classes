@@ -1,74 +1,160 @@
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
-interface student{
 
-  name: "",
-  score: 0,
-  subject: "",
-  avatar: "",
+interface Test {
+  date: Date;
+  marksObtained: number;
+  totalMarks: number;
 }
+
+interface Student {
+  userEmail: string;
+  tests: Test[];
+}
+
+interface ClassData {
+  className: string;
+  physics: Student[];
+  chemistry: Student[];
+  maths: Student[];
+}
+
 const DatabaseTable: FC = () => {
-  const initialData = [
-    {
-      name: "Glenn Maxwell",
-      score: 95,
-      subject: "Mathematics",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      name: "Cathe Heaven",
-      score: 85,
-      subject: "Physics",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      name: "Yeadar Gil",
-      score: 45,
-      subject: "Chemistry",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      name: "Preeth Shing",
-      score: 80,
-      subject: "Mathematics",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      name: "John Doe",
-      score: 70,
-      subject: "Physics",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      name: "Jane Smith",
-      score: 55,
-      subject: "Chemistry",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      name: "Emily Watson",
-      score: 75,
-      subject: "Mathematics",
-      avatar: "https://via.placeholder.com/40",
-    },
-  ];
+  // Sample class data based on your new structure
+  const classData: ClassData = {
+    className: "10th Grade",
+    physics: [
+      {
+        userEmail: "glenn@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 95, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 98, totalMarks: 100 },
+        ],
+      },
+      {
+        userEmail: "alice@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 85, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 80, totalMarks: 100 },
+        ],
+      },
+      {
+        userEmail: "bob@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 70, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 75, totalMarks: 100 },
+        ],
+      },
+    ],
+    chemistry: [
+      {
+        userEmail: "cathe@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 85, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 90, totalMarks: 100 },
+        ],
+      },
+      {
+        userEmail: "john@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 55, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 60, totalMarks: 100 },
+        ],
+      },
+      {
+        userEmail: "mia@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 92, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 94, totalMarks: 100 },
+        ],
+      },
+    ],
+    maths: [
+      {
+        userEmail: "yeadar@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 45, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 50, totalMarks: 100 },
+        ],
+      },
+      {
+        userEmail: "preeth@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 80, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 82, totalMarks: 100 },
+        ],
+      },
+      {
+        userEmail: "emily@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 75, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 80, totalMarks: 100 },
+        ],
+      },
+      {
+        userEmail: "jane@example.com",
+        tests: [
+          { date: new Date("2024-11-01"), marksObtained: 65, totalMarks: 100 },
+          { date: new Date("2024-12-01"), marksObtained: 60, totalMarks: 100 },
+        ],
+      },
+    ],
+  };
+  
 
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
 
-  const filteredData = subjectFilter
-    ? initialData
-        .filter((student) => student.subject === subjectFilter)
-        .sort((a, b) => b.score - a.score)
-        .map((student, index) => ({
-          ...student,
-          rank: index + 1,
-        }))
-    : initialData
-        .sort((a, b) => b.score - a.score)
-        .map((student, index) => ({
-          ...student,
-          rank: index + 1,
-        }));
+  // Extracting relevant student data
+  const getFilteredData = (subject: string | null) => {
+    let filteredStudents: Student[] = [];
+
+    if (subject === "Physics") {
+      filteredStudents = classData.physics;
+    } else if (subject === "Chemistry") {
+      filteredStudents = classData.chemistry;
+    } else if (subject === "Mathematics") {
+      filteredStudents = classData.maths;
+    } else {
+      // Include all subjects if no filter is set
+      filteredStudents = [
+        ...classData.physics,
+        ...classData.chemistry,
+        ...classData.maths,
+      ];
+    }
+
+    // Create a list of students with their highest score
+    const studentData = filteredStudents
+      .map((student) => {
+        const latestTest = student.tests[student.tests.length - 1];
+        let subjectName = "Unknown Subject";
+
+        // Determine the subject based on which list the student is in
+        if (classData.physics.includes(student)) {
+          subjectName = "Physics";
+        } else if (classData.chemistry.includes(student)) {
+          subjectName = "Chemistry";
+        } else if (classData.maths.includes(student)) {
+          subjectName = "Mathematics";
+        }
+
+        return {
+          name: student.userEmail.split("@")[0], // Using email as name placeholder
+          score: latestTest.marksObtained,
+          subject: subjectName,
+          rank: 0, // Rank will be added later
+        };
+      })
+      .sort((a, b) => b.score - a.score); // Sort by score
+
+    // Assign ranks
+    return studentData.map((student, index) => ({
+      ...student,
+      rank: index + 1,
+    }));
+  };
+
+  const filteredData = getFilteredData(subjectFilter);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -145,7 +231,7 @@ const DatabaseTable: FC = () => {
               >
                 <td className="px-4 py-3 flex items-center">
                   <img
-                    src={student.avatar}
+                    src={`https://via.placeholder.com/40`}
                     alt={student.name}
                     className="w-10 h-10 rounded-full mr-4"
                   />

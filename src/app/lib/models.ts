@@ -11,7 +11,8 @@ interface IUser extends Document {
   role: "student" | "teacher";
   class?: number;
   rollNo: number; // New rollNo field
-  subjects: { // New subjects field
+  subjects: {
+    // New subjects field
     physics: boolean;
     math: boolean;
     chemistry: boolean;
@@ -21,7 +22,6 @@ interface IUser extends Document {
     visitedDate: Date;
   }[];
 }
-
 
 interface Calendar extends Document {
   className: string; // e.g., "9", "10", "11", "12"
@@ -93,6 +93,36 @@ interface ITimetable extends Document {
     time: string;
   }[];
 }
+export interface ITest extends Document {
+  class: string;
+  userName: string;
+  physics: {
+    userEmail: string;
+    tests: {
+      date: Date;
+      marksObtained: number;
+      totalMarks: number;
+    }[];
+  }[];
+  chemistry: {
+    userEmail: string;
+    userName: string;
+    tests: {
+      date: Date;
+      marksObtained: number;
+      totalMarks: number;
+    }[];
+  }[];
+  maths: {
+    userEmail: string;
+    userName: string;
+    tests: {
+      date: Date;
+      marksObtained: number;
+      totalMarks: number;
+    }[];
+  }[];
+}
 
 const UserSchema = new Schema<IUser>(
   {
@@ -130,10 +160,48 @@ const TestPaperSchema = new Schema<ITestPaper>({
   class: { type: Number, min: 9, max: 12 },
 });
 
-const StatisticsSchema = new Schema<IStatistics>({
-  user: { type: Schema.Types.ObjectId, ref: "User" },
-  testDate: { type: Date, required: true },
-  testPercentage: { type: Number, required: true },
+// Define the schema for the test data
+const TestSchema = new Schema<ITest>({
+  class: { type: String, required: true }, // Class name (e.g., "10th Grade")
+  physics: [
+    {
+      userEmail: { type: String, required: true }, // Email of the student
+      userName: { type: String, required: true }, // Name of the student
+      tests: [
+        {
+          date: { type: Date, required: true }, // Test date
+          marksObtained: { type: Number, required: true }, // Marks obtained
+          totalMarks: { type: Number, required: true }, // Total marks
+        },
+      ],
+    },
+  ],
+  chemistry: [
+    {
+      userEmail: { type: String, required: true }, // Email of the student
+      userName: { type: String, required: true }, // Name of the student
+      tests: [
+        {
+          date: { type: Date, required: true },
+          marksObtained: { type: Number, required: true },
+          totalMarks: { type: Number, required: true },
+        },
+      ],
+    },
+  ],
+  maths: [
+    {
+      userEmail: { type: String, required: true }, // Email of the student
+      userName: { type: String, required: true }, // Name of the student
+      tests: [
+        {
+          date: { type: Date, required: true },
+          marksObtained: { type: Number, required: true },
+          totalMarks: { type: Number, required: true },
+        },
+      ],
+    },
+  ],
 });
 
 const FeeSchema = new Schema<IFee>({
@@ -192,33 +260,50 @@ const CalendarSchema = new Schema<Calendar>({
     {
       date: { type: String, required: true },
       subjects: {
-        Physics: { status: { type: String, enum: ["on", "off", "test"], required: true } },
-        Chemistry: { status: { type: String, enum: ["on", "off", "test"], required: true } },
-        Math: { status: { type: String, enum: ["on", "off", "test"], required: true } },
+        Physics: {
+          status: { type: String, enum: ["on", "off", "test"], required: true },
+        },
+        Chemistry: {
+          status: { type: String, enum: ["on", "off", "test"], required: true },
+        },
+        Math: {
+          status: { type: String, enum: ["on", "off", "test"], required: true },
+        },
       },
     },
   ],
 });
 
 // Models
-const User: Model<IUser> = mongoose.models.User || mongoose.model("User", UserSchema);
-const TestPaper: Model<ITestPaper> = mongoose.models.TestPaper || mongoose.model("TestPaper", TestPaperSchema);
-const Statistics: Model<IStatistics> = mongoose.models.Statistics || mongoose.model("Statistics", StatisticsSchema);
-const Fee: Model<IFee> = mongoose.models.Fee || mongoose.model("Fee", FeeSchema);
-const Attendance: Model<IAttendance> = mongoose.models.Attendance || mongoose.model("Attendance", AttendanceSchema);
-const StudyMaterial: Model<IStudyMaterial> = mongoose.models.StudyMaterial || mongoose.model("StudyMaterial", StudyMaterialSchema);
-const Notice: Model<INotice> = mongoose.models.Notice || mongoose.model<INotice>("Notice", NoticeSchema);
-const Timetable: Model<ITimetable> = mongoose.models.Timetable || mongoose.model("Timetable", TimetableSchema);
-const CalendarModel: Model<Calendar> =mongoose.models.Calendar || mongoose.model<Calendar>("Calendar", CalendarSchema);
+const User: Model<IUser> =
+  mongoose.models.User || mongoose.model("User", UserSchema);
+const TestPaper: Model<ITestPaper> =
+  mongoose.models.TestPaper || mongoose.model("TestPaper", TestPaperSchema);
+const Fee: Model<IFee> =
+  mongoose.models.Fee || mongoose.model("Fee", FeeSchema);
+const Attendance: Model<IAttendance> =
+  mongoose.models.Attendance || mongoose.model("Attendance", AttendanceSchema);
+const StudyMaterial: Model<IStudyMaterial> =
+  mongoose.models.StudyMaterial ||
+  mongoose.model("StudyMaterial", StudyMaterialSchema);
+const Notice: Model<INotice> =
+  mongoose.models.Notice || mongoose.model<INotice>("Notice", NoticeSchema);
+const Timetable: Model<ITimetable> =
+  mongoose.models.Timetable || mongoose.model("Timetable", TimetableSchema);
+const CalendarModel: Model<Calendar> =
+  mongoose.models.Calendar ||
+  mongoose.model<Calendar>("Calendar", CalendarSchema);
+const TestModel: Model<ITest> =
+  mongoose.models.Test || mongoose.model<ITest>("Test", TestSchema);
 
 export {
   User,
   TestPaper,
-  Statistics,
   Fee,
   Attendance,
   StudyMaterial,
   CalendarModel,
   Notice,
   Timetable,
+  TestModel,
 };
