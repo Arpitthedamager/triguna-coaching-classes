@@ -34,7 +34,7 @@ const Calendar = () => {
     };
     fetchEvents();
   }, [selectedClass]);
-  console.log(session)
+  // console.log(session)
   // Get all days for the current month
   const start = startOfMonth(currentMonth);
   const end = endOfMonth(currentMonth);
