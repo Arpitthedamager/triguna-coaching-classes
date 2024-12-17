@@ -9,6 +9,7 @@ interface Test {
 
 interface Student {
   userEmail: string;
+  userName: string;
   tests: Test[];
 }
 
@@ -26,6 +27,7 @@ const DatabaseTable: FC = () => {
     physics: [
       {
         userEmail: "glenn@example.com",
+        userName: "Glenn",
         tests: [
           { date: new Date(), marksObtained: 95, totalMarks: 100 },
         ],
@@ -35,6 +37,7 @@ const DatabaseTable: FC = () => {
     chemistry: [
       {
         userEmail: "cathe@example.com",
+        userName: "Cathe",
         tests: [
           { date: new Date(), marksObtained: 85, totalMarks: 100 },
         ],
@@ -44,6 +47,7 @@ const DatabaseTable: FC = () => {
     maths: [
       {
         userEmail: "yeadar@example.com",
+        userName: "Yea",
         tests: [
           { date: new Date(), marksObtained: 45, totalMarks: 100 },
         ],
@@ -89,7 +93,7 @@ const DatabaseTable: FC = () => {
         }
 
         return {
-          name: student.userEmail.split("@")[0], // Using email as name placeholder
+          name: student.userName,  // Use the user's name from the `userName` property
           score: latestTest.marksObtained,
           subject: subjectName,
           rank: 0, // Rank will be added later

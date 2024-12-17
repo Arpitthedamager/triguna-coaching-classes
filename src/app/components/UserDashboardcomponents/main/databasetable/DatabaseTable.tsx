@@ -9,6 +9,7 @@ interface Test {
 
 interface Student {
   userEmail: string;
+  userName: string;
   tests: Test[];
 }
 
@@ -26,81 +27,34 @@ const DatabaseTable: FC = () => {
     physics: [
       {
         userEmail: "glenn@example.com",
+        userName: "Glenn",
         tests: [
-          { date: new Date("2024-11-01"), marksObtained: 95, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 98, totalMarks: 100 },
+          { date: new Date(), marksObtained: 95, totalMarks: 100 },
         ],
       },
-      {
-        userEmail: "alice@example.com",
-        tests: [
-          { date: new Date("2024-11-01"), marksObtained: 85, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 80, totalMarks: 100 },
-        ],
-      },
-      {
-        userEmail: "bob@example.com",
-        tests: [
-          { date: new Date("2024-11-01"), marksObtained: 70, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 75, totalMarks: 100 },
-        ],
-      },
+      // Other physics students
     ],
     chemistry: [
       {
         userEmail: "cathe@example.com",
+        userName: "Cathe",
         tests: [
-          { date: new Date("2024-11-01"), marksObtained: 85, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 90, totalMarks: 100 },
+          { date: new Date(), marksObtained: 85, totalMarks: 100 },
         ],
       },
-      {
-        userEmail: "john@example.com",
-        tests: [
-          { date: new Date("2024-11-01"), marksObtained: 55, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 60, totalMarks: 100 },
-        ],
-      },
-      {
-        userEmail: "mia@example.com",
-        tests: [
-          { date: new Date("2024-11-01"), marksObtained: 92, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 94, totalMarks: 100 },
-        ],
-      },
+      // Other chemistry students
     ],
     maths: [
       {
         userEmail: "yeadar@example.com",
+        userName: "Yea",
         tests: [
-          { date: new Date("2024-11-01"), marksObtained: 45, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 50, totalMarks: 100 },
+          { date: new Date(), marksObtained: 45, totalMarks: 100 },
         ],
       },
-      {
-        userEmail: "preeth@example.com",
-        tests: [
-          { date: new Date("2024-11-01"), marksObtained: 80, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 82, totalMarks: 100 },
-        ],
-      },
-      {
-        userEmail: "emily@example.com",
-        tests: [
-          { date: new Date("2024-11-01"), marksObtained: 75, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 80, totalMarks: 100 },
-        ],
-      },
-      {
-        userEmail: "jane@example.com",
-        tests: [
-          { date: new Date("2024-11-01"), marksObtained: 65, totalMarks: 100 },
-          { date: new Date("2024-12-01"), marksObtained: 60, totalMarks: 100 },
-        ],
-      },
+      // Other maths students
     ],
   };
-  
 
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
 
@@ -139,7 +93,7 @@ const DatabaseTable: FC = () => {
         }
 
         return {
-          name: student.userEmail.split("@")[0], // Using email as name placeholder
+          name: student.userName,  // Use the user's name from the `userName` property
           score: latestTest.marksObtained,
           subject: subjectName,
           rank: 0, // Rank will be added later
