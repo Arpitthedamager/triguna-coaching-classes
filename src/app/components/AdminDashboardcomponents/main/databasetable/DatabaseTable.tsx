@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
+import AddStudentButton from "../../onetimeusedcomponents/addstudentbutton/AddStudentButton";
 
 interface Test {
   date: Date;
@@ -135,14 +136,14 @@ const DatabaseTable: FC = () => {
 
   return (
     <motion.div
-      className="p-4 rounded-2xl bg-slate-50"
+      className="p-4 rounded-2xl  bg-slate-50"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold text-primary-a30">Class Database</h2>
-
+        <AddStudentButton/>
         <select
           className="select select-bordered max-w-xs bg-transparent text-primary-a40"
           value={subjectFilter || ""}

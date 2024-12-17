@@ -37,8 +37,11 @@ const CircularProgressWithClass: FC = () => {
 
   return (
     <div className="flex flex-col items-center">
+
+      {/* Circular Progress Bar */}
+      <div className="flex flex-col  rounded-xl items-center py-4 space-y-4 bg-white w-56 h-72 ">
       {/* Dropdown for class selection */}
-      {/* <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center">
         <label htmlFor="class-select" className="text-lg font-medium text-gray-700">
           Select Class
         </label>
@@ -56,10 +59,7 @@ const CircularProgressWithClass: FC = () => {
             </option>
           ))}
         </select>
-      </div> */}
-
-      {/* Circular Progress Bar */}
-      <div className="flex flex-col  rounded-xl items-center py-4 space-y-4 bg-base-100 w-56 h-72 ">
+      </div>
       <h2 className="text-xl font-semibold text-gray-700">Course Activities</h2>
         <svg
           className="w-48 h-48"

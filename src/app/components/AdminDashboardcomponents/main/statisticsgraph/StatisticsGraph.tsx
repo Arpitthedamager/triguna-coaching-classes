@@ -108,7 +108,7 @@ const StatisticsGraph: FC = () => {
       },
     },
     scales: {
-      x: { title: { display: true, text: "Test Date" }, ticks: { autoSkip: true } },
+      x: { title: { display: true, text: "" }, ticks: { autoSkip: true } },
       y: { title: { display: true, text: "Percentage (%)" }, beginAtZero: true, max: 100 },
     },
   };
