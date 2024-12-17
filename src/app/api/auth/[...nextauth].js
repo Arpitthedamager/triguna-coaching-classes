@@ -5,7 +5,6 @@ import { connectToDatabase } from "../../../lib/utils";
 import { User as UserModel } from "../../../lib/models";
 
 const authOptions = {
-  debug: true,
   providers: [
     CredentialsProvider({
       name: "Credentials",
