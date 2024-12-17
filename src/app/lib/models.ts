@@ -95,9 +95,9 @@ interface ITimetable extends Document {
 }
 export interface ITest extends Document {
   class: string;
-  userName: string;
   physics: {
     userEmail: string;
+    userName: string;
     tests: {
       date: Date;
       marksObtained: number;
