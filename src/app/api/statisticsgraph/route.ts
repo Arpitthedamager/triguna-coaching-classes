@@ -26,9 +26,6 @@ interface DummyData {
 export async function POST(req: NextRequest): Promise<NextResponse> {
     try {
       const { className, userEmail } = await req.json();
-  
-      console.log("Incoming className:", className);
-      console.log("Incoming userEmail:", userEmail);
        // ----------------------------- NOTE -----------------------------
     // When you connect to the database, replace this dummyData with real data:
     // 1. Uncomment the `await connectToDatabase();` line below.

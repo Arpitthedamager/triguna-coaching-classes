@@ -47,7 +47,7 @@ const AdminDashboard = () => {
           </div>
           <div className="flex gap-4 mt-6">
             <div className="flex-1">
-              {/* <StatisticsGraph /> */}
+              <StatisticsGraph />
             </div>
             <div className="flex-none">
               <CircularProgress />
