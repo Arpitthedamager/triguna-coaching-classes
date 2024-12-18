@@ -106,11 +106,11 @@ const DatabaseTable: FC = () => {
     const currentClassData = classes.find(
       (cls) => cls.className === selectedClass
     );
-
+  
     if (!currentClassData) return [];
-
+  
     let filteredStudents: Student[] = [];
-
+  
     if (subjectFilter === "Physics") {
       filteredStudents = currentClassData.physics;
     } else if (subjectFilter === "Chemistry") {
@@ -124,7 +124,7 @@ const DatabaseTable: FC = () => {
         ...currentClassData.maths,
       ];
     }
-
+  
     const filteredByMonth = filteredStudents.filter((student) =>
       student.tests.some(
         (test) =>
@@ -132,19 +132,25 @@ const DatabaseTable: FC = () => {
           new Date(test.date).getMonth() === months.indexOf(monthFilter)
       )
     );
-
+  
     return filteredByMonth
       .map((student) => {
         const latestTest = student.tests[student.tests.length - 1];
         const percentage =
           (latestTest.marksObtained / latestTest.totalMarks) * 100;
+  
+        // Map subject names based on the selected class
         const subjectName =
           currentClassData.physics.includes(student)
-            ? "Physics"
+            ? selectedClass === "9" || selectedClass === "10"
+              ? "SST"
+              : "Physics"
             : currentClassData.chemistry.includes(student)
-            ? "Chemistry"
+            ? selectedClass === "9" || selectedClass === "10"
+              ? "Science"
+              : "Chemistry"
             : "Mathematics";
-
+  
         return {
           name: student.userName,
           score: `${latestTest.marksObtained}/${latestTest.totalMarks}`,
@@ -160,7 +166,7 @@ const DatabaseTable: FC = () => {
         rank: index + 1,
       }));
   };
-
+  
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const bottom =
       e.currentTarget.scrollHeight - e.currentTarget.scrollTop <=
