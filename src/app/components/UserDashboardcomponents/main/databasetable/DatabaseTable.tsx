@@ -1,5 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 interface Test {
   date: Date;
@@ -21,194 +22,241 @@ interface ClassData {
 }
 
 const DatabaseTable: FC = () => {
-  // Sample class data based on your new structure
-  const classData: ClassData = {
-    className: "10th Grade",
-    physics: [
-      {
-        userEmail: "glenn@example.com",
-        userName: "Glenn",
-        tests: [
-          { date: new Date(), marksObtained: 95, totalMarks: 100 },
-        ],
-      },
-      // Other physics students
-    ],
-    chemistry: [
-      {
-        userEmail: "cathe@example.com",
-        userName: "Cathe",
-        tests: [
-          { date: new Date(), marksObtained: 85, totalMarks: 100 },
-        ],
-      },
-      // Other chemistry students
-    ],
-    maths: [
-      {
-        userEmail: "yeadar@example.com",
-        userName: "Yea",
-        tests: [
-          { date: new Date(), marksObtained: 45, totalMarks: 100 },
-        ],
-      },
-      // Other maths students
-    ],
-  };
-
+  const { data: session } = useSession();
+  const [classes, setClasses] = useState<ClassData[]>([]);
+  const [selectedClass, setSelectedClass] = useState<string | null>(null); // Dynamically set from session
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
+  const [monthFilter, setMonthFilter] = useState<string>("All");
+  const [visibleRows, setVisibleRows] = useState<number>(8);
 
-  // Extracting relevant student data
-  const getFilteredData = (subject: string | null) => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  useEffect(() => {
+    if (session && session.user && session.user.class) {
+      setSelectedClass(String(session.user.class)); // Convert to string
+      // console.log(session?.user.class);
+    } else {
+      // console.warn("Class information not found in session.");
+    }
+  }, [session]);
+  
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/database/fetchdata");
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        const result = await response.json();
+        if (result.success) {
+          const formattedData = result.data.map((cls: any) => ({
+            className: cls.class, // Map `class` to `ClassData` key
+            physics: cls.physics || [],
+            chemistry: cls.chemistry || [],
+            maths: cls.maths || [],
+          }));
+          setClasses(formattedData);
+        } else {
+          console.error("API returned an error:", result.message);
+        }
+      } catch (error) {
+        console.error("Error fetching class data:", error);
+      }
+    };
+
+    // Mock data for testing
+    const mockData: ClassData[] = [
+      {
+        className: "9",
+        physics: [
+          {
+            userEmail: "student1@example.com",
+            userName: "John Doe",
+            tests: [
+              {
+                date: new Date(),
+                marksObtained: 90,
+                totalMarks: 100,
+              },
+            ],
+          },
+        ],
+        chemistry: [],
+        maths: [],
+      },
+      {
+        className: "10",
+        physics: [],
+        chemistry: [],
+        maths: [],
+      },
+    ];
+    setClasses(mockData);
+
+    // Uncomment the following line to fetch from API
+    fetchData();
+  }, []);
+
+  const getFilteredData = () => {
+    const currentClassData = classes.find(
+      (cls) => cls.className === selectedClass
+    );
+
+    if (!currentClassData) return [];
+
     let filteredStudents: Student[] = [];
 
-    if (subject === "Physics") {
-      filteredStudents = classData.physics;
-    } else if (subject === "Chemistry") {
-      filteredStudents = classData.chemistry;
-    } else if (subject === "Mathematics") {
-      filteredStudents = classData.maths;
+    if (subjectFilter === "Physics") {
+      filteredStudents = currentClassData.physics;
+    } else if (subjectFilter === "Chemistry") {
+      filteredStudents = currentClassData.chemistry;
+    } else if (subjectFilter === "Mathematics") {
+      filteredStudents = currentClassData.maths;
     } else {
-      // Include all subjects if no filter is set
       filteredStudents = [
-        ...classData.physics,
-        ...classData.chemistry,
-        ...classData.maths,
+        ...currentClassData.physics,
+        ...currentClassData.chemistry,
+        ...currentClassData.maths,
       ];
     }
 
-    // Create a list of students with their highest score
-    const studentData = filteredStudents
+    const filteredByMonth = filteredStudents.filter((student) =>
+      student.tests.some(
+        (test) =>
+          monthFilter === "All" ||
+          new Date(test.date).getMonth() === months.indexOf(monthFilter)
+      )
+    );
+
+    return filteredByMonth
       .map((student) => {
         const latestTest = student.tests[student.tests.length - 1];
-        let subjectName = "Unknown Subject";
+        const percentage =
+          (latestTest.marksObtained / latestTest.totalMarks) * 100;
 
-        // Determine the subject based on which list the student is in
-        if (classData.physics.includes(student)) {
-          subjectName = "Physics";
-        } else if (classData.chemistry.includes(student)) {
-          subjectName = "Chemistry";
-        } else if (classData.maths.includes(student)) {
-          subjectName = "Mathematics";
-        }
+        // Map subject names based on the selected class
+        const subjectName =
+          currentClassData.physics.includes(student)
+            ? selectedClass === "9" || selectedClass === "10"
+              ? "SST"
+              : "Physics"
+            : currentClassData.chemistry.includes(student)
+            ? selectedClass === "9" || selectedClass === "10"
+              ? "Science"
+              : "Chemistry"
+            : "Mathematics";
 
         return {
-          name: student.userName,  // Use the user's name from the `userName` property
-          score: latestTest.marksObtained,
+          name: student.userName,
+          score: `${latestTest.marksObtained}/${latestTest.totalMarks}`,
+          percentage,
           subject: subjectName,
-          rank: 0, // Rank will be added later
+          rank: 0,
+          pass: percentage >= 33.3,
         };
       })
-      .sort((a, b) => b.score - a.score); // Sort by score
-
-    // Assign ranks
-    return studentData.map((student, index) => ({
-      ...student,
-      rank: index + 1,
-    }));
+      .sort((a, b) => b.percentage - a.percentage)
+      .map((student, index) => ({
+        ...student,
+        rank: index + 1,
+      }));
   };
 
-  const filteredData = getFilteredData(subjectFilter);
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const bottom =
+      e.currentTarget.scrollHeight - e.currentTarget.scrollTop <=
+      e.currentTarget.clientHeight;
+    if (bottom) {
+      setVisibleRows((prev) => prev + 8);
+    }
   };
 
-  const rowVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-      },
-    }),
-  };
+  const filteredData = getFilteredData();
 
   return (
     <motion.div
       className="p-4 rounded-2xl bg-slate-50"
       initial="hidden"
       animate="visible"
-      variants={containerVariants}
     >
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold text-primary-a30">Class Database</h2>
+        <div>
 
         <select
           className="select select-bordered max-w-xs bg-transparent text-primary-a40"
           value={subjectFilter || ""}
           onChange={(e) => setSubjectFilter(e.target.value || null)}
-        >
+          >
           <option value="">All Subjects</option>
           <option value="Mathematics">Mathematics</option>
           <option value="Physics">Physics</option>
           <option value="Chemistry">Chemistry</option>
         </select>
+        <select
+          className="select select-bordered max-w-xs bg-transparent text-primary-a40"
+          value={monthFilter}
+          onChange={(e) => setMonthFilter(e.target.value)}
+          >
+          <option value="All">All Months</option>
+          {months.map((month, index) => (
+            <option key={index} value={month}>
+              {month}
+            </option>
+          ))}
+        </select>
+          </div>
       </div>
 
-      <div className="overflow-x-auto h-96 text-surface-a0">
+      <div
+        className="overflow-x-auto h-96 text-surface-a0"
+        onScroll={handleScroll}
+      >
         <table className="table w-full text-neutral border border-base-200">
           <thead>
             <tr>
-              <th className="text-base px-4 py-4 text-left text-surface-a0">Student Name</th>
-              <th className="text-base px-4 py-4 text-center text-surface-a0">Score</th>
-              <th className="text-base px-4 py-4 text-center text-surface-a0">Subject</th>
-              <th className="px-4 py-4 text-center text-surface-a0 text-base">Rank</th>
-              <th className="px-4 py-4 text-center text-surface-a0 text-base">Pass/Fail</th>
+              <th className="text-base px-4 py-4 text-left">Student Name</th>
+              <th className="text-base px-4 py-4 text-center">Score</th>
+              <th className="text-base px-4 py-4 text-center">Percentage</th>
+              <th className="text-base px-4 py-4 text-center">Subject</th>
+              <th className="px-4 py-4 text-center text-base">Rank</th>
+              <th className="px-4 py-4 text-center text-base">Pass/Fail</th>
             </tr>
           </thead>
-          <motion.tbody
-            className="divide-x"
-            style={{
-              maxHeight: "300px",
-              overflowY: "auto",
-            }}
-          >
-            {filteredData.map((student, index) => (
-              <motion.tr
-                key={index}
-                className="hover:bg-primary-content"
-                custom={index}
-                variants={rowVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-              >
-                <td className="px-4 py-3 flex items-center">
-                  <img
-                    src={`https://via.placeholder.com/40`}
-                    alt={student.name}
-                    className="w-10 h-10 rounded-full mr-4"
-                  />
-                  <span className="font-semibold text-base-content">{student.name}</span>
+          <motion.tbody>
+            {filteredData.slice(0, visibleRows).map((student, index) => (
+              <motion.tr key={index} className="hover:bg-primary-content">
+                <td className="px-4 py-3">{student.name}</td>
+                <td className="px-4 py-3 text-center">{student.score}</td>
+                <td className="px-4 py-3 text-center">
+                  {student.percentage.toFixed(2)}%
                 </td>
-                <td className="px-4 py-3 text-base text-center">
-                  {student.score}/100
-                </td>
-                <td className="px-4 py-3 text-base text-center">
-                  {student.subject}
-                </td>
-                <td className="px-4 py-3 text-base text-center">
-                  {student.rank}
-                </td>
-                <td className="px-4 py-3 text-base text-center">
+                <td className="px-4 py-3 text-center">{student.subject}</td>
+                <td className="px-4 py-3 text-center">{student.rank}</td>
+                <td className="px-4 py-3 text-center">
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      student.score >= 50
+                      student.pass
                         ? "bg-success text-success-content"
                         : "bg-error text-error-content"
                     }`}
                   >
-                    {student.score >= 50 ? "Pass" : "Fail"}
+                    {student.pass ? "Pass" : "Fail"}
                   </span>
                 </td>
               </motion.tr>

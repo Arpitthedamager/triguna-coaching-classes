@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from "react";
 import { useSession } from "next-auth/react"; // Import useSession
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from "chart.js";
-import test from "node:test";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -75,9 +74,18 @@ const StatisticsGraph: FC = () => {
       return testMonth === currentMonth;
     });
   };
-  console.log();
 
- 
+  // Determine subject names based on the class
+  const getSubjectNames = () => {
+    const userClass = String(session?.user?.class); // Convert class to string for comparison
+    if (userClass === "9" || userClass === "10") {
+      return { physics: "SST", chemistry: "Science", maths: "Maths" };
+    }
+    return { physics: "Physics", chemistry: "Chemistry", maths: "Maths" };
+  };
+  
+
+  const subjectNames = getSubjectNames();
 
   // Prepare chart datasets
   const createDataset = (subjectData: TestData[], label: string, color: string) => ({
@@ -93,13 +101,14 @@ const StatisticsGraph: FC = () => {
     pointBorderWidth: 2,
     pointRadius: 5,
   });
+
   // Prepare chart data with labels (dates) and datasets (subjects)
   const chartData = {
     labels: filterDataByMonth(data.physics).map((test) => new Date(test.date).toLocaleDateString()),
     datasets: [
-      createDataset(filterDataByMonth(data.physics), "Physics", "rgba(255, 99, 132, 1)"),
-      createDataset(filterDataByMonth(data.chemistry), "Chemistry", "rgba(54, 162, 235, 1)"),
-      createDataset(filterDataByMonth(data.maths), "Maths", "rgba(75, 192, 192, 1)"),
+      createDataset(filterDataByMonth(data.physics), subjectNames.physics, "rgba(255, 99, 132, 1)"),
+      createDataset(filterDataByMonth(data.chemistry), subjectNames.chemistry, "rgba(54, 162, 235, 1)"),
+      createDataset(filterDataByMonth(data.maths), subjectNames.maths, "rgba(75, 192, 192, 1)"),
     ],
   };
 

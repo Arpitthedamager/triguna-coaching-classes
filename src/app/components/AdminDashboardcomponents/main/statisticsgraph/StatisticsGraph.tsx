@@ -15,8 +15,8 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 interface TestData {
-  average: string;  // Changed from 'marksObtained' and 'totalMarks'
-  month: string;    // Changed from 'date'
+  average: string; // Changed from 'marksObtained' and 'totalMarks'
+  month: string; // Changed from 'date'
 }
 
 interface SubjectData {
@@ -53,7 +53,6 @@ const StatisticsGraph: FC = () => {
 
         if (!response.ok) throw new Error("Failed to fetch data");
         const result = await response.json();
-        // console.log(result);
         setData(result);
       } catch (error) {
         console.error("Error fetching test data:", error);
@@ -71,6 +70,16 @@ const StatisticsGraph: FC = () => {
       const testYear = new Date(test.month).getFullYear(); // Get the year from the 'month' field
       return testYear === currentYear;
     });
+
+  // Map subject names based on class
+  const getSubjectNames = () => {
+    if (selectedClass === "9" || selectedClass === "10") {
+      return { physics: "SST", chemistry: "Science", maths: "Maths" };
+    }
+    return { physics: "Physics", chemistry: "Chemistry", maths: "Maths" };
+  };
+
+  const subjectNames = getSubjectNames();
 
   // Prepare chart datasets
   const createDataset = (subjectData: TestData[], label: string, color: string) => ({
@@ -92,9 +101,9 @@ const StatisticsGraph: FC = () => {
       new Date(test.month).toLocaleDateString() // Using the 'month' field here
     ),
     datasets: [
-      createDataset(filterDataByYear(data.physics), "Physics", "rgba(255, 99, 132, 1)"),
-      createDataset(filterDataByYear(data.chemistry), "Chemistry", "rgba(54, 162, 235, 1)"),
-      createDataset(filterDataByYear(data.maths), "Maths", "rgba(75, 192, 192, 1)"),
+      createDataset(filterDataByYear(data.physics), subjectNames.physics, "rgba(255, 99, 132, 1)"),
+      createDataset(filterDataByYear(data.chemistry), subjectNames.chemistry, "rgba(54, 162, 235, 1)"),
+      createDataset(filterDataByYear(data.maths), subjectNames.maths, "rgba(75, 192, 192, 1)"),
     ],
   };
 
@@ -124,12 +133,10 @@ const StatisticsGraph: FC = () => {
             onChange={(e) => setSelectedClass(e.target.value)}
             className="text-sm bg-primary-a20 hover:bg-primary-a30 px-4 py-2 rounded-lg"
           >
-            <option className="hover:bg-primary-a30"value="9">Class 9</option>
-            <option className="hover:bg-primary-a30"value="10">Class 10</option>
-            <option className="hover:bg-primary-a30" value="11">Class 11</option>
-            <option className="hover:bg-primary-a30"value="12">Class 12</option>
-
-            {/* Add more class options if needed */}
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
           </select>
           <button
             onClick={goToPreviousYear}
