@@ -12,7 +12,7 @@ interface FormState {
   role: string;
   address: string;
   class: number;
-  subjects: { 
+  subjects: {
     physics: boolean;
     math: boolean;
     chemistry: boolean;
@@ -27,7 +27,7 @@ export default function Register() {
     number: "",
     role: "student", // Default role
     address: "",
-    class: 6, // Default minimum class
+    class: 9, // Default class
     subjects: {
       physics: false,
       math: false,
@@ -36,7 +36,7 @@ export default function Register() {
   });
 
   const [error, setError] = useState<string | null>(null);
-  const { data: session, status } = useSession();  // Get session data and status
+  const { data: session, status } = useSession(); // Get session data and status
   const router = useRouter();
 
   useEffect(() => {
@@ -44,11 +44,10 @@ export default function Register() {
     if (session) {
       // Redirect if the user is logged in
       if (session.user?.role !== "teacher") {
-        router.push("/");  // Redirect non-admin users to the homepage or another page
+        router.push("/"); // Redirect non-admin users to the homepage or another page
       }
     }
   }, [session, status, router]);
-
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;
@@ -62,10 +61,19 @@ export default function Register() {
         },
       });
     } else {
-      setForm({
-        ...form,
-        [name]: value,
-      });
+      // Reset subjects when class changes
+      if (name === "class") {
+        setForm({
+          ...form,
+          [name]: parseInt(value),
+          subjects: { physics: false, math: false, chemistry: false }, // Reset subjects on class change
+        });
+      } else {
+        setForm({
+          ...form,
+          [name]: type === "number" ? parseInt(value) : value,
+        });
+      }
     }
   };
 
@@ -79,6 +87,7 @@ export default function Register() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      console.log(  form)
 
       if (res.ok) {
         window.location.href = "/signin";
@@ -91,16 +100,17 @@ export default function Register() {
     }
   };
 
+  const isClass9Or10 = form.class === 9 || form.class === 10;
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-green-500">
+    <div className="min-h-screen flex items-center text-gray-600 justify-center bg-gradient-to-r from-green-400 to-green-500">
       <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden max-w-6xl">
         {/* Left Section */}
         <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center bg-green-100">
-        {error && <p className="text-red-600 bg-red-100 p-2 text-center rounded-lg">{error}</p>}
-        <h2 className="text-3xl font-bold text-white">Create an Account</h2>
-          <p className="text-white mt-4">Fill in the form below to create your account.</p>
+          {error && <p className="text-red-600 bg-red-100 p-2 text-center rounded-lg">{error}</p>}
+          <h2 className="text-3xl font-bold ">Create an Account</h2>
+          <p className="mt-4">Fill in the form below to create your account.</p>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-            {error && <p className="text-red-600 bg-red-100 p-2 text-center rounded-lg">{error}</p>}
             <input
               name="name"
               value={form.name}
@@ -137,7 +147,6 @@ export default function Register() {
               placeholder="Address"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-green-300"
             />
-            
             <select
               name="role"
               value={form.role}
@@ -147,48 +156,82 @@ export default function Register() {
               <option value="student">Student</option>
               <option value="teacher">Teacher</option>
             </select>
-            <input
+            <select
               name="class"
-              type="number"
               value={form.class}
               onChange={handleChange}
-              min="6"
-              max="14"
-              placeholder="Class (6 to 14)"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-green-300"
-            />
-            <div className="flex flex-col space-y-2">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="physics"
-                  checked={form.subjects.physics}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                Physics
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="math"
-                  checked={form.subjects.math}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                Math
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="chemistry"
-                  checked={form.subjects.chemistry}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                Chemistry
-              </label>
-            </div>
+            >
+              <option value={9}>Class 9</option>
+              <option value={10}>Class 10</option>
+              <option value={11}>Class 11</option>
+              <option value={12}>Class 12</option>
+            </select>
+
+            {/* Show subjects only when class is selected */}
+            {form.class && (
+              <div className="flex flex-col space-y-2">
+                {isClass9Or10 && (
+                  <>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="physics"
+                        checked={form.subjects.physics}
+                        onChange={handleChange}
+                        className="mr-2"
+                      />
+                      SST
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="chemistry"
+                        checked={form.subjects.chemistry}
+                        onChange={handleChange}
+                        className="mr-2"
+                      />
+                      Science
+                    </label>
+                  </>
+                )}
+                {!isClass9Or10 && (
+                  <>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="physics"
+                        checked={form.subjects.physics}
+                        onChange={handleChange}
+                        className="mr-2"
+                      />
+                      Physics
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="chemistry"
+                        checked={form.subjects.chemistry}
+                        onChange={handleChange}
+                        className="mr-2"
+                      />
+                      Chemistry
+                    </label>
+                  </>
+                )}
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="math"
+                    checked={form.subjects.math}
+                    onChange={handleChange}
+                    className="mr-2"
+                  />
+                  Math
+                </label>
+              </div>
+            )}
+
             <button
               type="submit"
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

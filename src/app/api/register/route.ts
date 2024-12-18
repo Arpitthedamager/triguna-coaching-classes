@@ -54,18 +54,18 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Generate roll number based on the last user's roll number in the same class
+    // Generate a global unique roll number
     const session = await User.startSession();
     session.startTransaction();
 
     try {
-      // Find the last user in the same class, sorted by rollNo in descending order
-      const lastUserInClass = await User.findOne({ class: classNumber }).sort({ rollNo: -1 }).session(session);
+      // Find the highest roll number across all classes (global roll number)
+      const lastUser = await User.findOne().sort({ rollNo: -1 }).session(session);
 
-      // Generate rollNo: increment the last rollNo or start from 1 if no user exists in the class
-      const rollNo = lastUserInClass ? lastUserInClass.rollNo + 1 : 1;
+      // Generate a global rollNo: increment the last rollNo or start from 1 if no user exists
+      const rollNo = lastUser ? lastUser.rollNo + 1 : 1;
 
-      // Create new user with the generated rollNo
+      // Create new user with the global unique rollNo
       const newUser = new User({
         email,
         password: hashedPassword,
@@ -73,8 +73,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         name,
         phone: number,
         address,
-        class: classNumber,
-        rollNo,
+        class: classNumber, // Keep the class in the user data
+        rollNo, // Global unique rollNo
         subjects,
       });
 
