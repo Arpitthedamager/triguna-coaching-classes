@@ -23,7 +23,7 @@ interface ClassData {
 
 const DatabaseTable: FC = () => {
   const [classes, setClasses] = useState<ClassData[]>([]);
-  const [selectedClass, setSelectedClass] = useState<ClassData | null>(null);
+  const [selectedClass, setSelectedClass] = useState<string>("9"); // Default to "9"
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
   const [monthFilter, setMonthFilter] = useState<string>("All");
   const [visibleRows, setVisibleRows] = useState<number>(8);
@@ -53,38 +53,75 @@ const DatabaseTable: FC = () => {
         }
         const result = await response.json();
         if (result.success) {
-          setClasses(result.data);
-
-          // Set default class to "9" or the first available class
-          const defaultClass =
-            result.data.find((cls: ClassData) => cls.className === "9") ||
-            result.data[0] ||
-            null;
-          setSelectedClass(defaultClass);
+          const formattedData = result.data.map((cls: any) => ({
+            className: cls.class, // Map `class` to `ClassData` key
+            physics: cls.physics || [],
+            chemistry: cls.chemistry || [],
+            maths: cls.maths || [],
+          }));
+          setClasses(formattedData);
+        } else {
+          console.error("API returned an error:", result.message);
         }
       } catch (error) {
         console.error("Error fetching class data:", error);
       }
     };
+    
+
+    // Mock data for testing
+    const mockData: ClassData[] = [
+      {
+        className: "9",
+        physics: [
+          {
+            userEmail: "student1@example.com",
+            userName: "John Doe",
+            tests: [
+              {
+                date: new Date(),
+                marksObtained: 90,
+                totalMarks: 100,
+              },
+            ],
+          },
+        ],
+        chemistry: [],
+        maths: [],
+      },
+      {
+        className: "10",
+        physics: [],
+        chemistry: [],
+        maths: [],
+      },
+    ];
+    setClasses(mockData);
+
+    // Uncomment the following line to fetch from API
     fetchData();
   }, []);
 
   const getFilteredData = () => {
-    if (!selectedClass) return [];
+    const currentClassData = classes.find(
+      (cls) => cls.className === selectedClass
+    );
+
+    if (!currentClassData) return [];
 
     let filteredStudents: Student[] = [];
 
     if (subjectFilter === "Physics") {
-      filteredStudents = selectedClass.physics;
+      filteredStudents = currentClassData.physics;
     } else if (subjectFilter === "Chemistry") {
-      filteredStudents = selectedClass.chemistry;
+      filteredStudents = currentClassData.chemistry;
     } else if (subjectFilter === "Mathematics") {
-      filteredStudents = selectedClass.maths;
+      filteredStudents = currentClassData.maths;
     } else {
       filteredStudents = [
-        ...selectedClass.physics,
-        ...selectedClass.chemistry,
-        ...selectedClass.maths,
+        ...currentClassData.physics,
+        ...currentClassData.chemistry,
+        ...currentClassData.maths,
       ];
     }
 
@@ -102,9 +139,9 @@ const DatabaseTable: FC = () => {
         const percentage =
           (latestTest.marksObtained / latestTest.totalMarks) * 100;
         const subjectName =
-          selectedClass.physics.includes(student)
+          currentClassData.physics.includes(student)
             ? "Physics"
-            : selectedClass.chemistry.includes(student)
+            : currentClassData.chemistry.includes(student)
             ? "Chemistry"
             : "Mathematics";
 
@@ -146,18 +183,13 @@ const DatabaseTable: FC = () => {
         <AddStudentButton />
         <select
           className="select select-bordered max-w-xs bg-transparent text-primary-a40"
-          value={selectedClass?.className || ""}
-          onChange={(e) =>
-            setSelectedClass(
-              classes.find((cls) => cls.className === e.target.value) || null
-            )
-          }
+          value={selectedClass}
+          onChange={(e) => setSelectedClass(e.target.value)}
         >
-          {classes.map((cls, index) => (
-            <option key={index} value={cls.className}>
-              {cls.className}
-            </option>
-          ))}
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
         </select>
         <select
           className="select select-bordered max-w-xs bg-transparent text-primary-a40"
