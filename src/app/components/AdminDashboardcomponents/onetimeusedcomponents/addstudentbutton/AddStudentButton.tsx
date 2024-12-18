@@ -14,8 +14,11 @@ const AddStudentOrTestButton: FC = () => {
   const [marks, setMarks] = useState<{ [email: string]: number | "" }>({});
   const [outOfMarks, setOutOfMarks] = useState<number | "">("");
 
-  const [students, setStudents] = useState<{ userName: string; userEmail: string }[]>([]);
+  const [students, setStudents] = useState<
+    { userName: string; userEmail: string }[]
+  >([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const resetForm = () => {
     setStudentName("");
@@ -27,23 +30,36 @@ const AddStudentOrTestButton: FC = () => {
   };
 
   const fetchStudents = async () => {
-    if (!className || !subject) return;
+    if (!className || !subject) {
+      setStudents([]);
+      return;
+    }
+
+    setLoading(true); // Start loading
     try {
-      const response = await fetch(`/api/database/getstudents?class=${className}&subject=${subject}`);
+      // Correctly construct the API URL
+      const response = await fetch(
+        `/api/database/addtest?class=${className}&subject=${subject}`
+      );
       if (response.ok) {
         const data = await response.json();
-        setStudents(data.students);
+        setStudents(data.students); // Update the students list
       } else {
-        alert("Failed to fetch students");
+        const errorData = await response.json();
+        setErrorMessage(errorData.error || "Unknown error");
       }
     } catch (error) {
       console.error("Error fetching students:", error);
+      setErrorMessage("An error occurred while fetching students.");
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
   const handleAddStudent = async () => {
-    // Check if the email already exists in the students list
-    const existingStudent = students.find((student) => student.userEmail === userEmail);
+    const existingStudent = students.find(
+      (student) => student.userEmail === userEmail
+    );
     if (existingStudent) {
       setErrorMessage("Student with this email already exists.");
       return;
@@ -61,7 +77,6 @@ const AddStudentOrTestButton: FC = () => {
       userEmail,
     };
 
-    console.log(newStudent.userName);
     try {
       const response = await fetch("/api/database/addstudents", {
         method: "POST",
@@ -102,6 +117,16 @@ const AddStudentOrTestButton: FC = () => {
       }
     }
 
+    // Validate marks not exceeding outOfMarks
+    const invalidMarks = Object.values(marks).some(
+      (mark) => mark !== "" && mark > (outOfMarks || 0)
+    );
+
+    if (invalidMarks) {
+      alert("Marks cannot exceed the out of marks value.");
+      return;
+    }
+
     const testDetails = {
       className,
       subject,
@@ -118,6 +143,7 @@ const AddStudentOrTestButton: FC = () => {
         },
         body: JSON.stringify(testDetails),
       });
+      console.log(testDetails);
 
       if (response.ok) {
         alert("Test added successfully");
@@ -146,8 +172,8 @@ const AddStudentOrTestButton: FC = () => {
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center text-gray-500 bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
+        <div className="fixed inset-0 flex overflow-auto items-center justify-center text-gray-500 bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg w-80 shadow-3xl relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-2 right-2 text-xl text-gray-500"
@@ -186,6 +212,22 @@ const AddStudentOrTestButton: FC = () => {
               </select>
             </div>
 
+            {loading ? (
+              <p>Loading students...</p>
+            ) : students.length > 0 ? (
+              <div>
+                <h4 className="text-lg font-bold">Students:</h4>
+                {students.map((student) => (
+                  <div key={student.userEmail}>
+                    <span>{student.userName}</span> -{" "}
+                    <span>{student.userEmail}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>No students found.</p>
+            )}
+
             {isValidForm && (
               <div className="mb-4 flex space-x-2">
                 <button
@@ -204,7 +246,7 @@ const AddStudentOrTestButton: FC = () => {
             )}
 
             {mode === "student" && isValidForm && (
-              <>
+              <div className="">
                 <div className="mb-4">
                   <label className="block mb-1">Student Name</label>
                   <input
@@ -218,8 +260,8 @@ const AddStudentOrTestButton: FC = () => {
                 <div className="mb-4">
                   <label className="block mb-1">Email</label>
                   <input
+                    name="email"
                     type="email"
-                    value={userEmail}
                     onChange={(e) => setUserEmail(e.target.value)}
                     className="input input-bordered w-full"
                   />
@@ -235,7 +277,7 @@ const AddStudentOrTestButton: FC = () => {
                 >
                   Save Student
                 </button>
-              </>
+              </div>
             )}
 
             {mode === "test" && isValidForm && (
@@ -252,6 +294,15 @@ const AddStudentOrTestButton: FC = () => {
 
                 <div className="mb-4">
                   <h4 className="text-lg font-bold mb-2">Marks</h4>
+                  <div className="mb-4">
+                    <label className="block mb-1">Out of Marks</label>
+                    <input
+                      type="number"
+                      value={outOfMarks}
+                      onChange={(e) => setOutOfMarks(Number(e.target.value))}
+                      className="input input-bordered w-full"
+                    />
+                  </div>
                   {students.map((student) => (
                     <div key={student.userEmail} className="mb-2">
                       <label className="block mb-1">{student.userName}</label>
@@ -261,23 +312,16 @@ const AddStudentOrTestButton: FC = () => {
                         onChange={(e) =>
                           setMarks({
                             ...marks,
-                            [student.userEmail]: Number(e.target.value),
+                            [student.userEmail]: Math.min(
+                              Number(e.target.value),
+                              outOfMarks || 0
+                            ),
                           })
                         }
                         className="input input-bordered w-full"
                       />
                     </div>
                   ))}
-                </div>
-
-                <div className="mb-4">
-                  <label className="block mb-1">Out of Marks</label>
-                  <input
-                    type="number"
-                    value={outOfMarks}
-                    onChange={(e) => setOutOfMarks(Number(e.target.value))}
-                    className="input input-bordered w-full"
-                  />
                 </div>
 
                 <button
@@ -302,4 +346,3 @@ const AddStudentOrTestButton: FC = () => {
 };
 
 export default AddStudentOrTestButton;
-    
