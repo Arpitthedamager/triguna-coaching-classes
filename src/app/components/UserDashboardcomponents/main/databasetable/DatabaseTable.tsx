@@ -52,8 +52,6 @@ const DatabaseTable: FC = () => {
       // console.warn("Class information not found in session.");
     }
   }, [session]);
-  
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,7 +109,21 @@ const DatabaseTable: FC = () => {
     // Uncomment the following line to fetch from API
     fetchData();
   }, []);
-
+  // Logic to dynamically change subjects based on class
+  const getSubjectOptions = () => {
+    if (selectedClass === "9" || selectedClass === "10") {
+      return [
+        { value: "Mathematics", label: "Mathematics" },
+        { value: "Physics", label: "SST" },
+        { value: "Chemistry", label: "Science" },
+      ];
+    }
+    return [
+      { value: "Mathematics", label: "Mathematics" },
+      { value: "Physics", label: "Physics" },
+      { value: "Chemistry", label: "Chemistry" },
+    ];
+  };
   const getFilteredData = () => {
     const currentClassData = classes.find(
       (cls) => cls.className === selectedClass
@@ -150,16 +162,15 @@ const DatabaseTable: FC = () => {
           (latestTest.marksObtained / latestTest.totalMarks) * 100;
 
         // Map subject names based on the selected class
-        const subjectName =
-          currentClassData.physics.includes(student)
-            ? selectedClass === "9" || selectedClass === "10"
-              ? "SST"
-              : "Physics"
-            : currentClassData.chemistry.includes(student)
-            ? selectedClass === "9" || selectedClass === "10"
-              ? "Science"
-              : "Chemistry"
-            : "Mathematics";
+        const subjectName = currentClassData.physics.includes(student)
+          ? selectedClass === "9" || selectedClass === "10"
+            ? "SST"
+            : "Physics"
+          : currentClassData.chemistry.includes(student)
+          ? selectedClass === "9" || selectedClass === "10"
+            ? "Science"
+            : "Chemistry"
+          : "Mathematics";
 
         return {
           name: student.userName,
@@ -197,30 +208,31 @@ const DatabaseTable: FC = () => {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold text-primary-a30">Class Database</h2>
         <div>
-
-        <select
-          className="select select-bordered max-w-xs bg-transparent text-primary-a40"
-          value={subjectFilter || ""}
-          onChange={(e) => setSubjectFilter(e.target.value || null)}
+          <select
+            className="select select-bordered max-w-xs bg-transparent text-primary-a40"
+            value={subjectFilter || ""}
+            onChange={(e) => setSubjectFilter(e.target.value || null)}
           >
-          <option value="">All Subjects</option>
-          <option value="Mathematics">Mathematics</option>
-          <option value="Physics">Physics</option>
-          <option value="Chemistry">Chemistry</option>
-        </select>
-        <select
-          className="select select-bordered max-w-xs bg-transparent text-primary-a40"
-          value={monthFilter}
-          onChange={(e) => setMonthFilter(e.target.value)}
+            <option value="">All Subjects</option>
+            {getSubjectOptions().map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <select
+            className="select select-bordered max-w-xs bg-transparent text-primary-a40"
+            value={monthFilter}
+            onChange={(e) => setMonthFilter(e.target.value)}
           >
-          <option value="All">All Months</option>
-          {months.map((month, index) => (
-            <option key={index} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-          </div>
+            <option value="All">All Months</option>
+            {months.map((month, index) => (
+              <option key={index} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div

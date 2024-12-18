@@ -67,7 +67,6 @@ const DatabaseTable: FC = () => {
         console.error("Error fetching class data:", error);
       }
     };
-    
 
     // Mock data for testing
     const mockData: ClassData[] = [
@@ -101,16 +100,30 @@ const DatabaseTable: FC = () => {
     // Uncomment the following line to fetch from API
     fetchData();
   }, []);
-
+  // Logic to dynamically change subjects based on class
+  const getSubjectOptions = () => {
+    if (selectedClass === "9" || selectedClass === "10") {
+      return [
+        { value: "Mathematics", label: "Mathematics" },
+        { value: "Physics", label: "SST" },
+        { value: "Chemistry", label: "Science" },
+      ];
+    }
+    return [
+      { value: "Mathematics", label: "Mathematics" },
+      { value: "Physics", label: "Physics" },
+      { value: "Chemistry", label: "Chemistry" },
+    ];
+  };
   const getFilteredData = () => {
     const currentClassData = classes.find(
       (cls) => cls.className === selectedClass
     );
-  
+
     if (!currentClassData) return [];
-  
+
     let filteredStudents: Student[] = [];
-  
+
     if (subjectFilter === "Physics") {
       filteredStudents = currentClassData.physics;
     } else if (subjectFilter === "Chemistry") {
@@ -124,7 +137,7 @@ const DatabaseTable: FC = () => {
         ...currentClassData.maths,
       ];
     }
-  
+
     const filteredByMonth = filteredStudents.filter((student) =>
       student.tests.some(
         (test) =>
@@ -132,25 +145,24 @@ const DatabaseTable: FC = () => {
           new Date(test.date).getMonth() === months.indexOf(monthFilter)
       )
     );
-  
+
     return filteredByMonth
       .map((student) => {
         const latestTest = student.tests[student.tests.length - 1];
         const percentage =
           (latestTest.marksObtained / latestTest.totalMarks) * 100;
-  
+
         // Map subject names based on the selected class
-        const subjectName =
-          currentClassData.physics.includes(student)
-            ? selectedClass === "9" || selectedClass === "10"
-              ? "SST"
-              : "Physics"
-            : currentClassData.chemistry.includes(student)
-            ? selectedClass === "9" || selectedClass === "10"
-              ? "Science"
-              : "Chemistry"
-            : "Mathematics";
-  
+        const subjectName = currentClassData.physics.includes(student)
+          ? selectedClass === "9" || selectedClass === "10"
+            ? "SST"
+            : "Physics"
+          : currentClassData.chemistry.includes(student)
+          ? selectedClass === "9" || selectedClass === "10"
+            ? "Science"
+            : "Chemistry"
+          : "Mathematics";
+
         return {
           name: student.userName,
           score: `${latestTest.marksObtained}/${latestTest.totalMarks}`,
@@ -166,7 +178,7 @@ const DatabaseTable: FC = () => {
         rank: index + 1,
       }));
   };
-  
+
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const bottom =
       e.currentTarget.scrollHeight - e.currentTarget.scrollTop <=
@@ -203,9 +215,11 @@ const DatabaseTable: FC = () => {
           onChange={(e) => setSubjectFilter(e.target.value || null)}
         >
           <option value="">All Subjects</option>
-          <option value="Mathematics">Mathematics</option>
-          <option value="Physics">Physics</option>
-          <option value="Chemistry">Chemistry</option>
+          {getSubjectOptions().map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
         </select>
         <select
           className="select select-bordered max-w-xs bg-transparent text-primary-a40"
