@@ -13,7 +13,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white py-20 px-6 lg:px-20 xl:px-52 overflow-hidden"
+      className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white md:py-20 py-6 px-6 lg:px-20 xl:px-52 overflow-hidden"
       // className="relative bg-gradient-to-b from-[#241448] to-[#5631AE] text-white py-10 px-6 lg:px-20 xl:px-52 overflow-hidden"
     >
       {/* Particle Animation */}
@@ -120,7 +120,7 @@ const HeroSection = () => {
             </Link>
           </div>
           <motion.p
-            className="text-sm text-gray-300 mt-32"
+            className="text-sm text-gray-100 mt-2 md:mt-32"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.5 }}
@@ -131,7 +131,7 @@ const HeroSection = () => {
 
         {/* Right Section */}
         <motion.div
-          className="flex items-center justify-center space-x-4 relative"
+          className="md:flex hidden items-center  justify-center space-x-4 relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}

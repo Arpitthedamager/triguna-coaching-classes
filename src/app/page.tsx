@@ -48,9 +48,9 @@ export default function Home() {
           <div className="md:w-1/2 w-full mt-10 md:mt-0">
             <TeacherSlideshow />
           </div>
-          <div className="md:w-1/2 w-full">
+          {/* <div className="md:w-1/2 w-full">
             <Game />
-          </div>
+          </div> */}
         </div>
       </div>
       <CoachingProcess />

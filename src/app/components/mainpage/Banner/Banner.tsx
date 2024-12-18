@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Banner: React.FC = () => {
   return (
-    <motion.div className=" h-96 bg-fixed  bg-cover  text-white py-8 px-6 md:px-52 rounded-lg flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+    <motion.div className=" md:h-96 bg-fixed  bg-cover  text-white py-8 px-6 md:px-52 rounded-lg flex flex-col md:flex-row md:justify-between items-center space-y-4 md:space-y-0"
     initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }} // Triggers when 20% of the component is in view

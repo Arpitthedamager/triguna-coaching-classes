@@ -45,8 +45,8 @@ const TeacherSlideshow = () => {
 
   return (
     <section className="py-10 px-4 ">
-      <h2 className="text-6xl text-primary-a20 font-bold mb-4">Meet Our Educators</h2>
-      <p className="text-gray-600 text-2xl mb-8">Dedicated educators driving our mission</p>
+      <h2 className="md:text-6xl text-5xl text-primary-a20 font-bold mb-4">Meet Our Educators</h2>
+      <p className="text-gray-600 md:text-2xl text-xl mb-8">Dedicated educators driving our mission</p>
 
       <div className="relative w-full max-w-4xl mx-auto">
         <AnimatePresence mode="wait">

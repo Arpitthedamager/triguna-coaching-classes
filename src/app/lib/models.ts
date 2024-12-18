@@ -35,14 +35,19 @@ interface Calendar extends Document {
   }[];
 }
 
-interface ITestPaper extends Document {
+interface ITestPaper {
   title: string;
-  description?: string;
-  teacher: mongoose.Types.ObjectId;
-  image?: string;
-  downloadLink?: string;
-  openLink?: string;
-  class: number;
+  description: string;
+  teacher: Schema.Types.ObjectId;  // Assuming teacher is a reference to the User model
+  image: string;
+  downloadLink: string;
+  openLink: string;
+  dateAdded: Date; // Date the test paper was added
+}
+
+interface ITestPaperClass extends Document {
+  class: number; // Class number (9-12)
+  testPapers: ITestPaper[];  // Array of test papers for this class
 }
 
 interface IStatistics extends Document {
@@ -150,14 +155,19 @@ const UserSchema = new Schema<IUser>(
   { timestamps: true }
 );
 
-const TestPaperSchema = new Schema<ITestPaper>({
-  title: { type: String, required: true },
-  description: { type: String },
-  teacher: { type: Schema.Types.ObjectId, ref: "User" },
-  image: { type: String },
-  downloadLink: { type: String },
-  openLink: { type: String },
-  class: { type: Number, min: 9, max: 12 },
+const TestPaperSchema = new Schema<ITestPaperClass>({
+  class: { type: Number, required: true, min: 9, max: 12 },  // Class number (9 to 12)
+  testPapers: [
+    {
+      title: { type: String, required: true },
+      description: { type: String },
+      teacher: { type: Schema.Types.ObjectId, ref: "User" },  // Assuming teacher is an ObjectId reference to the User model
+      image: { type: String },
+      downloadLink: { type: String },
+      openLink: { type: String },
+      dateAdded: { type: Date, default: Date.now }, // Date the paper was added
+    },
+  ],
 });
 
 // Define the schema for the test data
@@ -277,8 +287,8 @@ const CalendarSchema = new Schema<Calendar>({
 // Models
 const User: Model<IUser> =
   mongoose.models.User || mongoose.model("User", UserSchema);
-const TestPaper: Model<ITestPaper> =
-  mongoose.models.TestPaper || mongoose.model("TestPaper", TestPaperSchema);
+const TestPaperClass: Model<ITestPaperClass> =
+  mongoose.models.TestPaperClass || mongoose.model("TestPaperClass", TestPaperSchema);
 const Fee: Model<IFee> =
   mongoose.models.Fee || mongoose.model("Fee", FeeSchema);
 const Attendance: Model<IAttendance> =
@@ -298,7 +308,7 @@ const TestModel: Model<ITest> =
 
 export {
   User,
-  TestPaper,
+  TestPaperClass,
   Fee,
   Attendance,
   StudyMaterial,

@@ -37,7 +37,7 @@ const FAQs: React.FC = () => {
 
   return (
     <motion.section
-      className="text-primary-a20 py-10 px-6"
+      className="text-primary-a20 text-centerpy-10 md:px-6"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -52,7 +52,7 @@ const FAQs: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="text-5xl font-bold mb-2">
+          <h2 className="md:text-5xl text-4xl font-bold mb-2">
             Frequently asked questions answered
           </h2>
           <p className="text-gray-600 text-xl">

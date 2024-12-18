@@ -130,10 +130,10 @@ const AdminDashboard = () => {
           <Results />
         </motion.div>
       );
-    }else if (activeContent === "study matarials") {
+    }else if (activeContent === "studyMaterials") {
       return (
         <motion.div
-          key="study matarials"
+          key="studyMaterials"
           initial="hidden"
           animate="visible"
           exit="exit"

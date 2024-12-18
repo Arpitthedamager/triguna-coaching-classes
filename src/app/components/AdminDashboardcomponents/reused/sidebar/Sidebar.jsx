@@ -59,7 +59,7 @@ const Sidebar = ({ onMenuClick }) => {
       alert("Invitation link copied to clipboard!");
     }
   };
-
+  
   const menuItems = [
     { label: "Dashboard", key: "dashboard" },
     { label: "Profile", key: "profile" },

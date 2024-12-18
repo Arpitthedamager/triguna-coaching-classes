@@ -162,13 +162,13 @@ const FeedbackSection: React.FC = () => {
         {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
-          className="absolute -left-10 top-1/2 transform -translate-y-1/2 text-4xl hover:text-5xl text-gray-600 p-2 rounded-full transition"
+          className="absolute md:-left-10 -left-8 top-1/2 transform -translate-y-1/2 text-4xl md:hover:text-5xl text-gray-600 p-2 rounded-full transition"
         >
           &lt;
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 text-4xl hover:text-5xl text-gray-600 p-2 rounded-full transition"
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 text-4xl md:hover:text-5xl text-gray-600 p-2 rounded-full transition"
         >
           &gt;
         </button>
