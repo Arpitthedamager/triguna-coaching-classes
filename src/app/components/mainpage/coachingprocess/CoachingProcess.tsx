@@ -89,7 +89,7 @@ const FeaturesSection = () => {
           Unlock Your Potential with Expert Coaching
         </h2>
         <p className="md:text-2xl text-xl text-gray-600">
-          Our expert facilities are dedicated to nurturing each student's unique abilities. Experience personalized coaching that leads to outstanding academic results.
+          Our expert facilities are dedicated to nurturing each student&apos;s unique abilities. Experience personalized coaching that leads to outstanding academic results.
         </p>
       </motion.div>
 
