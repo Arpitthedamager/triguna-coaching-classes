@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { connectToDatabase } from "@/app/lib/utils";
+import {TestModel} from "@/app/lib/models"; // Adjust the import path as necessary
 
 interface Test {
-  date: string;
+  date: string | Date;
   marksObtained: number;
   totalMarks: number;
 }
+
 
 interface SubjectData {
   userEmail: string;
@@ -12,129 +15,16 @@ interface SubjectData {
   tests: Test[];
 }
 
-interface DummyData {
-  class: string;
-  physics: SubjectData[];
-  chemistry: SubjectData[];
-  maths: SubjectData[];
-}
-
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const { className } = await req.json();
 
-    const dummyData: DummyData[] = [
-        {
-          class: "11",
-          physics: [
-            {
-              userEmail: "student1@gmail.com",
-              userName: "Student 1",
-              tests: [
-                { date: "2023-12-01", marksObtained: 43, totalMarks: 50 },
-                { date: "2024-11-01", marksObtained: 40, totalMarks: 50 },
-                { date: "2024-10-01", marksObtained: 45, totalMarks: 50 },
-              ],
-            },
-            {
-              userEmail: "student2@gmail.com",
-              userName: "Student 2",
-              tests: [
-                { date: "2024-12-01", marksObtained: 46, totalMarks: 50 },
-                { date: "2024-11-01", marksObtained: 42, totalMarks: 50 },
-              ],
-            },
-          ],
-          chemistry: [
-            {
-              userEmail: "student1@gmail.com",
-              userName: "Student 1",
-              tests: [
-                { date: "2024-12-01", marksObtained: 48, totalMarks: 50 },
-                { date: "2024-11-01", marksObtained: 45, totalMarks: 50 },
-              ],
-            },
-          ],
-          maths: [
-            {
-              userEmail: "student1@gmail.com",
-              userName: "Student 1",
-              tests: [
-                { date: "2024-12-01", marksObtained: 50, totalMarks: 50 },
-                { date: "2024-11-01", marksObtained: 48, totalMarks: 50 },
-              ],
-            },
-          ],
-        },
-        {
-          class: "12",
-          physics: [
-            {
-              userEmail: "student3@gmail.com",
-              userName: "Student 3",
-              tests: [
-                { date: "2024-12-01", marksObtained: 38, totalMarks: 50 },
-                { date: "2024-11-01", marksObtained: 41, totalMarks: 50 },
-              ],
-            },
-          ],
-          chemistry: [
-            {
-              userEmail: "student3@gmail.com",
-              userName: "Student 3",
-              tests: [
-                { date: "2024-12-01", marksObtained: 44, totalMarks: 50 },
-              ],
-            },
-          ],
-          maths: [
-            {
-              userEmail: "student3@gmail.com",
-              userName: "Student 3",
-              tests: [
-                { date: "2024-12-01", marksObtained: 49, totalMarks: 50 },
-              ],
-            },
-          ],
-        },
-        {
-          class: "12",
-          physics: [
-            {
-              userEmail: "student4@gmail.com",
-              userName: "Student 4",
-              tests: [
-                { date: "2024-12-01", marksObtained: 39, totalMarks: 50 },
-                { date: "2024-11-01", marksObtained: 42, totalMarks: 50 },
-                { date: "2024-10-01", marksObtained: 43, totalMarks: 50 },
-              ],
-            },
-          ],
-          chemistry: [
-            {
-              userEmail: "student4@gmail.com",
-              userName: "Student 4",
-              tests: [
-                { date: "2024-12-01", marksObtained: 45, totalMarks: 50 },
-              ],
-            },
-          ],
-          maths: [
-            {
-              userEmail: "student4@gmail.com",
-              userName: "Student 4",
-              tests: [
-                { date: "2024-12-01", marksObtained: 50, totalMarks: 50 },
-              ],
-            },
-          ],
-        },
-      ];
-  
+    // Connect to the database
+    await connectToDatabase();
 
-    const classData = dummyData.find((item) => item.class === className);
-    // console.log(className);
-    
+    // Fetch class data from the database
+    const classData = await TestModel.findOne({ class: className });
+
     if (!classData) {
       return NextResponse.json({ message: "Class not found" }, { status: 404 });
     }
@@ -166,9 +56,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     };
 
     const response = {
-      physics: calculateMonthlyAverages(classData.physics),
-      chemistry: calculateMonthlyAverages(classData.chemistry),
-      maths: calculateMonthlyAverages(classData.maths),
+      physics: calculateMonthlyAverages(classData.physics || []),
+      chemistry: calculateMonthlyAverages(classData.chemistry || []),
+      maths: calculateMonthlyAverages(classData.maths || []),
     };
 
     return NextResponse.json(response);
