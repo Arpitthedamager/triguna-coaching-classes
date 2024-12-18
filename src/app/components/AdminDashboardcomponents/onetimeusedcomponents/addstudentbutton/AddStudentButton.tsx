@@ -14,9 +14,10 @@ const AddStudentOrTestButton: FC = () => {
   const [marks, setMarks] = useState<{ [email: string]: number | "" }>({});
   const [outOfMarks, setOutOfMarks] = useState<number | "">("");
 
-  const [students, setStudents] = useState<
-    { userName: string; userEmail: string }[]
-  >([]);
+  const [students, setStudents] = useState<{
+    userName: string;
+    userEmail: string;
+  }[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
@@ -162,6 +163,19 @@ const AddStudentOrTestButton: FC = () => {
     fetchStudents(); // Fetch students whenever class or subject changes
   }, [className, subject]);
 
+  // Determine subject options based on class
+  const subjectOptions = className === "9" || className === "10"
+    ? [
+        { label: "SST", value: "Physics" },
+        { label: "Science", value: "Chemistry" },
+        { label: "Mathematics", value: "Maths" },
+      ]
+    : [
+        { label: "Physics", value: "Physics" },
+        { label: "Chemistry", value: "Chemistry" },
+        { label: "Mathematics", value: "Maths" },
+      ];
+
   return (
     <>
       <button
@@ -206,9 +220,11 @@ const AddStudentOrTestButton: FC = () => {
                 className="select select-bordered w-full"
               >
                 <option value="">Select Subject</option>
-                <option value="Physics">Physics</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Mathematics">Mathematics</option>
+                {subjectOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -331,12 +347,6 @@ const AddStudentOrTestButton: FC = () => {
                   Save Test
                 </button>
               </>
-            )}
-
-            {!isValidForm && (
-              <p className="text-red-500 mt-4">
-                Please select both Class and Subject to proceed.
-              </p>
             )}
           </div>
         </div>
