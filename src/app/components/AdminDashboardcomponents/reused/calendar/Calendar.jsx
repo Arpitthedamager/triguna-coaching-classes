@@ -1,13 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  format,
-  startOfMonth,
-  endOfMonth,
-  eachDayOfInterval,
-  addMonths,
-  subMonths,
-  isToday,
-} from "date-fns";
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isToday } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Timetable from "../../main/timetable/Timetable"; // Include Timetable if needed
@@ -23,6 +15,14 @@ const Calendar = () => {
   const [popupDate, setPopupDate] = useState(null);
   const [newEvent, setNewEvent] = useState({});
 
+  // Mapping for class-specific subject names
+  const subjectMapping = {
+    9: { Physics: "SST", Chemistry: "Science", Math: "Math" },
+    10: { Physics: "SST", Chemistry: "Science", Math: "Math" },
+    11: { Physics: "Physics", Chemistry: "Chemistry", Math: "Math" },
+    12: { Physics: "Physics", Chemistry: "Chemistry", Math: "Math" },
+  };
+
   // Fetch events for the selected class
   useEffect(() => {
     const fetchEvents = async () => {
@@ -34,7 +34,7 @@ const Calendar = () => {
     };
     fetchEvents();
   }, [selectedClass]);
-  // console.log(session)
+
   // Get all days for the current month
   const start = startOfMonth(currentMonth);
   const end = endOfMonth(currentMonth);
@@ -45,29 +45,22 @@ const Calendar = () => {
     return events.find((event) => event.date === format(date, "yyyy-MM-dd"));
   };
 
-  // Helper: Get class based on the number of "off" subjects and the test status
+  // Helper: Get class-based color for the date
   const getColorForDate = (date) => {
     const event = getEventsForDate(date);
-
     if (event) {
-      const testSubjects = Object.entries(event.subjects).filter(
-        ([, info]) => info.status === "test"
-      );
-
+      const testSubjects = Object.entries(event.subjects).filter(([ , info]) => info.status === "test");
       if (testSubjects.length > 0) {
         return "bg-red-900 text-white"; // Dark red for test days
       }
 
-      const offCount = Object.values(event.subjects).filter(
-        (subj) => subj.status === "off"
-      ).length;
-
-      if (offCount === 1) return "bg-green-100 text-green-700"; // 1 subject off
-      if (offCount === 2) return "bg-blue-100 text-blue-700"; // 2 subjects off
-      if (offCount === 3) return "bg-red-100 text-red-700"; // All subjects off
+      const offCount = Object.values(event.subjects).filter(subj => subj.status === "off").length;
+      if (offCount === 1) return "bg-green-100 text-green-700";
+      if (offCount === 2) return "bg-blue-100 text-blue-700";
+      if (offCount === 3) return "bg-red-100 text-red-700";
     }
 
-    return "bg-gray-100 text-gray-700"; // Default (no classes off)
+    return "bg-gray-100 text-gray-700";
   };
 
   // Highlight today's date
@@ -76,13 +69,8 @@ const Calendar = () => {
   };
 
   // Handle month navigation
-  const handlePrevMonth = () => {
-    setCurrentMonth((prev) => subMonths(prev, 1));
-  };
-
-  const handleNextMonth = () => {
-    setCurrentMonth((prev) => addMonths(prev, 1));
-  };
+  const handlePrevMonth = () => setCurrentMonth((prev) => subMonths(prev, 1));
+  const handleNextMonth = () => setCurrentMonth((prev) => addMonths(prev, 1));
 
   // Open popup for adding a new event
   const handleDateClick = (date) => {
@@ -95,13 +83,12 @@ const Calendar = () => {
 
   // Submit new event
   const handleAddEvent = async () => {
-    // Ensure that newEvent is formatted correctly with the subject statuses
     const formattedSubjects = {
-      Physics: { status: newEvent.Physics || "on" },  // Default to "off" if no status is provided
+      Physics: { status: newEvent.Physics || "on" },
       Chemistry: { status: newEvent.Chemistry || "on" },
       Math: { status: newEvent.Math || "on" },
     };
-  
+
     // Send the data with the correct format
     const res = await fetch(`/api/calendar`, {
       method: "POST",
@@ -111,7 +98,7 @@ const Calendar = () => {
         event: { date: popupDate, subjects: formattedSubjects },
       }),
     });
-  
+
     const data = await res.json();
     if (data.success) {
       setEvents((prev) => [...prev, { date: popupDate, subjects: formattedSubjects }]);
@@ -121,13 +108,10 @@ const Calendar = () => {
       console.error(data.message);
     }
   };
-  
 
   // Delete an event
   const handleDeleteEvent = async (date) => {
-    const res = await fetch(`/api/calendar?className=${selectedClass}&eventDate=${date}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(`/api/calendar?className=${selectedClass}&eventDate=${date}`, { method: "DELETE" });
     const data = await res.json();
     if (data.success) {
       setEvents((prev) => prev.filter((event) => event.date !== date));
@@ -171,9 +155,7 @@ const Calendar = () => {
         <button onClick={handlePrevMonth} className="btn btn-sm btn-outline">
           &lt; Prev
         </button>
-        <h2 className="text-lg font-bold text-center">
-          {format(currentMonth, "MMMM yyyy")}
-        </h2>
+        <h2 className="text-lg font-bold text-center">{format(currentMonth, "MMMM yyyy")}</h2>
         <button onClick={handleNextMonth} className="btn btn-sm btn-outline">
           Next &gt;
         </button>
@@ -232,44 +214,38 @@ const Calendar = () => {
       {/* Popup for Adding Events */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h3 className="text-lg font-bold mb-4">Add Event for {popupDate}</h3>
-      
-          {Object.keys(newEvent).map((subject) => (
-            <div key={subject} className="mb-4">
-              <label className="block font-medium mb-2">{subject}</label>
-              <select
-                value={newEvent[subject]}
-                onChange={(e) =>
-                  setNewEvent((prev) => ({ ...prev, [subject]: e.target.value }))
-                }
-                className="p-2 border rounded-lg w-full"
-              >
-                <option value="">Select Status</option>
-                <option value="on">On</option>
-                <option value="off">Off</option>
-                <option value="test">Test</option>
-              </select>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-lg font-bold mb-4">Add Event for {popupDate}</h3>
+
+            {Object.keys(newEvent).map((subject) => {
+              const displayedSubject = subjectMapping[selectedClass][subject];
+              return (
+                <div key={subject} className="mb-4">
+                  <label className="block font-medium mb-2">{displayedSubject}</label>
+                  <select
+                    value={newEvent[subject]}
+                    onChange={(e) => setNewEvent((prev) => ({ ...prev, [subject]: e.target.value }))}
+                    className="p-2 border rounded-lg w-full"
+                  >
+                    <option value="">Select Status</option>
+                    <option value="on">On</option>
+                    <option value="off">Off</option>
+                    <option value="test">Test</option>
+                  </select>
+                </div>
+              );
+            })}
+
+            <div className="flex justify-end space-x-4">
+              <button onClick={() => setShowPopup(false)} className="btn btn-outline">Cancel</button>
+              <button onClick={handleAddEvent} className="btn btn-primary">Add</button>
             </div>
-          ))}
-      
-          <div className="flex justify-end space-x-4">
-            <button
-              onClick={() => setShowPopup(false)}
-              className="btn btn-outline"
-            >
-              Cancel
-            </button>
-            <button onClick={handleAddEvent} className="btn btn-primary">
-              Add
-            </button>
           </div>
         </div>
-      </div>
-      
       )}
- {/* Legend */}
- <motion.div
+
+      {/* Legend */}
+      <motion.div
         className="mt-4 text-sm"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -295,6 +271,7 @@ const Calendar = () => {
           </div>
         </div>
       </motion.div>
+
       {/* Timetable (Optional, if needed) */}
       <Timetable />
     </div>

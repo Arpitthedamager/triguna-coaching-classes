@@ -15,21 +15,22 @@ import { useSession } from "next-auth/react";
 import Timetable from "../../main/timetable/Timetable"; // Include Timetable if needed
 
 const Calendar = () => {
-  const { data: session } = useSession();
-  const [selectedClass] = useState(
-    session?.user?.class || "9"
-  );
-  // console.log(selectedClass);
-  // State to manage the current month
+  const { data: session, status } = useSession(); // Add status to track loading
+  const [selectedClass, setSelectedClass] = useState(null); // Initially set to null
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
-  // State to store fetched events
   const [events, setEvents] = useState([]);
 
-  // Get class from session, fallback to '9' if class is not available
-
-  // Fetch event data when the component mounts
+  // Fetch event data when the session is available
   useEffect(() => {
+    if (status === "loading") return; // Don't fetch while loading session
+    if (session) {
+      setSelectedClass(session?.user?.class); // Set selected class once session is loaded
+    }
+  }, [status, session]);
+
+  useEffect(() => {
+    if (!selectedClass) return; // Don't fetch if class is not available yet
+
     const fetchEvents = async () => {
       const res = await fetch(`/api/calendar?className=${selectedClass}`);
       const data = await res.json();
@@ -37,8 +38,9 @@ const Calendar = () => {
         setEvents(data.data);
       }
     };
+
     fetchEvents();
-  }, [selectedClass]); // Empty dependency array ensures this runs once on mount
+  }, [selectedClass]);
 
   // Get all days for the current month
   const start = startOfMonth(currentMonth);
@@ -88,6 +90,20 @@ const Calendar = () => {
   const handleNextMonth = () => {
     setCurrentMonth((prev) => addMonths(prev, 1));
   };
+
+  // Helper function to map subject names for class 9 and 10
+  const mapSubjectNames = (subject) => {
+    if (selectedClass === "9" || selectedClass === "10") {
+      if (subject === "Physics") return "SST";
+      if (subject === "Chemistry") return "Science";
+    }
+    return subject;
+  };
+
+  // Loading state (while session is being loaded)
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col bg-white rounded-2xl text-gray-600 items-center w-full p-4">
@@ -171,8 +187,10 @@ const Calendar = () => {
                       {Object.entries(event.subjects).map(
                         ([subject, info], idx) => (
                           <div key={idx}>
-                            <span className="font-medium">{subject}</span>:{" "}
-                            {info.status}{" "}
+                            <span className="font-medium">
+                              {mapSubjectNames(subject)}
+                            </span>
+                            : {info.status}{" "}
                           </div>
                         )
                       )}
