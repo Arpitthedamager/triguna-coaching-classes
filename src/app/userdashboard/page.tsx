@@ -22,14 +22,18 @@ import ProfileLink from "../components/UserDashboardcomponents/links/profilelink
 const UserDashboard = () => {
   const { data: session, status } = useSession();
   const [activeContent, setActiveContent] = useState("dashboard");
-  const [modalContent, setModalContent] = useState<"calendar" | "notice" | null>(
-    null
-  );
+  const [modalContent, setModalContent] = useState<
+    "calendar" | "notice" | null
+  >(null);
   const router = useRouter();
 
   const contentVariants = {
     hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring" } },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, type: "spring" },
+    },
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
 
@@ -51,14 +55,24 @@ const UserDashboard = () => {
             exit="exit"
             variants={contentVariants}
           >
-            <Header />
+            <div className="hidden md:block">
+              <Header />
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <StatCard title="Total Students" value="220" bgColor="bg-blue-200" />
+              <StatCard
+                title="Total Students"
+                value="220"
+                bgColor="bg-blue-200"
+              />
               <StatCard title="Total Books" value="120" bgColor="bg-red-200" />
               <StatCard title="Total Notes" value="15" bgColor="bg-green-200" />
-              <StatCard title="Total Tests" value="100" bgColor="bg-yellow-200" />
+              <StatCard
+                title="Total Tests"
+                value="100"
+                bgColor="bg-yellow-200"
+              />
             </div>
-            <div className="mt-6  grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="mt-6  grid grid-cols-1 lg:grid-cols-3 gap-4">
               <div className="lg:col-span-2 ml-2">
                 <StatisticsGraph />
               </div>
@@ -106,11 +120,13 @@ const UserDashboard = () => {
 
   return (
     <div className="flex flex-col lg:flex-row bg-primary-content">
-      <div className="fixed lg:sticky top-0 left-0 h-full lg:w-64 z-10">
+      <div className="md:sticky block top-0 left-0 h-full lg:w-64 z-10">
         <Sidebar onMenuClick={setActiveContent} />
       </div>
-      <div className="flex-1 p-4 pt-0 space-y-6">
-        <div className="flex justify-end space-x-4 lg:hidden">
+      <div className="flex-1 p-4 md:p-0 space-y-6">
+        <div className="sticky flex justify-end space-x-4 lg:hidden">
+          {activeContent === "dashboard" && <Header />}
+
           <button
             onClick={() => setModalContent("calendar")}
             className="text-primary hover:text-primary-focus"
@@ -124,13 +140,15 @@ const UserDashboard = () => {
             <FaBell size={24} />
           </button>
         </div>
-        <main className="p-6 pt-0 mt-0 grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">{renderContent()}</div>
-          <div className="hidden lg:block space-y-6">
+        <main className="md:p-6 pt-0 mt-0 min-h-screen overflow-auto flex flex-col lg:flex-row gap-6">
+          <div className="lg:w-2/3 space-y-6">{renderContent()}</div>
+          <div className="hidden lg:block lg:w-1/3 space-y-6">
             <Calendar />
             <NoticeBoard />
           </div>
-        </main>        {modalContent && (
+        </main>
+
+        {modalContent && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg p-6 w-11/12 max-w-md shadow-lg">
               <button

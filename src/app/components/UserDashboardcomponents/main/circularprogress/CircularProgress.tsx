@@ -36,27 +36,10 @@ const CircularProgressWithClass: FC = () => {
   const strokeDashoffset = strokeDasharray - (percentage / 100) * strokeDasharray;
 
   return (
-    <div className="flex flex-col items-center">
-      {/* Dropdown for class selection */}
-      {/* <div className="flex flex-col items-center">
-        <label htmlFor="class-select" className="text-lg font-medium text-gray-700">
-          Select Class
-        </label>
-        <select
-          id="class-select"
-          className="mt-2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-          value={selectedClass.class}
-          onChange={(e) =>
-            setSelectedClass(classData.find((cls) => cls.class === e.target.value)!)
-          }
-        >
-          {classData.map((cls) => (
-            <option key={cls.class} value={cls.class}>
-              Class {cls.class}
-            </option>
-          ))}
-        </select>
-      </div> */}
+    <
+    // className="flex flex-col items-center"
+    >
+    
 
       {/* Circular Progress Bar */}
       <div className="flex flex-col  rounded-xl items-center py-4 space-y-4 bg-white w-56 h-72 ">
@@ -121,7 +104,7 @@ const CircularProgressWithClass: FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -73,7 +73,7 @@ const Sidebar = ({ onMenuClick }) => {
   return (
     <>
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 bg-primary-a20 text-white p-2 rounded-full shadow-md"
+        className="lg:hidden absolute top-4 left-4 z-50 bg-primary-a20 text-white p-2 rounded-full shadow-md"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {isOpen ? "✖" : "☰"}
@@ -87,7 +87,7 @@ const Sidebar = ({ onMenuClick }) => {
         initial="hidden"
         animate={isOpen || window.innerWidth >= 1024 ? "visible" : "hidden"}
       >
-        <div className="p-4">
+        <div className="p-4 ">
           <h2 className="text-2xl font-bold pb-4 pl-2 text-primary-a10">Triguna Coaching Classes</h2>
           <ul className="menu p-0">
             {menuItems.map((item, index) => (
