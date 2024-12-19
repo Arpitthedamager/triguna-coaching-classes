@@ -53,8 +53,8 @@ const UserDashboard = () => {
           variants={contentVariants}
         >
           <Header />
-          <div className="grid grid-cols-4 gap-4">
-            <StatCard title="Total Students" value="220" bgColor="bg-blue-200" />
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <StatCard title="Total Students" value="220" bgColor="bg-blue-200" />
             <StatCard title="Total Books" value="120" bgColor="bg-red-200" />
             <StatCard title="Total Notes" value="15" bgColor="bg-green-200" />
             <StatCard title="Total Test" value="100" bgColor="bg-yellow-200" />
