@@ -115,17 +115,61 @@ const TestPapers: FC = () => {
 
       {/* Test Papers Section */}
       <div className="mt-8">
-        {/* Display the current set of 3 test papers */}
-        <div className="flex gap-4">
+        {/* Mobile view: Flex container for slideshow */}
+        <div className="lg:hidden overflow-x-auto flex space-x-4">
           {allTestPapers
             .slice(currentIndex, currentIndex + 3) // Slice to show only 3 cards at a time
-            .map((paper) => (
+            .map((paper, index) => (
               <motion.div
                 key={paper.id}
-                className="w-1/3 p-4 bg-white rounded-lg shadow-lg"
+                className="md:w-1/3 w-auto p-4 bg-white rounded-lg shadow-lg flex-shrink-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <img
+                  src={paper.image}
+                  alt={paper.title}
+                  className="w-full h-40 object-cover rounded-lg mb-4"
+                />
+                <div>
+                  <h4 className="font-bold text-gray-800">{paper.title}</h4>
+                  <p className="text-sm text-gray-600 mb-2">{paper.description}</p>
+                  <span className="text-xs text-gray-500">By {paper.teacher}</span>
+                  <div className="mt-4 space-x-4">
+                    <a
+                      href={paper.downloadLink}
+                      className="text-primary-a20 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download PDF
+                    </a>
+                    <a
+                      href={paper.openLink}
+                      className="text-green-500 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open PDF
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+        </div>
+
+        {/* Large screens: Grid container */}
+        <div className="hidden lg:grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {allTestPapers
+            .slice(currentIndex, currentIndex + 3)
+            .map((paper, index) => (
+              <motion.div
+                key={paper.id}
+                className="w-full p-4 bg-white rounded-lg shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
               >
                 <img
                   src={paper.image}

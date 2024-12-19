@@ -189,7 +189,7 @@ const StudyMaterial: FC = () => {
             <input
               type="text"
               placeholder="Search"
-              className="input input-bordered rounded-full w-full max-w-xs pr-0 text-gray-600" // Increased padding-right for the icon
+              className="input input-bordered rounded-full w-full md:max-w-xs max-w-36 pr-0 text-gray-600" // Increased padding-right for the icon
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -211,48 +211,98 @@ const StudyMaterial: FC = () => {
       )}
 
       {/* Recently Viewed Section */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-700 mb-4">Recently Viewed</h3>
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {renderMaterials(filteredRecentlyViewed.slice(currentIndexViewed, currentIndexViewed + 3))}
-        </div>
-        <div className="flex justify-between mt-4">
-          <button
-            onClick={handlePrevClickViewed}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
-          >
-            Prev
-          </button>
-          <button
-            onClick={handleNextClickViewed}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+<div className="mb-8">
+  <h3 className="text-lg font-semibold text-gray-700 mb-4">Recently Viewed</h3>
+  
+  {/* Mobile view: Flex container for slideshow */}
+  <div className="lg:hidden overflow-x-auto flex space-x-4">
+    {filteredRecentlyViewed.slice(currentIndexViewed, currentIndexViewed + 3).map((material, index) => (
+      <motion.div
+        key={material.id}
+        className="card bg-transparent p-4 bg-white rounded-lg shadow hover:shadow-lg flex-shrink-0"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: index * 0.1, duration: 0.3 }}
+      >
+        <img
+          src={material.image}
+          alt={material.title}
+          className="w-full h-40 object-cover rounded-lg mb-4"
+        />
+        <h4 className="font-bold text-gray-800">{material.title}</h4>
+        <p className="text-sm text-gray-600 mb-2">{material.description}</p>
+        <span className="text-xs text-gray-500">By {material.teacher}</span>
+      </motion.div>
+    ))}
+  </div>
+  
+  {/* Large screens: Grid container */}
+  <div className="hidden lg:grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {renderMaterials(filteredRecentlyViewed.slice(currentIndexViewed, currentIndexViewed + 3))}
+  </div>
 
-      {/* Recently Added Section */}
-      <div>
-        <h3 className="text-lg font-semibold text-gray-700 mb-4">Recently Added</h3>
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {renderMaterials(sortedRecentlyAdded.slice(currentIndex, currentIndex + 3))}
-        </div>
-        <div className="flex justify-between mt-4">
-          <button
-            onClick={handlePrevClick}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
-          >
-            Prev
-          </button>
-          <button
-            onClick={handleNextClick}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+  <div className="flex justify-between mt-4">
+    <button
+      onClick={handlePrevClickViewed}
+      className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
+    >
+      Prev
+    </button>
+    <button
+      onClick={handleNextClickViewed}
+      className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
+{/* Recently Added Section */}
+<div>
+  <h3 className="text-lg font-semibold text-gray-700 mb-4">Recently Added</h3>
+  
+  {/* Mobile view: Flex container for slideshow */}
+  <div className="lg:hidden overflow-x-auto flex space-x-4">
+    {sortedRecentlyAdded.slice(currentIndex, currentIndex + 3).map((material, index) => (
+      <motion.div
+        key={material.id}
+        className="card bg-transparent p-4 bg-white rounded-lg shadow hover:shadow-lg flex-shrink-0"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: index * 0.1, duration: 0.3 }}
+      >
+        <img
+          src={material.image}
+          alt={material.title}
+          className="w-full h-40 object-cover rounded-lg mb-4"
+        />
+        <h4 className="font-bold text-gray-800">{material.title}</h4>
+        <p className="text-sm text-gray-600 mb-2">{material.description}</p>
+        <span className="text-xs text-gray-500">By {material.teacher}</span>
+      </motion.div>
+    ))}
+  </div>
+  
+  {/* Large screens: Grid container */}
+  <div className="hidden lg:grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {renderMaterials(sortedRecentlyAdded.slice(currentIndex, currentIndex + 3))}
+  </div>
+
+  <div className="flex justify-between mt-4">
+    <button
+      onClick={handlePrevClick}
+      className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
+    >
+      Prev
+    </button>
+    <button
+      onClick={handleNextClick}
+      className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
+    >
+      Next
+    </button>
+  </div>
+</div>
 
       {/* All Materials Section */}
       <div className="mt-8">

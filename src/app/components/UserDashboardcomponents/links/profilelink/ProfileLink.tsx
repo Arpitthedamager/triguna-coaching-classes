@@ -10,11 +10,11 @@ const ProfileLink: React.FC = () => {
     <>
       <Header />
       <Profile />
-      <div className="flex gap-4">
+      <div className="md:flex gap-4">
         <div className="flex-1">
           <StatisticsGraph />
         </div>
-        <div className="flex-none">
+        <div className="flex-none pt-10 md:pt-0">
           <CircularProgress/>
         </div>
       </div>
