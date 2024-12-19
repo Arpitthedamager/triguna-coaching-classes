@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const Sidebar = ({ onMenuClick }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -88,7 +89,9 @@ const Sidebar = ({ onMenuClick }) => {
         animate={isOpen || window.innerWidth >= 1024 ? "visible" : "hidden"}
       >
         <div className="p-4 ">
-          <h2 className="text-2xl font-bold pb-4 pl-2 text-primary-a10">Triguna Coaching Classes</h2>
+          <h2 className="text-2xl font-bold pb-4 pl-2 text-primary-a10">
+            Triguna Coaching Classes
+          </h2>
           <ul className="menu p-0">
             {menuItems.map((item, index) => (
               <motion.li
@@ -115,14 +118,19 @@ const Sidebar = ({ onMenuClick }) => {
           transition={{ delay: 0.5 }}
         >
           <div className="flex flex-col items-center">
-            <motion.img
-              src="/slidebar/slidebarimage.svg"
-              alt="Invite"
-              className="w-56 h-56"
+            <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
-            />
+              className="w-56 h-56"
+            >
+              <Image
+                src="/slidebar/slidebarimage.svg"
+                alt="Invite"
+                width={224}
+                height={224}  
+              />
+            </motion.div>
             <motion.button
               className="btn bg-primary-a20 text-white mt-4 px-8 hover:bg-primary-a30"
               initial={{ opacity: 0 }}

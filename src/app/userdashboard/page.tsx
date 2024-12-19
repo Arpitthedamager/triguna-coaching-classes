@@ -43,6 +43,7 @@ const UserDashboard = () => {
       router.push("/signin");
     }
   }, [session, status, router]);
+  
 
   const renderContent = () => {
     switch (activeContent) {
