@@ -42,12 +42,12 @@ const CircularProgressWithClass: FC = () => {
       <div className="flex flex-col  rounded-xl items-center py-4 space-y-4 bg-white w-56 h-72 ">
       {/* Dropdown for class selection */}
       <div className="flex flex-col items-center">
-        <label htmlFor="class-select" className="text-lg font-medium text-gray-700">
+        <label htmlFor="class-select" className="text-lg font-medium text-gray-600">
           Select Class
         </label>
         <select
           id="class-select"
-          className="mt-2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="mt-2 p-2 border border-gray-800 text-gray-600 rounded-md focus:ring-2 focus:ring-blue-500"
           value={selectedClass.class}
           onChange={(e) =>
             setSelectedClass(classData.find((cls) => cls.class === e.target.value)!)

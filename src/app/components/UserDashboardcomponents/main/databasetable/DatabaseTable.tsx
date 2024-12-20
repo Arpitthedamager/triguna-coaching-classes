@@ -178,7 +178,7 @@ const DatabaseTable: FC = () => {
     >
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold text-primary-a30">Class Database</h2>
-        <div className="flex space-x-4">
+        <div className="md:flex  space-x-4">
           <select
             className="select select-bordered md:max-w-xs bg-transparent text-primary-a40"
             value={subjectFilter || ""}
