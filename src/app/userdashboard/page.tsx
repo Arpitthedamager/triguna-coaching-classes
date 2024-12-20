@@ -43,7 +43,6 @@ const UserDashboard = () => {
       router.push("/signin");
     }
   }, [session, status, router]);
-  
 
   const renderContent = () => {
     switch (activeContent) {
@@ -73,14 +72,18 @@ const UserDashboard = () => {
                 bgColor="bg-yellow-200"
               />
             </div>
-            <div className="mt-6  grid grid-cols-1 lg:grid-cols-3 gap-4">
-              <div className="lg:col-span-2 ml-2">
-                <StatisticsGraph />
-              </div>
-              <div>
-                <CircularProgress />
-              </div>
-            </div>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+  {/* Statistics Graph */}
+  <div className="md:col-span-2">
+    <StatisticsGraph />
+  </div>
+  {/* Circular Progress */}
+  <div className="flex justify-center items-center w-full max-h-72">
+    <CircularProgress />
+  </div>
+</div>
+
+
             <div className="mt-8">
               <DatabaseTable />
             </div>

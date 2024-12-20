@@ -40,6 +40,7 @@ const CircularProgressWithClass: FC = () => {
     // className="flex flex-col items-center"
     >
     
+    <div className="flex  items-center w-full">
 
       {/* Circular Progress Bar */}
       <div className="flex flex-col  rounded-xl items-center py-4 space-y-4 bg-white w-56 h-72 ">
@@ -103,6 +104,7 @@ const CircularProgressWithClass: FC = () => {
             <span className="text-sm text-gray-700">In process</span>
           </div>
         </div>
+      </div>
       </div>
     </>
   );
