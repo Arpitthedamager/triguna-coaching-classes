@@ -129,7 +129,7 @@ const StatisticsGraph: FC = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-2 md:p-6 h-72 w-full flex flex-col">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-2">
         <h2 className="text-lg font-semibold text-gray-800">Test Progress</h2>
         <div className="flex space-x-4">
           <button onClick={goToPreviousMonth} className="text-sm bg-primary-a20 px-4 py-2 rounded-lg">

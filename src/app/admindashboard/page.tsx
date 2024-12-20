@@ -9,8 +9,6 @@ import NoticeBoard from "../components/AdminDashboardcomponents/reused/noticeboa
 import StatCard from "../components/AdminDashboardcomponents/main/statcard/StatCard";
 import DatabaseTable from "../components/AdminDashboardcomponents/main/databasetable/DatabaseTable";
 import { motion } from "framer-motion";
-// import ManageUsers from "../components/AdminDashboardcomponents/links/manage-users/ManageUsers";
-// import ManageFees from "../components/AdminDashboardcomponents/links/manage-fees/ManageFees";
 import { FaCalendarAlt, FaBell } from "react-icons/fa";
 import Profile from "../components/AdminDashboardcomponents/links/profilelink/ProfileLinks";
 import Exams from "../components/AdminDashboardcomponents/links/exams/Exams";
@@ -24,135 +22,67 @@ const AdminDashboard = () => {
 
   const contentVariants = {
     hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 100 } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring" } },
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
 
   const renderContent = () => {
-    if (activeContent === "dashboard") {
-      return (
-        <motion.div
-          key="dashboard"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          <Header />
-          <div className="grid grid-cols-4 gap-4">
-            <StatCard title="Total Users" value="500" bgColor="bg-blue-200" />
-            <StatCard title="Pending Fees" value="$200" bgColor="bg-red-200" />
-            <StatCard title="Active Exams" value="8" bgColor="bg-green-200" />
-            <StatCard title="Total Notices" value="25" bgColor="bg-yellow-200" />
-          </div>
-          <div className="flex gap-4 mt-6">
-            <div className="flex-1">
-              <StatisticsGraph />
+    switch (activeContent) {
+      case "dashboard":
+        return (
+          <motion.div
+            key="dashboard"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={contentVariants}
+          >
+            <div className="hidden lg:block">
+              <Header />
             </div>
-            <div className="flex-none">
-              <CircularProgress />
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <StatCard title="Total Users" value="500" bgColor="bg-blue-200" />
+              <StatCard title="Pending Fees" value="$200" bgColor="bg-red-200" />
+              <StatCard title="Active Exams" value="8" bgColor="bg-green-200" />
+              <StatCard title="Total Notices" value="25" bgColor="bg-yellow-200" />
             </div>
-          </div>
-          <div className="mt-8">
-            <DatabaseTable />
-          </div>
-        </motion.div>
-      );
-    } else if (activeContent === "manageUsers") {
-      return (
-        <motion.div
-          key="manageUsers"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          {/* <ManageUsers /> */}
-        </motion.div>
-      );
-    } else if (activeContent === "manageFees") {
-      return (
-        <motion.div
-          key="manageFees"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          {/* <ManageFees /> */}
-        </motion.div>
-      );
-    } else if (activeContent === "profile") {
-      return (
-        <motion.div
-          key="profile"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          <Profile />
-        </motion.div>
-      );
-    }else if (activeContent === "exams") {
-      return (
-        <motion.div
-          key="exams"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          <Exams />
-        </motion.div>
-      );
-    }else if (activeContent === "fees") {
-      return (
-        <motion.div
-          key="fees"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          <Fees />
-        </motion.div>
-      );
-    }else if (activeContent === "results") {
-      return (
-        <motion.div
-          key="results"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          <Results />
-        </motion.div>
-      );
-    }else if (activeContent === "studyMaterials") {
-      return (
-        <motion.div
-          key="studyMaterials"
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={contentVariants}
-        >
-          <StudyMaterial />
-        </motion.div>
-      );
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="md:col-span-2">
+                <StatisticsGraph />
+              </div>
+              <div className="flex w-full max-h-72">
+                <CircularProgress />
+              </div>
+            </div>
+            <div className="mt-8">
+              <DatabaseTable />
+            </div>
+          </motion.div>
+        );
+      case "profile":
+        return <Profile />;
+      case "exams":
+        return <Exams />;
+      case "fees":
+        return <Fees />;
+      case "results":
+        return <Results />;
+      case "studyMaterials":
+        return <StudyMaterial />;
+      default:
+        return null;
     }
   };
 
   return (
-    <div className="flex overflow-x-hidden bg-primary-content">
-      <div className="fixed top-0 left-0 h-full z-10">
+    <div className="flex flex-col lg:flex-row bg-primary-content">
+      <div className="md:sticky block top-0 left-0 h-full lg:w-64 z-10">
         <Sidebar onMenuClick={setActiveContent} />
       </div>
-      
-      <div className="flex-1 flex flex-col lg:ml-64">
-        <div className="flex justify-end space-x-4 p-4 lg:hidden">
+      <div className="flex-1 p-4 md:p-0 space-y-6">
+        <div className="sticky flex justify-end space-x-4 md:sticky lg:hidden">
+          {activeContent === "dashboard" && <Header />}
+
           <button
             onClick={() => setModalContent("calendar")}
             className="text-primary hover:text-primary-focus"
@@ -166,10 +96,9 @@ const AdminDashboard = () => {
             <FaBell size={24} />
           </button>
         </div>
-
-        <main className="p-6 grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">{renderContent()}</div>
-          <div className="hidden lg:block space-y-6">
+        <main className="md:p-6 pt-0 mt-0 min-h-screen overflow-auto flex flex-col lg:flex-row gap-6">
+          <div className="lg:w-2/3 space-y-6">{renderContent()}</div>
+          <div className="hidden md:hidden lg:block lg:w-1/3 space-y-6">
             <Calendar />
             <NoticeBoard />
           </div>

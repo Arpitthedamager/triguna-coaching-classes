@@ -8,18 +8,19 @@ import Header from "../../reused/header/Header";
 const ProfileLink: React.FC = () => {
   return (
     <>
-      <Header />
-      <Profile />
-      <div className="flex gap-4">
-        <div className="flex-1">
-          <StatisticsGraph />
+      <main className="md:p-6 pt-0 mt-0 min-h-screen overflow-autogap-6">
+        <Header />
+        <Profile />
+        <div className="md:flex gap-4">
+          <div className="flex-1">
+            <StatisticsGraph />
+          </div>
+          <div className="flex-none pt-10 md:pt-0">
+            <CircularProgress />
+          </div>
         </div>
-        <div className="flex-none">
-          <CircularProgress/>
-        </div>
-      </div>
-      <div className="flex-none">
-      </div>
+        {/* <div className="flex-none"> <AttendanceCalendar/></div> */}
+      </main>
     </>
   );
 };

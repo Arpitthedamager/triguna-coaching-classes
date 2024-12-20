@@ -12,7 +12,14 @@ import {
   Legend,
 } from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
 
 interface TestData {
   average: string; // Changed from 'marksObtained' and 'totalMarks'
@@ -27,7 +34,9 @@ interface SubjectData {
 
 const StatisticsGraph: FC = () => {
   const [data, setData] = useState<SubjectData | null>(null);
-  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+  const [currentYear, setCurrentYear] = useState<number>(
+    new Date().getFullYear()
+  );
   const [selectedClass, setSelectedClass] = useState<string>("11");
 
   // Year navigation functions
@@ -82,7 +91,11 @@ const StatisticsGraph: FC = () => {
   const subjectNames = getSubjectNames();
 
   // Prepare chart datasets
-  const createDataset = (subjectData: TestData[], label: string, color: string) => ({
+  const createDataset = (
+    subjectData: TestData[],
+    label: string,
+    color: string
+  ) => ({
     label,
     data: filterDataByYear(subjectData).map((test) => parseFloat(test.average)), // Use 'average' instead of 'percentage'
     borderColor: color,
@@ -97,13 +110,25 @@ const StatisticsGraph: FC = () => {
 
   // Chart data
   const chartData = {
-    labels: filterDataByYear(data.physics).map((test) =>
-      new Date(test.month).toLocaleDateString() // Using the 'month' field here
+    labels: filterDataByYear(data.physics).map(
+      (test) => new Date(test.month).toLocaleDateString() // Using the 'month' field here
     ),
     datasets: [
-      createDataset(filterDataByYear(data.physics), subjectNames.physics, "rgba(255, 99, 132, 1)"),
-      createDataset(filterDataByYear(data.chemistry), subjectNames.chemistry, "rgba(54, 162, 235, 1)"),
-      createDataset(filterDataByYear(data.maths), subjectNames.maths, "rgba(75, 192, 192, 1)"),
+      createDataset(
+        filterDataByYear(data.physics),
+        subjectNames.physics,
+        "rgba(255, 99, 132, 1)"
+      ),
+      createDataset(
+        filterDataByYear(data.chemistry),
+        subjectNames.chemistry,
+        "rgba(54, 162, 235, 1)"
+      ),
+      createDataset(
+        filterDataByYear(data.maths),
+        subjectNames.maths,
+        "rgba(75, 192, 192, 1)"
+      ),
     ],
   };
 
@@ -118,38 +143,56 @@ const StatisticsGraph: FC = () => {
     },
     scales: {
       x: { title: { display: true, text: "" }, ticks: { autoSkip: true } },
-      y: { title: { display: true, text: "Percentage (%)" }, beginAtZero: true, max: 100 },
+      y: {
+        title: { display: true, text: "Percentage (%)" },
+        beginAtZero: true,
+        max: 100,
+      },
     },
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 h-72 w-full flex flex-col">
+    <div className="bg-white rounded-lg shadow-lg p-2 md:p-6 h-72 w-full flex flex-col">
       {/* Header */}
+      {/* <select
+            value={selectedClass}
+            onChange={(e) => setSelectedClass(e.target.value)}
+            className="text-sm md:hidden mx-28  mb-2 block bg-primary-a20 hover:bg-primary-a30 px-4 py-2 rounded-lg"
+          >
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+          </select> */}
       <div className="flex justify-between items-center mb-2">
+        
         <h2 className="text-lg font-semibold text-gray-800">Test Progress</h2>
-        <div className="flex space-x-4">
+        <div className="md:flex  space-x-4">
           <select
             value={selectedClass}
             onChange={(e) => setSelectedClass(e.target.value)}
-            className="text-sm bg-primary-a20 hover:bg-primary-a30 px-4 py-2 rounded-lg"
+            className="text-sm  bg-primary-a20 mb-2 md:mb-0 hover:bg-primary-a30 px-4 py-2 rounded-lg"
           >
             <option value="9">Class 9</option>
             <option value="10">Class 10</option>
             <option value="11">Class 11</option>
             <option value="12">Class 12</option>
           </select>
-          <button
-            onClick={goToPreviousYear}
-            className="text-sm bg-primary-a20 px-4 py-2 rounded-lg"
-          >
-            Previous Year
-          </button>
-          <button
-            onClick={goToNextYear}
-            className="text-sm bg-primary-a20 px-4 py-2 rounded-lg"
-          >
-            Next Year
-          </button>
+          <div className="flex  space-x-4">
+            <button
+              onClick={goToPreviousYear}
+              className="text-sm bg-primary-a20 px-4 py-2 rounded-lg"
+            >
+              Previous Year
+            </button>
+            <button
+              onClick={goToNextYear}
+              className="text-sm bg-primary-a20 px-4 py-2 rounded-lg"
+            >
+              Next Year
+            </button>
+          </div>
+         
         </div>
       </div>
 

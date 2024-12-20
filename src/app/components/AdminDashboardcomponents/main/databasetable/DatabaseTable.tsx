@@ -192,53 +192,49 @@ const DatabaseTable: FC = () => {
 
   return (
     <motion.div
-      className="p-4 rounded-2xl bg-slate-50"
-      initial="hidden"
-      animate="visible"
+      className="p-4 rounded-2xl bg-slate-50 "
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
     >
-      <div className="flex justify-between space-x-2 items-center mb-6">
-        <h2 className="text-3xl font-bold text-primary-a30">Class Database</h2>
+      <div className="block lg:hidden md:hidden px-24">
+        
         <AddStudentButton />
-        <select
-          className="select select-bordered max-w-xs bg-transparent text-primary-a40"
-          value={selectedClass}
-          onChange={(e) => setSelectedClass(e.target.value)}
-        >
-          <option value="9">Class 9</option>
-          <option value="10">Class 10</option>
-          <option value="11">Class 11</option>
-          <option value="12">Class 12</option>
-        </select>
-        <select
-          className="select select-bordered max-w-xs bg-transparent text-primary-a40"
-          value={subjectFilter || ""}
-          onChange={(e) => setSubjectFilter(e.target.value || null)}
-        >
-          <option value="">All Subjects</option>
-          {getSubjectOptions().map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <select
-          className="select select-bordered max-w-xs bg-transparent text-primary-a40"
-          value={monthFilter}
-          onChange={(e) => setMonthFilter(e.target.value)}
-        >
-          <option value="All">All Months</option>
-          {months.map((month, index) => (
-            <option key={index} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
+      </div>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-bold text-primary-a30">Admin Dashboard</h2>
+        <div className="hidden lg:block md:block p-4">
+        
+        <AddStudentButton />
+      </div>
+        <div className="space-y-2 md:space-y-0 md:flex">
+          <select
+            className="select select-bordered md:max-w-xs bg-transparent text-primary-a40"
+            value={subjectFilter || ""}
+            onChange={(e) => setSubjectFilter(e.target.value || null)}
+          >
+            <option value="">All Subjects</option>
+            {getSubjectOptions().map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <select
+            className="select select-bordered md:max-w-xs bg-transparent text-primary-a40"
+            value={monthFilter}
+            onChange={(e) => setMonthFilter(e.target.value)}
+          >
+            <option value="All">All Months</option>
+            {months.map((month, index) => (
+              <option key={index} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <div
-        className="overflow-x-auto h-96 text-surface-a0"
-        onScroll={handleScroll}
-      >
+      <div className="overflow-auto h-96 hidden md:block lg:block" onScroll={handleScroll}>
         <table className="table w-full text-neutral border border-base-200">
           <thead>
             <tr>
@@ -252,7 +248,11 @@ const DatabaseTable: FC = () => {
           </thead>
           <motion.tbody>
             {filteredData.slice(0, visibleRows).map((student, index) => (
-              <motion.tr key={index} className="hover:bg-primary-content">
+              <motion.tr
+                key={index}
+                whileHover={{ scale: 1.02 }}
+                className="hover:bg-primary-content"
+              >
                 <td className="px-4 py-3">{student.name}</td>
                 <td className="px-4 py-3 text-center">{student.score}</td>
                 <td className="px-4 py-3 text-center">
@@ -275,6 +275,47 @@ const DatabaseTable: FC = () => {
             ))}
           </motion.tbody>
         </table>
+      </div>
+
+      <div className="lg:hidden md:hidden overflow-auto h-96 grid grid-cols-2 gap-4">
+        {filteredData.slice(0, visibleRows).map((student, index) => (
+          <motion.div
+            key={index}
+            className="bg-white text-gray-600 shadow-lg rounded-lg p-4 border border-gray-200"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05 }}
+          >
+            <div className="flex justify-between mb-2">
+              <span className="font-bold text-lg">{student.name}</span>
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  student.pass
+                    ? "bg-success text-success-content"
+                    : "bg-error text-error-content"
+                }`}
+              >
+                {student.pass ? "Pass" : "Fail"}
+              </span>
+            </div>
+            <div className="text-sm">
+              <p>
+                <span className="font-semibold">Score:</span> {student.score}
+              </p>
+              <p>
+                <span className="font-semibold">Percentage:</span>{" "}
+                {student.percentage.toFixed(2)}%
+              </p>
+              <p>
+                <span className="font-semibold">Subject:</span>{" "}
+                {student.subject}
+              </p>
+              <p>
+                <span className="font-semibold">Rank:</span> {student.rank}
+              </p>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );

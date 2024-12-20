@@ -55,7 +55,7 @@ const UserDashboard = () => {
             exit="exit"
             variants={contentVariants}
           >
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <Header />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -73,17 +73,13 @@ const UserDashboard = () => {
               />
             </div>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-  {/* Statistics Graph */}
-  <div className="md:col-span-2">
-    <StatisticsGraph />
-  </div>
-  {/* Circular Progress */}
-  <div className="flex justify-center items-center w-full max-h-72">
-    <CircularProgress />
-  </div>
-</div>
-
-
+              <div className="md:col-span-2">
+                <StatisticsGraph />
+              </div>
+              <div className="flex justify-center items-center w-full max-h-72">
+                <CircularProgress />
+              </div>
+            </div>
             <div className="mt-8">
               <DatabaseTable />
             </div>
@@ -128,7 +124,7 @@ const UserDashboard = () => {
         <Sidebar onMenuClick={setActiveContent} />
       </div>
       <div className="flex-1 p-4 md:p-0 space-y-6">
-        <div className="sticky flex justify-end space-x-4 lg:hidden">
+        <div className="sticky flex justify-end space-x-4 md:sticky lg:hidden">
           {activeContent === "dashboard" && <Header />}
 
           <button
@@ -146,7 +142,7 @@ const UserDashboard = () => {
         </div>
         <main className="md:p-6 pt-0 mt-0 min-h-screen overflow-auto flex flex-col lg:flex-row gap-6">
           <div className="lg:w-2/3 space-y-6">{renderContent()}</div>
-          <div className="hidden lg:block lg:w-1/3 space-y-6">
+          <div className="hidden md:hidden lg:block lg:w-1/3 space-y-6">
             <Calendar />
             <NoticeBoard />
           </div>
