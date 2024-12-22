@@ -34,77 +34,62 @@ const FeedbackSection: React.FC = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
 
-  // Calculate the total number of slides (each slide contains 2 feedbacks)
   const totalSlides = Math.ceil(feedbacks.length / 2);
 
   const nextSlide = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-      setLoading(false);
-    }, 500); // Delay for loading animation
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
 
   const prevSlide = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
-      );
-      setLoading(false);
-    }, 500); // Delay for loading animation
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
+    );
   };
 
-  // Get feedbacks for the current slide (2 items per slide)
   const getFeedbacksForSlide = (index: number) =>
     feedbacks.slice(index * 2, index * 2 + 2);
 
-  // Auto change slide every 2 seconds
   useEffect(() => {
-    const interval = setInterval(nextSlide, 8000); // Change slide every 8 seconds
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    const interval = setInterval(nextSlide, 8000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <motion.div
-      className="pt-36 py-6 px-6 md:px-52"
+      className="pt-24 pb-12 px-4 md:px-16 lg:px-32"
       initial={{ opacity: 0, scale: 0.9, x: 50 }}
       whileInView={{ opacity: 1, scale: 1, x: 0 }}
-      viewport={{ once: true }} // Trigger animation only once when the section is in view
-      exit={{ opacity: 0, scale: 0.9, x: -50 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
       <motion.h2
-        className="text-6xl  text-black mb-2"
+        className="text-3xl md:text-5xl font-bold text-center text-black mb-4"
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true }}
       >
         Students Feedback
       </motion.h2>
       <motion.p
-        className="text-gray-600 text-xl mb-6"
+        className="text-gray-600 text-center text-lg md:text-xl mb-8"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        viewport={{ once: true }}
       >
         Transformative experience of education
       </motion.p>
 
-      <div className="relative">
+      <div className="relative max-w-4xl mx-auto">
         <AnimatePresence mode="wait">
           {getFeedbacksForSlide(currentIndex).map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: 100 }} // Start from right
-              animate={{ opacity: 1, x: 0 }}   // Slide in to original position
-              exit={{ opacity: 0, x: -100 }}   // Slide out to the left when leaving
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
-              className="flex space-y-6 md:space-y-0 md:space-x-6 border-b border-gray-300 pb-4"
+              className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 border-b border-gray-300 pb-6"
             >
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
@@ -131,10 +116,9 @@ const FeedbackSection: React.FC = () => {
                       ))}
                   </motion.div>
 
-                  {/* Apply fade-in and fade-out effect when feedback text changes */}
                   <motion.p
                     className="text-gray-800 font-medium text-lg mb-2"
-                    key={item.feedback} // Ensure the animation is triggered when feedback changes
+                    key={item.feedback}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -144,14 +128,16 @@ const FeedbackSection: React.FC = () => {
                   </motion.p>
                   <motion.p
                     className="text-gray-600"
-                    key={item.name + item.achievement} // Ensure the animation is triggered when name and achievement change
+                    key={item.name + item.achievement}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   >
-                    <span className="font-semibold text-primary-a20">{item.name}</span>,{" "}
-                    {item.achievement}
+                    <span className="font-semibold text-orange-500">
+                      {item.name}
+                    </span>
+                    , {item.achievement}
                   </motion.p>
                 </div>
               </div>
@@ -159,22 +145,21 @@ const FeedbackSection: React.FC = () => {
           ))}
         </AnimatePresence>
 
-        {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
-          className="absolute md:-left-10 -left-8 top-1/2 transform -translate-y-1/2 text-4xl md:hover:text-5xl text-gray-600 p-2 rounded-full transition"
+          className="absolute -left-6 md:-left-10 top-1/2 transform -translate-y-1/2 text-3xl md:text-4xl text-gray-600 hover:text-gray-800 transition"
         >
           &lt;
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 text-4xl md:hover:text-5xl text-gray-600 p-2 rounded-full transition"
+          className="absolute -right-6 md:-right-10 top-1/2 transform -translate-y-1/2 text-3xl md:text-4xl text-gray-600 hover:text-gray-800 transition"
         >
           &gt;
         </button>
       </div>
 
-      <button className="mt-6 bg-orange-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-600 transition duration-300">
+      <button className="mt-8 bg-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-600 transition duration-300 block mx-auto">
         And Many More...
       </button>
     </motion.div>

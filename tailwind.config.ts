@@ -1,4 +1,3 @@
-import { SessionContext } from "next-auth/react";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -29,7 +28,7 @@ const config: Config = {
           'surface-mixed-a20': '#523f6c',
           'surface-mixed-a30': '#695880',
           'surface-mixed-a40': '#817194',
-          'surface-mixed-a50': '#998ca9',
+          'surface-mixed-a50': '#a590c1',
         },
     },
   },
