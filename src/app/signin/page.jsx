@@ -78,7 +78,7 @@ export default function SignIn() {
             />
             <button
               type="submit"
-              className="w-full btn btn-primary text-white py-4 text-lg rounded-lg transition"
+              className="w-full btn btn-primary text-white  text-lg rounded-lg transition"
             >
               Login
             </button>

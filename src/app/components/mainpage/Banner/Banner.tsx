@@ -1,17 +1,18 @@
 "use client";
-import React from 'react';
+import React from "react";
 import { motion } from "framer-motion";
 
 const Banner: React.FC = () => {
   return (
-    <motion.div className=" md:h-96 bg-fixed  bg-cover  text-white py-8 px-6 md:px-52 rounded-lg flex flex-col md:flex-row md:justify-between items-center space-y-4 md:space-y-0"
-    initial={{ opacity: 0, y: 50 }}
+    <motion.div
+      className="h-auto md:h-96 bg-fixed bg-cover bg-center text-white py-8 px-6 md:px-52 rounded-lg flex flex-col md:flex-row md:justify-between items-center space-y-6 md:space-y-0"
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }} // Triggers when 20% of the component is in view
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-    style={{ backgroundImage: "url('/2.jpg')" }}
->
-      {/* <h1 className="text-5xl text-white uppercase">Free Shipping Worldwide</h1> */}
+      style={{ backgroundImage: "url('/2.jpg')" }}
+    >
+      {/* Text Section */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -21,14 +22,13 @@ const Banner: React.FC = () => {
           visible: {
             opacity: 1,
             x: 0,
-            transition: {
-              staggerChildren: 0.2, // Delay between each child
-            },
+            transition: { staggerChildren: 0.2 },
           },
         }}
+        className="text-center md:text-left"
       >
         <motion.h2
-          className="text-4xl font-semibold mb-2"
+          className="text-3xl md:text-4xl font-semibold mb-4"
           variants={{
             hidden: { opacity: 0, y: -20 },
             visible: { opacity: 1, y: 0 },
@@ -38,7 +38,7 @@ const Banner: React.FC = () => {
           Join Our Learning Community Today
         </motion.h2>
         <motion.p
-          className="text-lg mb-2 ml-2"
+          className="text-sm md:text-lg mb-4"
           variants={{
             hidden: { opacity: 0, y: -20 },
             visible: { opacity: 1, y: 0 },
@@ -49,9 +49,9 @@ const Banner: React.FC = () => {
         </motion.p>
       </motion.div>
 
-      {/* Animated Button */}
+      {/* Button Section */}
       <motion.button
-        className="bg-orange-500 text-black px-8 font-bold py-4 rounded-lg hover:bg-orange-600 transition duration-300"
+        className="bg-orange-500 text-black px-6 md:px-8 font-bold py-3 md:py-4 rounded-lg hover:bg-orange-600 transition duration-300"
         onClick={() => alert("Learn more about us!")}
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}

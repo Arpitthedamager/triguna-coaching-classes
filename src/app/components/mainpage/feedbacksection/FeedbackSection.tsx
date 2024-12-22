@@ -34,7 +34,6 @@ const FeedbackSection: React.FC = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const totalSlides = Math.ceil(feedbacks.length / 2);
 
   const nextSlide = () => {
@@ -55,6 +54,27 @@ const FeedbackSection: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Touch state
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const threshold = 50; // Minimum swipe distance to trigger a slide change
+    if (touchStartX - touchEndX > threshold) {
+      nextSlide(); // Swipe left
+    } else if (touchEndX - touchStartX > threshold) {
+      prevSlide(); // Swipe right
+    }
+  };
+
   return (
     <motion.div
       className="pt-24 pb-12 px-4 md:px-16 lg:px-32"
@@ -62,11 +82,15 @@ const FeedbackSection: React.FC = () => {
       whileInView={{ opacity: 1, scale: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <motion.h2
-        className="text-3xl md:text-5xl font-bold text-center text-black mb-4"
+        className="text-3xl md:text-6xl font-bold text-center text-black mb-4"
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
         Students Feedback
@@ -75,6 +99,7 @@ const FeedbackSection: React.FC = () => {
         className="text-gray-600 text-center text-lg md:text-xl mb-8"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
         Transformative experience of education
@@ -89,6 +114,7 @@ const FeedbackSection: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
+              
               className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 border-b border-gray-300 pb-6"
             >
               <div className="flex items-start space-x-4">
@@ -145,15 +171,16 @@ const FeedbackSection: React.FC = () => {
           ))}
         </AnimatePresence>
 
+        {/* Navigation Buttons for Desktop */}
         <button
           onClick={prevSlide}
-          className="absolute -left-6 md:-left-10 top-1/2 transform -translate-y-1/2 text-3xl md:text-4xl text-gray-600 hover:text-gray-800 transition"
+          className="hidden md:block absolute md:-left-10 -left-8 top-1/2 transform -translate-y-1/2 text-4xl md:hover:text-5xl text-gray-600 p-2 rounded-full transition"
         >
           &lt;
         </button>
         <button
           onClick={nextSlide}
-          className="absolute -right-6 md:-right-10 top-1/2 transform -translate-y-1/2 text-3xl md:text-4xl text-gray-600 hover:text-gray-800 transition"
+          className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 text-4xl md:hover:text-5xl text-gray-600 p-2 rounded-full transition"
         >
           &gt;
         </button>

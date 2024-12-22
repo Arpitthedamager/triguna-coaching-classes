@@ -57,17 +57,17 @@ const AcademicTimeline = () => {
         </div>
 
         {/* Right Timeline Section */}
-        <div className="w-full md:w-1/2 md:pl-8 sticky md:top-16 z-10">
+        <div className="w-full md:w-1/2 md:pl-8 sticky md:top-16  z-10">
           <h2 className="text-2xl md:text-3xl text-primary-a10 font-bold mb-6 text-center md:text-left">
             Academic Year Timeline:
           </h2>
-          <div className="space-y-6">
+          <div className="space-y-0 md:space-y-12">
             {timelineItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col md:flex-row items-start md:space-x-4 hover:bg-primary-a50 p-4 rounded-lg transition"
+                className="flex gap-2 md:flex-row items-start md:space-x-4 hover:bg-primary-a50 p-4 rounded-lg transition"
               >
-                <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-black text-white text-xl md:text-2xl font-bold rounded-md">
+                <div className="flex mt-3 md:mt-0  items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-black text-white text-xl md:text-2xl font-bold rounded-md">
                   {item.icon}
                 </div>
                 <div className="mt-2 md:mt-0">

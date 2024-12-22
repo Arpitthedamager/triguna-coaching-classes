@@ -26,10 +26,10 @@ const FeatureCard = ({
         alt={altText}
         width={150}
         height={150}
-        className="w-full h-64 rounded-t-lg mb-4"
+        className="w-full h-52 md:h-64 rounded-t-lg mb-4"
         loading="lazy"
       />
-      <h3 className="text-2xl text-gray-800">{title}</h3>
+      <h3 className="text-lg md:text-2xl text-gray-800">{title}</h3>
     </motion.div>
   );
 };
@@ -37,17 +37,17 @@ const FeatureCard = ({
 const FeaturesSection = () => {
   const features = [
     {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/pef.jpg",
       altText: "Expert Faculty",
       title: "Expert Faculty Committed to Your Success",
     },
     {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/tcp.jpg",
       altText: "Tailored Coaching",
       title: "Tailored Coaching Plans for Every Student",
     },
     {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/ptr.jpg",
       altText: "Academic Excellence",
       title: "Proven Track Record of Academic Excellence",
     },
@@ -66,12 +66,12 @@ const FeaturesSection = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 8000); // Change slide every 8 seconds
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, []); // Empty dependency array ensures this runs once on mount
+    const interval = setInterval(nextSlide, 8000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section className="text-center pt-36 py-10 px-6 lg:px-20 xl:px-52">
+    <section className="text-center pt-20 md:pt-36 py-10 px-6 lg:px-20 xl:px-52">
       {/* Heading */}
       <motion.div
         className="mb-8"
@@ -80,11 +80,13 @@ const FeaturesSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="md:text-6xl text-5xl font-bold text-gray-800 mb-4">
+        <h2 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
           Unlock Your Potential with Expert Coaching
         </h2>
-        <p className="md:text-2xl text-xl text-gray-600">
-          Our expert facilities are dedicated to nurturing each student&apos;s unique abilities. Experience personalized coaching that leads to outstanding academic results.
+        <p className="text-base md:text-xl text-gray-600">
+          Our expert facilities are dedicated to nurturing each student&apos;s
+          unique abilities. Experience personalized coaching that leads to
+          outstanding academic results.
         </p>
       </motion.div>
 
@@ -129,7 +131,7 @@ const FeaturesSection = () => {
         </button>
         <button
           onClick={nextSlide}
-          className="absolute top-1/2 -right-6 transform -translate-y-1/2 text-4xl text-gray-600  p-2 transition"
+          className="absolute top-1/2 -right-6 transform -translate-y-1/2 text-4xl text-gray-600 p-2 transition"
         >
           &gt;
         </button>
@@ -137,7 +139,7 @@ const FeaturesSection = () => {
 
       {/* Call to Action */}
       <motion.button
-        className="bg-yellow-500 text-white px-10 py-5 rounded-lg font-bold hover:bg-yellow-400"
+        className="bg-yellow-500 text-white px-6 py-3 md:px-10 md:py-5 rounded-lg font-bold hover:bg-yellow-400 mt-6"
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}

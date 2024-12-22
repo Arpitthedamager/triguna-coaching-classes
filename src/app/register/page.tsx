@@ -103,7 +103,7 @@ export default function Register() {
   const isClass9Or10 = form.class === 9 || form.class === 10;
 
   return (
-    <div className="min-h-screen flex items-center text-gray-600 justify-center bg-gradient-to-r from-green-400 to-green-500">
+    <div className="min-h-screen flex items-center text-gray-600 justify-center bg-green-200">
       <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden max-w-6xl">
         {/* Left Section */}
         <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center bg-green-100">

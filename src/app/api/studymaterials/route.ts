@@ -3,11 +3,13 @@ import { StudyMaterial } from "@/app/lib/models";
 import { connectToDatabase } from "@/app/lib/utils";
 
 // GET handler for fetching study materials
-export async function GET() {
+export async function GET(req: Request) {
   await connectToDatabase();
+  const url = new URL(req.url);
+  const classLevel = url.searchParams.get("class") || "9"; // Default to class 9 if not provided
 
   try {
-    const studyMaterials = await StudyMaterial.find();
+    const studyMaterials = await StudyMaterial.find({ classLevel });
     return NextResponse.json(studyMaterials, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch study materials" }, { status: 500 });

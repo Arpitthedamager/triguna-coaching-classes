@@ -37,13 +37,13 @@ const FAQs: React.FC = () => {
 
   return (
     <motion.section
-      className="text-primary-a20 text-centerpy-10 md:px-6"
+      className="text-primary-a20 text-center py-10 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-52"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="py-10 px-6 lg:px-20 xl:px-52">
+      <div className="py-10">
         {/* Heading */}
         <motion.div
           className="mb-6"
@@ -52,12 +52,11 @@ const FAQs: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="md:text-5xl text-4xl font-bold mb-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
             Frequently asked questions answered
           </h2>
-          <p className="text-gray-600 text-xl">
-            In this section, you can address common questions efficiently
-            regarding our programs.
+          <p className="text-base sm:text-lg md:text-xl text-gray-600">
+            In this section, you can address common questions efficiently regarding our programs.
           </p>
         </motion.div>
 
@@ -82,7 +81,9 @@ const FAQs: React.FC = () => {
             >
               {/* Question Section */}
               <div className="flex justify-between items-center">
-                <h3 className="text-2xl font-medium">{faq.question}</h3>
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium">
+                  {faq.question}
+                </h3>
                 <motion.button
                   className="transform transition-transform"
                   initial={{ rotate: 0 }}
@@ -103,7 +104,9 @@ const FAQs: React.FC = () => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <p className="mt-2 text-gray-700">{faq.answer}</p>
+                  <p className="mt-2 text-sm sm:text-base md:text-lg text-gray-700">
+                    {faq.answer}
+                  </p>
                 </motion.div>
               )}
             </motion.div>

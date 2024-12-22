@@ -23,6 +23,7 @@ interface SubjectData {
 const StatisticsGraph: FC = () => {
   const { data: session } = useSession(); // Get user session
   const [data, setData] = useState<SubjectData | null>(null);
+  const [loading, setLoading] = useState(true); // Track loading state
   const [currentMonth, setCurrentMonth] = useState<string>(new Date().toLocaleString("default", { month: "long", year: "numeric" }));
 
   // Function to navigate to the previous month
@@ -53,18 +54,16 @@ const StatisticsGraph: FC = () => {
         if (!response.ok) throw new Error("Failed to fetch data");
 
         const result = await response.json();
-
         setData(result);
       } catch (error) {
         console.error("Error fetching test data:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
     fetchData();
   }, [session]);
-
-  if (!session) return <div>Loading session...</div>;
-  if (!data) return <div>Loading graph data...</div>;
 
   // Filter the data based on the current month
   const filterDataByMonth = (subjectData: TestData[]) => {
@@ -83,14 +82,13 @@ const StatisticsGraph: FC = () => {
     }
     return { physics: "Physics", chemistry: "Chemistry", maths: "Maths" };
   };
-  
 
   const subjectNames = getSubjectNames();
 
   // Prepare chart datasets
   const createDataset = (subjectData: TestData[], label: string, color: string) => ({
     label,
-    data: subjectData.map((test) => test.percentage), // Use the 'percentage' field directly
+    data: subjectData.map((test) => test.percentage || 0), // Default to 0 if no percentage
     borderColor: color,
     backgroundColor: color,
     borderWidth: 2,
@@ -104,11 +102,13 @@ const StatisticsGraph: FC = () => {
 
   // Prepare chart data with labels (dates) and datasets (subjects)
   const chartData = {
-    labels: filterDataByMonth(data.physics).map((test) => new Date(test.date).toLocaleDateString()),
+    labels: filterDataByMonth(data?.physics || []).map((test) =>
+      new Date(test.date).toLocaleDateString()
+    ),
     datasets: [
-      createDataset(filterDataByMonth(data.physics), subjectNames.physics, "rgba(255, 99, 132, 1)"),
-      createDataset(filterDataByMonth(data.chemistry), subjectNames.chemistry, "rgba(54, 162, 235, 1)"),
-      createDataset(filterDataByMonth(data.maths), subjectNames.maths, "rgba(75, 192, 192, 1)"),
+      createDataset(filterDataByMonth(data?.physics || []), subjectNames.physics, "rgba(255, 99, 132, 1)"),
+      createDataset(filterDataByMonth(data?.chemistry || []), subjectNames.chemistry, "rgba(54, 162, 235, 1)"),
+      createDataset(filterDataByMonth(data?.maths || []), subjectNames.maths, "rgba(75, 192, 192, 1)"),
     ],
   };
 
@@ -127,6 +127,10 @@ const StatisticsGraph: FC = () => {
     },
   };
 
+  const hasData =
+    chartData.datasets.some((dataset) => dataset.data.some((value) => value > 0)) &&
+    chartData.labels.length > 0;
+
   return (
     <div className="bg-white rounded-lg shadow-lg p-2 md:p-6 h-72 w-full flex flex-col">
       <div className="flex justify-between items-center mb-2">
@@ -142,7 +146,15 @@ const StatisticsGraph: FC = () => {
       </div>
 
       <div className="flex h-full items-center justify-center">
-        <Line data={chartData} options={options} />
+        {!loading ? (
+          hasData ? (
+            <Line data={chartData} options={options} />
+          ) : (
+            <Line data={{ labels: [], datasets: [] }} options={options} /> // Empty graph while loading
+          )
+        ) : (
+          <Line data={{ labels: [], datasets: [] }} options={options} /> // Empty graph while loading
+        )}
       </div>
     </div>
   );

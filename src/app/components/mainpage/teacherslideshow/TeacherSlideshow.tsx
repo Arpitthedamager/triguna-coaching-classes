@@ -1,5 +1,3 @@
-// src/components/TeacherSlideshow.tsx
-
 "use client";
 
 import React, { useState } from "react";
@@ -12,13 +10,13 @@ const teachers = [
     description:
       "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
     demoVideo: "Demo Video",
-    image: "/path-to-image1.jpg", // Replace with actual image path
+    image: "/2.jpg", // Replace with actual image path
   },
   {
     name: "Radhika Ma'am",
     subject: "Physics",
     description:
-    "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
+      "Radhika Ma'am has an exceptional knack for simplifying complex physics concepts, making them relatable and understandable for students of all levels.",
     demoVideo: "Demo Video",
     image: "/path-to-image2.jpg", // Replace with actual image path
   },
@@ -26,9 +24,9 @@ const teachers = [
     name: "Amit Sir",
     subject: "Mathematics",
     description:
-    "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
+      "Amit Sir brings clarity to mathematics with his engaging teaching style and innovative problem-solving techniques.",
     demoVideo: "Demo Video",
-    image: "/path-to-image3.jpg", // Replace with actual image path
+    image: "/2.jpg", // Replace with actual image path
   },
 ];
 
@@ -44,11 +42,17 @@ const TeacherSlideshow = () => {
   };
 
   return (
-    <section className="py-10 px-4 ">
-      <h2 className="md:text-6xl text-5xl text-primary-a20 font-bold mb-4">Meet Our Educators</h2>
-      <p className="text-gray-600 md:text-2xl text-xl mb-8">Dedicated educators driving our mission</p>
+    <section className="py-10 px-6 md:px-10 lg:px-20 bg-primary-a50 lg:py-32">
+      {/* Heading */}
+      <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary-a20 font-bold mb-4 md:text-center">
+        Meet Our Educators
+      </h2>
+      <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-6 text-center">
+        Dedicated educators driving our mission to inspire and empower students.
+      </p>
 
-      <div className="relative w-full max-w-4xl mx-auto">
+      {/* Slideshow */}
+      <div className="relative w-full max-w-5xl mx-auto rounded-lg p-6 lg:p-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -56,47 +60,51 @@ const TeacherSlideshow = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.6 }}
-            className="p-6 left-0"
+            className="flex flex-col md:flex-row items-center"
           >
-            <div className="flex flex-col">
-              <div className="mb-6 md:mb-0 md:mr-8">
-                <motion.div
-                  className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <img
-                    src={teachers[current].image}
-                    alt={teachers[current].name}
-                    className="object-cover w-full h-full"
-                  />
-                </motion.div>
-              </div>
-              <div className="text-left">
-                <h3 className="text-3xl text-gray-700 font-bold">{teachers[current].name}</h3>
-                <p className="text-xl text-gray-600 mb-4">{teachers[current].subject}</p>
-                <button className="bg-yellow-500 text-white px-4 py-2 mb-5 rounded-lg hover:bg-yellow-400">
-                  {teachers[current].demoVideo}
-                </button>
-                <p className="text-gray-700 text-lg mb-4 pr-20">{teachers[current].description}</p>
-              </div>
+            {/* Image */}
+            <motion.div
+              className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-gray-200 rounded-full overflow-hidden mb-6 md:mb-0 md:mr-8"
+              whileHover={{ scale: 1.1 }}
+            >
+              <img
+                src={teachers[current].image}
+                alt={teachers[current].name}
+                className="object-cover w-full h-full"
+              />
+            </motion.div>
+
+            {/* Content */}
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl text-gray-800 font-bold">
+                {teachers[current].name}
+              </h3>
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4">
+                {teachers[current].subject}
+              </p>
+              <button className="bg-yellow-500 text-white px-4 py-2 md:px-6 md:py-3   rounded-lg hover:bg-yellow-400 transition mb-4">
+                {teachers[current].demoVideo}
+              </button>
+              <p className="text-gray-700 text-base md:text-lg lg:text-xl leading-relaxed">
+                {teachers[current].description}
+              </p>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        <div className="">
+        {/* Navigation Buttons */}
         <button
           onClick={handlePrev}
-          className="absolute -left-5 top-1/2 transform -translate-y-1/2 text-4xl hover:text-5xl text-gray-600 p-2 rounded-full transition"
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 text-2xl md:text-3xl text-gray-600 p-3 rounded-full transition"
         >
           &lt;
         </button>
         <button
           onClick={handleNext}
-          className="absolute right-10 top-1/2 transform -translate-y-1/2 text-4xl hover:text-5xl text-gray-600 p-2 rounded-full transition"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-2xl md:text-3xl text-gray-600 p-3 rounded-full transition"
         >
           &gt;
         </button>
-        </div>
       </div>
     </section>
   );

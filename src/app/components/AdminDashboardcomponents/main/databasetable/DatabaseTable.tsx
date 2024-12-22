@@ -201,7 +201,7 @@ const DatabaseTable: FC = () => {
         <AddStudentButton />
       </div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-primary-a30">Admin Dashboard</h2>
+        <h2 className="text-2xl font-bold text-primary-a30">Admin Dashboard</h2>
         <div className="hidden lg:block md:block p-4">
         
         <AddStudentButton />
@@ -220,7 +220,7 @@ const DatabaseTable: FC = () => {
             ))}
           </select>
           <select
-            className="select select-bordered md:max-w-xs bg-transparent text-primary-a40"
+            className="select select-bordered md:ml-2 md:max-w-xs bg-transparent text-primary-a40"
             value={monthFilter}
             onChange={(e) => setMonthFilter(e.target.value)}
           >

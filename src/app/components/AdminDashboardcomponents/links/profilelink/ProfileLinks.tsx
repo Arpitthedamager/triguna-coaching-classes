@@ -13,10 +13,10 @@ const ProfileLink: React.FC = () => {
         <Profile />
         <div className="md:flex gap-4">
           <div className="flex-1">
-            <StatisticsGraph />
+            {/* <StatisticsGraph /> */}
           </div>
           <div className="flex-none pt-10 md:pt-0">
-            <CircularProgress />
+            {/* <CircularProgress /> */}
           </div>
         </div>
         {/* <div className="flex-none"> <AttendanceCalendar/></div> */}

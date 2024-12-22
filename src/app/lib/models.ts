@@ -70,16 +70,23 @@ interface IAttendance extends Document {
   attendance: Map<string, "present" | "absent" | null>;
 }
 
-interface IStudyMaterial extends Document {
-  title: string;
-  description?: string;
-  teacher: mongoose.Types.ObjectId;
-  image?: string;
-  addedDate: Date;
-  downloadLink?: string;
-  openLink?: string;
+
+interface IRecentlyView extends Document {
+  email: string; // The email of the user who viewed the
+  materialId: mongoose.Types.ObjectId; // The ID of the material viewed
+  visitedDate: Date; // The date the material was viewed
 }
 
+interface IStudyMaterial extends Document {
+  classLevel: "9" | "10" | "11" | "12"; // Valid class levels
+  title: string;
+  description: string;
+  teacher: string; // Teacher's ID or name (could be replaced with ObjectId if using a separate Teacher collection)
+  image: string;
+  addedDate: Date;
+  downloadLink: string;
+  openLink: string;
+}
 interface INotice extends Document {
   class: number;
   notices: {
@@ -232,14 +239,57 @@ const AttendanceSchema = new Schema<IAttendance>({
 });
 
 const StudyMaterialSchema = new Schema<IStudyMaterial>({
-  title: { type: String, required: true },
-  description: { type: String },
-  teacher: { type: Schema.Types.ObjectId, ref: "User" },
-  image: { type: String },
-  addedDate: { type: Date, required: true },
-  downloadLink: { type: String },
-  openLink: { type: String },
+  classLevel: {
+    type: String,
+    enum: ["9", "10", "11", "12"], // Valid class levels
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  teacher: {
+    type: String, // Can be ObjectId if referencing a Teacher collection
+    required: true,
+  },
+  image: {
+    type: String,
+    default: "https://via.placeholder.com/150", // Default image if not provided
+  },
+  addedDate: {
+    type: Date,
+    default: Date.now,
+  },
+  downloadLink: {
+    type: String,
+    required: true,
+  },
+  openLink: {
+    type: String,
+    required: true,
+  },
 });
+
+const RecentlyViewSchema = new Schema<IRecentlyView>({
+  email: { // Replace userId with email
+    type: String, 
+    required: true,
+  },
+  materialId: {
+    type: mongoose.Schema.Types.ObjectId, // References the study material
+    ref: "StudyMaterial", // The model name for StudyMaterial
+    required: true,
+  },
+  visitedDate: {
+    type: Date,
+    default: Date.now, // Defaults to the current date if not provided
+  },
+});
+
 
 const NoticeSchema = new Schema<INotice>({
   class: { type: Number, required: true, min: 9, max: 12 },
@@ -305,7 +355,8 @@ const CalendarModel: Model<Calendar> =
   mongoose.model<Calendar>("Calendar", CalendarSchema);
 const TestModel: Model<ITest> =
   mongoose.models.Test || mongoose.model<ITest>("Test", TestSchema);
-
+  const RecentlyView: Model<IRecentlyView> =
+  mongoose.models.RecentlyView || mongoose.model("RecentlyView", RecentlyViewSchema);
 export {
   User,
   TestPaperClass,
@@ -316,4 +367,5 @@ export {
   Notice,
   Timetable,
   TestModel,
+  RecentlyView,
 };

@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
           >
             Triguna Coaching Classes
           </motion.h1>
-          <p className="text-gray-300">
+          <p className="text-white">
             Empowering students with knowledge and skills for a brighter future.
           </p>
         </div>
@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
               >
                 <a
                   href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-gray-300 hover:text-yellow-400 transition"
+                  className="text-white hover:text-yellow-400 transition"
                 >
                   {link}
                 </a>
@@ -106,10 +106,10 @@ const Footer: React.FC = () => {
         {/* Address & Contact */}
         <div>
           <h2 className="text-xl font-semibold text-yellow-400 mb-3">Contact Us</h2>
-          <p className="text-gray-300 mb-2">
+          <p className="text-white mb-2">
             Kalindi Vihar B-Block, Tedi Bhagiya, Agra 282006
           </p>
-          <p className="text-gray-300 mb-2">
+          <p className="text-white mb-2">
             Email:{" "}
             <a
               href="mailto:info@trigunaclasses.com"
@@ -118,7 +118,7 @@ const Footer: React.FC = () => {
               info@trigunaclasses.com
             </a>
           </p>
-          <p className="text-gray-300 mb-2">
+          <p className="text-white mb-2">
             Phone:{" "}
             <a
               href="tel:+917891234567"
@@ -134,7 +134,7 @@ const Footer: React.FC = () => {
                 href={`https://${platform}.com`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-yellow-400 transition"
+                className="text-white hover:text-yellow-400 transition"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 + index * 0.1, duration: 0.3 }}

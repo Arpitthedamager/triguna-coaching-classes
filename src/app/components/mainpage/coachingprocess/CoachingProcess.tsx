@@ -21,7 +21,7 @@ const FeatureCard = ({ imageSrc, altText, title }: { imageSrc: string; altText: 
         className="w-full h-64 rounded-t-lg mb-4"
         loading="lazy"
       />
-      <h3 className="text-2xl text-gray-800">{title}</h3>
+      <h3 className="text-lg sm:text-xl md:text-2xl text-gray-800">{title}</h3>
     </motion.div>
   );
 };
@@ -76,7 +76,7 @@ const FeaturesSection = () => {
   }, []);
 
   return (
-    <section className="text-center md:pt-36 py-10 px-6 lg:px-20 xl:px-52">
+    <section className="text-center md:pt-36  py-10 px-6 lg:px-20 xl:px-52">
       {/* Heading */}
       <motion.div
         className="mb-8"
@@ -85,18 +85,17 @@ const FeaturesSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="md:text-6xl text-5xl font-bold text-gray-800 mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4">
           Unlock Your Potential with Expert Coaching
         </h2>
-        <p className="md:text-2xl text-xl text-gray-600">
-          Our expert facilities are dedicated to nurturing each student&apos;s unique abilities. Experience personalized coaching that leads to outstanding academic results.
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600">
+          Our expert facilities are dedicated to nurturing each student&apos;s unique abilities. Experience personalized
+          coaching that leads to outstanding academic results.
         </p>
       </motion.div>
 
       {/* Features Section */}
-      <div 
-      className="relative lg:hidden"
-      >
+      <div className="relative lg:hidden">
         <FeatureCard
           imageSrc={features[currentIndex].imageSrc}
           altText={features[currentIndex].altText}
@@ -104,13 +103,13 @@ const FeaturesSection = () => {
         />
         <button
           onClick={prevSlide}
-          className="absolute top-1/2 -left-6 transform -translate-y-1/2 text-4xl text-gray-600 p-2 transition"
+          className="absolute top-1/2 -left-6 transform -translate-y-1/2 text-2xl sm:text-3xl text-gray-600 p-2 transition"
         >
           &lt;
         </button>
         <button
           onClick={nextSlide}
-          className="absolute top-1/2 -right-6 transform -translate-y-1/2 text-4xl text-gray-600 p-2 transition"
+          className="absolute top-1/2 -right-6 transform -translate-y-1/2 text-2xl sm:text-3xl text-gray-600 p-2 transition"
         >
           &gt;
         </button>
@@ -139,7 +138,7 @@ const FeaturesSection = () => {
 
       {/* Call to Action */}
       <motion.button
-        className="bg-yellow-500 text-white px-10 py-5 rounded-lg font-bold hover:bg-yellow-400"
+        className="bg-yellow-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-lg font-bold text-sm sm:text-base md:text-lg hover:bg-yellow-400"
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}

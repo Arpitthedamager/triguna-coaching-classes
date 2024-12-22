@@ -17,6 +17,7 @@ import HeroSection from "./components/mainpage/herosection/HeroSection"
 import MapComponent from "./components/mainpage/mapcomponent/MapComponent"
 import TeacherSlideshow from "./components/mainpage/teacherslideshow/TeacherSlideshow"
 import TopRankingStudents from "./components/UserDashboardcomponents/onetimeused/toprankingstudents/TopRankingStudents"
+import CallToAction from "./components/mainpage/calltoaction/CallToAction"
 
 export default function Home() {
   const { data: session, status } = useSession()
@@ -40,19 +41,20 @@ export default function Home() {
       <div className="my-20">
         <Banner />
       </div>
-      <TopRankingStudents />
+      {/* <TopRankingStudents /> */}
       <FeedbackSection />
       <FeaturesSection />
       <div className="overflow-hidden">
-        <div className="flex flex-col md:flex-row justify-between">
-          <div className="md:w-1/2 w-full mt-10 md:mt-0">
+        {/* <div className="flex flex-col md:flex-row justify-between"> */}
+          {/* <div className="md:w-1/2 w-full mt-10 md:mt-0"> */}
             <TeacherSlideshow />
-          </div>
+          {/* </div> */}
           {/* <div className="md:w-1/2 w-full">
             <Game />
           </div> */}
-        </div>
+        {/* </div> */}
       </div>
+      {/* <CallToAction/> */}
       <CoachingProcess />
       <AcademicTimeline />
       <FAQs />
