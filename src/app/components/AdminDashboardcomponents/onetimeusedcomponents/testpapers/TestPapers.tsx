@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface TestPaper {
@@ -9,59 +9,13 @@ interface TestPaper {
   image: string;
   downloadLink: string;
   openLink: string;
+  class: number;
+  subject: string;
 }
 
 const TestPapers: FC = () => {
-  // State for test papers
-  const [testPapers, setTestPapers] = useState<TestPaper[]>([
-    {
-      id: 3,
-      title: "Physics Test Paper",
-      description: "Test covering mechanics and thermodynamics.",
-      teacher: "Prof. Alan Walker",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 4,
-      title: "Computer Science Test Paper",
-      description: "Covers algorithms, data structures, and basic programming.",
-      teacher: "Ms. Rachel Green",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 8,
-      title: "Biology Test Paper",
-      description: "Cell biology and genetics problems.",
-      teacher: "Dr. Angela Smith",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 9,
-      title: "Mathematics Test Paper",
-      description: "Algebra and geometry exercises.",
-      teacher: "Dr. William Johnson",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 10,
-      title: "History Test Paper",
-      description: "World history practice questions.",
-      teacher: "Prof. Maria Lee",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-  ]);
-
-  // State for managing form data
+  const [testPapers, setTestPapers] = useState<TestPaper[]>([]);
+  // console.log(testPapers);
   const [formData, setFormData] = useState<TestPaper>({
     id: 0,
     title: "",
@@ -70,66 +24,190 @@ const TestPapers: FC = () => {
     image: "",
     downloadLink: "",
     openLink: "",
+    class: 10, // Default class
+    subject: "", // Subject should be empty initially
   });
 
-  const [isEditing, setIsEditing] = useState(false); // Tracks edit mode
-  const [currentIndex, setCurrentIndex] = useState(0); // For pagination
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Add or Update Test Paper
-  const handleAddOrEdit = () => {
-    if (isEditing) {
-      setTestPapers((prev) =>
-        prev.map((paper) => (paper.id === formData.id ? formData : paper))
+  const fetchTestPapers = async (
+    selectedClass: number,
+    subjectFlags: { [key: string]: boolean }
+  ) => {
+    try {
+      const query = new URLSearchParams();
+      query.append("class", selectedClass.toString());
+
+      Object.keys(subjectFlags).forEach((subject) => {
+        if (subjectFlags[subject]) {
+          query.append("subject", subject);
+        }
+      });
+
+      const response = await fetch(`/api/testpapers?${query.toString()}`);
+      const data = await response.json();
+      // console.log(data);
+
+      if (data.length === 0) {
+        alert("No test papers found for the selected criteria.");
+      }
+
+      // Flatten the test papers structure
+      const flattenedTestPapers = data.reduce(
+        (acc: TestPaper[], subjectObj: any) => {
+          const testPapers = subjectObj.testPapers || [];
+          testPapers.forEach((paper: any) => {
+            acc.push({
+              id: paper.id,
+              title: paper.title,
+              description: paper.description,
+              teacher: paper.teacher,
+              image: paper.image,
+              downloadLink: paper.downloadLink,
+              openLink: paper.openLink,
+              class: subjectObj.class,
+              subject: subjectObj.subject,
+            });
+          });
+          return acc;
+        },
+        []
       );
-      setIsEditing(false);
-    } else {
-      setTestPapers((prev) => [...prev, { ...formData, id: Date.now() }]);
+      // console.log("aik",flattenedTestPapers);
+      setTestPapers(flattenedTestPapers);
+    } catch (error) {
+      console.error("Error fetching test papers:", error);
+      alert("An error occurred while fetching test papers.");
     }
+  };
+
+  const [subjectFlags, setSubjectFlags] = useState<{ [key: string]: boolean }>({
+    SST: false,
+    Maths: false,
+    Science: false,
+    Physics: false,
+    Chemistry: false,
+  });
+
+  const handleSubjectChange = (subject: string) => {
+    setSubjectFlags((prevFlags) => ({
+      ...prevFlags,
+      [subject]: !prevFlags[subject], // Toggle the selected state of the subject
+    }));
+  };
+
+  useEffect(() => {
+    fetchTestPapers(formData.class, subjectFlags);
+  }, [formData.class, subjectFlags]);
+
+  const subjects: { [key: number]: string[] } = {
+    9: ["SST", "Maths", "Science"],
+    10: ["SST", "Maths", "Science"],
+    11: ["Physics", "Chemistry", "Maths"],
+    12: ["Physics", "Chemistry", "Maths"],
+  };
+  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newClass = Number(e.target.value);
     setFormData({
-      id: 0,
-      title: "",
-      description: "",
-      teacher: "",
-      image: "",
-      downloadLink: "",
-      openLink: "",
+      ...formData,
+      class: newClass,
+      subject: "", // Reset subject when class changes
     });
-    setIsModalOpen(false); // Close modal after adding/updating
-
+  };
+  // Get subjects based on class
+  const getSubjects = (classNumber: number) => {
+    switch (classNumber) {
+      case 9:
+      case 10:
+        return ["SST", "Maths", "Science"];
+      case 11:
+      case 12:
+        return ["Physics", "Chemistry", "Maths"];
+      default:
+        return [];
+    }
   };
 
-  // Edit a Test Paper
-  const handleEdit = (paper: TestPaper) => {
-    setFormData(paper);
-    setIsEditing(true);
+  const handleAddOrEdit = async () => {
+    try {
+      const testPaperData = {
+        class: formData.class,
+        subject: formData.subject, // Pass the selected subject
+        title: formData.title,
+        description: formData.description,
+        teacher: formData.teacher,
+        image: formData.image,
+        downloadLink: formData.downloadLink,
+        openLink: formData.openLink,
+      };
+
+      const response = await fetch("/api/testpapers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testPaperData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        setTestPapers((prev) => [...prev, result]);
+        setIsModalOpen(false);
+      } else {
+        alert(result.error || "Failed to add Test Paper");
+      }
+    } catch (error) {
+      console.error("Error adding Test Paper:", error);
+      alert("An error occurred while adding the Test Paper.");
+    }
   };
 
-  // Delete a Test Paper
-  const handleDelete = (id: number) => {
-    setTestPapers((prev) => prev.filter((paper) => paper.id !== id));
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch("/api/testpapers", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        setTestPapers((prev) => prev.filter((paper) => paper.id !== id));
+      } else {
+        alert(result.error || "Failed to delete Test Paper");
+      }
+    } catch (error) {
+      console.error("Error deleting Test Paper:", error);
+      alert("An error occurred while deleting the Test Paper.");
+    }
   };
 
-  // Pagination Handlers
   const handleNextClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 3 >= testPapers.length ? 0 : prevIndex + 3));
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 3 >= testPapers.length ? 0 : prevIndex + 3
+    );
   };
 
   const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 3 < 0 ? testPapers.length - 3 : prevIndex - 3));
+    setCurrentIndex((prevIndex) =>
+      prevIndex - 3 < 0 ? testPapers.length - 3 : prevIndex - 3
+    );
   };
 
-  
-  
   return (
     <motion.div
-      className="bg-transparent p-6 pt-0"
+      className="bg-transparent text-gray-600 p-6 pt-0"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
     >
       <header className="p-4 bg-transparent flex justify-between items-center">
-        <h1 className="text-xl font-bold">Admin: Manage Test Papers</h1>
+        <h1 className="text-xl text-primary-a20 font-bold">
+          Admin: Manage Test Papers
+        </h1>
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
           onClick={() => {
@@ -141,16 +219,50 @@ const TestPapers: FC = () => {
               image: "",
               downloadLink: "",
               openLink: "",
+              class: 10,
+              subject: "",
             });
-            setIsEditing(false);
             setIsModalOpen(true);
           }}
         >
           Add Test Paper
         </button>
+        <select
+          value={formData.class}
+          onChange={(e) => {
+            const newClass = Number(e.target.value);
+            setFormData({
+              ...formData,
+              class: newClass,
+            });
+          }}
+          className="border p-2 rounded"
+        >
+          <option value={9}>Class 9</option>
+          <option value={10}>Class 10</option>
+          <option value={11}>Class 11</option>
+          <option value={12}>Class 12</option>
+        </select>
+
+        <div className="mt-4">
+          {getSubjects(formData.class).map((subject) => (
+            <div key={subject} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={subjectFlags[subject]}
+                onChange={() => handleSubjectChange(subject)}
+                id={subject}
+                className="mr-2"
+              />
+              <label htmlFor={subject} className="text-sm">
+                {subject}
+              </label>
+            </div>
+          ))}
+        </div>
       </header>
 
-      <div>
+      <div className="mt-4">
         <div className="flex gap-4">
           {testPapers.slice(currentIndex, currentIndex + 3).map((paper) => (
             <motion.div
@@ -167,8 +279,12 @@ const TestPapers: FC = () => {
               />
               <div>
                 <h4 className="font-bold text-gray-800">{paper.title}</h4>
-                <p className="text-sm text-gray-600 mb-2">{paper.description}</p>
-                <span className="text-xs text-gray-500">By {paper.teacher}</span>
+                <p className="text-sm text-gray-600 mb-2">
+                  {paper.description}
+                </p>
+                <span className="text-xs text-gray-500">
+                  By {paper.teacher}
+                </span>
                 <div className="mt-4 space-x-4">
                   <a
                     href={paper.downloadLink}
@@ -189,16 +305,10 @@ const TestPapers: FC = () => {
                 </div>
                 <div className="mt-4 space-x-2">
                   <button
+                    onClick={() => handleDelete(paper.id)} // Pass the paper id to handleDelete
                     className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600"
-                    onClick={() => handleDelete(paper.id)}
                   >
                     Delete
-                  </button>
-                  <button
-                    className="bg-yellow-500 text-white py-1 px-2 rounded hover:bg-yellow-600"
-                    onClick={() => handleEdit(paper)}
-                  >
-                    Edit
                   </button>
                 </div>
               </div>
@@ -226,9 +336,7 @@ const TestPapers: FC = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="font-semibold text-lg mb-4">
-              {isEditing ? "Edit Test Paper" : "Add Test Paper"}
-            </h2>
+            <h2 className="font-semibold text-lg mb-4">Add Test Paper</h2>
             <div className="grid grid-cols-1 gap-4">
               <input
                 type="text"
@@ -284,6 +392,32 @@ const TestPapers: FC = () => {
                   setFormData({ ...formData, openLink: e.target.value })
                 }
               />
+              <select
+                value={formData.class}
+                onChange={handleClassChange}
+                className="border p-2 rounded"
+              >
+                <option value={9}>Class 9</option>
+                <option value={10}>Class 10</option>
+                <option value={11}>Class 11</option>
+                <option value={12}>Class 12</option>
+              </select>
+
+              {/* Show subjects based on selected class */}
+              <select
+                value={formData.subject}
+                onChange={(e) =>
+                  setFormData({ ...formData, subject: e.target.value })
+                }
+                className="border p-2 rounded"
+              >
+                <option value="">Select Subject</option>
+                {subjects[formData.class]?.map((subject) => (
+                  <option key={subject} value={subject}>
+                    {subject}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="mt-4 flex justify-end space-x-2">
               <button
@@ -296,7 +430,7 @@ const TestPapers: FC = () => {
                 className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                 onClick={handleAddOrEdit}
               >
-                {isEditing ? "Update" : "Add"}
+                Add
               </button>
             </div>
           </div>
@@ -305,6 +439,5 @@ const TestPapers: FC = () => {
     </motion.div>
   );
 };
-
 
 export default TestPapers;

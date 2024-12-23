@@ -12,7 +12,7 @@ const StudyMaterial: FC = () => {
   //   title: "",
   //   description: "",
   //   teacher: "",
-  //   image: "",
+  //   image: "", 
   //   downloadLink: "",
   //   openLink: "",
   //   classLevel: "9", // default class level
@@ -29,7 +29,13 @@ const StudyMaterial: FC = () => {
   const fetchStudyMaterials = async () => {
     const response = await fetch(`/api/studymaterials?class=${session?.user?.class}`); // Send selected class
     const data = await response.json();
+    // const filteredMaterials = data.filter((material: any) => {
+    //   const createdAt = new Date(material.createdAt).getTime();
+    //   const addedDate = new Date(material.addedDate).getTime();
+    //   return !isNaN(createdAt) && !isNaN(addedDate) && createdAt <= addedDate;
+    // });
     setStudyMaterials(data);
+    // console.log("Study materials fatch:", filteredMaterials);
   };
   const fetchRecentlyViewed = async () => {
     try {
@@ -39,6 +45,7 @@ const StudyMaterial: FC = () => {
       }
       const data = await response.json();
       setRecentlyViewed(data);
+      // console.log("Recently viewed materials fatch:", data);
     } catch (error) {
       console.error("Failed to fetch recently viewed materials:", error);
     }
@@ -113,6 +120,10 @@ const StudyMaterial: FC = () => {
 
   const filteredRecentlyViewed = recentlyViewed
   .map((viewed) => {
+    if (!viewed.materialId) {
+      console.warn("Invalid materialId in recentlyViewed:", viewed);
+      return null;
+    }
     const material = studyMaterials.find(
       (mat) => mat._id.toString() === viewed.materialId._id.toString()
     );
@@ -123,12 +134,12 @@ const StudyMaterial: FC = () => {
     (a, b) =>
       new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
   );
+
     // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
 
   const sortedRecentlyAdded = [...studyMaterials].sort(
     (a, b) => new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
   );
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndexViewed, setCurrentIndexViewed] = useState(0);
 

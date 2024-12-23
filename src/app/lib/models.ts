@@ -36,9 +36,10 @@ interface Calendar extends Document {
 }
 
 interface ITestPaper {
+  id: number;
   title: string;
   description: string;
-  teacher: Schema.Types.ObjectId;  // Assuming teacher is a reference to the User model
+  teacher: string;  // Assuming teacher is a reference to the User model
   image: string;
   downloadLink: string;
   openLink: string;
@@ -47,6 +48,7 @@ interface ITestPaper {
 
 interface ITestPaperClass extends Document {
   class: number; // Class number (9-12)
+  subject:  String, 
   testPapers: ITestPaper[];  // Array of test papers for this class
 }
 
@@ -164,11 +166,13 @@ const UserSchema = new Schema<IUser>(
 
 const TestPaperSchema = new Schema<ITestPaperClass>({
   class: { type: Number, required: true, min: 9, max: 12 },  // Class number (9 to 12)
+  subject: { type: String, required: true },  // Subject field
   testPapers: [
     {
+      id: { type: Number, required: true },
       title: { type: String, required: true },
       description: { type: String },
-      teacher: { type: Schema.Types.ObjectId, ref: "User" },  // Assuming teacher is an ObjectId reference to the User model
+      teacher: { type: String },  // Assuming teacher is an ObjectId reference to the User model
       image: { type: String },
       downloadLink: { type: String },
       openLink: { type: String },

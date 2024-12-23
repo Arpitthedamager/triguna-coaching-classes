@@ -19,7 +19,7 @@ const Exams = () => {
 
         <DatabaseTable />
         </div>
-        <TopRankingStudents />
+        {/* <TopRankingStudents /> */}
       </div>
     </>
   );

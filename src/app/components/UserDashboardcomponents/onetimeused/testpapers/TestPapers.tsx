@@ -1,219 +1,197 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react"; // Import useSession hook
+
+interface TestPaper {
+  id: number;
+  title: string;
+  description: string;
+  teacher: string;
+  image: string;
+  downloadLink: string;
+  openLink: string;
+  class: number;
+  subject: string;
+}
 
 const TestPapers: FC = () => {
-  // All available test papers
-  const allTestPapers = [
-    {
-      id: 3,
-      title: "Physics Test Paper",
-      description: "Test covering mechanics and thermodynamics.",
-      teacher: "Prof. Alan Walker",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
+  const { data: session } = useSession(); // Get session data using useSession hook
+  const classFromSession = session?.user?.class || 10; // Default to class 10 if not found in session
+  
+  // Subjects mapping for class 9 and 10
+  const subjectsMap: { [key: number]: { [key: string]: string } } = {
+    9: {
+      Physics: "SST", // Convert Physics to SST for class 9
+      Chemistry: "Science", // Convert Chemistry to Science for class 9
     },
-    {
-      id: 4,
-      title: "Computer Science Test Paper",
-      description: "Covers algorithms, data structures, and basic programming.",
-      teacher: "Ms. Rachel Green",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
+    10: {
+      Physics: "SST", // Convert Physics to SST for class 10
+      Chemistry: "Science", // Convert Chemistry to Science for class 10
     },
-    {
-      id: 5,
-      title: "Statistics Test Paper",
-      description: "Advanced statistical problems for practice.",
-      teacher: "Dr. Michael Scott",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 6,
-      title: "Chemistry Test Paper",
-      description: "Test covering organic and inorganic chemistry.",
-      teacher: "Dr. Emma Watson",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 7,
-      title: "Advanced Calculus Test Paper",
-      description: "Calculus problems for higher-level students.",
-      teacher: "Dr. John Doe",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 8,
-      title: "Biology Test Paper",
-      description: "Cell biology and genetics problems.",
-      teacher: "Dr. Angela Smith",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 9,
-      title: "Mathematics Test Paper",
-      description: "Algebra and geometry exercises.",
-      teacher: "Dr. William Johnson",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-    {
-      id: 10,
-      title: "History Test Paper",
-      description: "World history practice questions.",
-      teacher: "Prof. Maria Lee",
-      image: "https://via.placeholder.com/150",
-      downloadLink: "#",
-      openLink: "#",
-    },
-  ];
+  };
+  
 
-  // State for the current index of the first card in the displayed group of 3
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Function to move to the next set of 3 cards
-  const handleNextClick = () => {
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex + 3 >= allTestPapers.length) {
-        return 0; // Loop back to the start when the last set is reached
-      }
-      return prevIndex + 3; // Show the next set of 3 cards
-    });
+  const subjectsFromSession = {
+    Physics: true,
+    Maths: true,
+    Chemistry: true,
   };
 
-  // Function to move to the previous set of 3 cards
-  const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex - 3 < 0) {
-        return Math.floor(allTestPapers.length / 3) * 3 - 3; // Loop back to the last set
+  const [subjectFlags, setSubjectFlags] = useState(subjectsFromSession);
+  const [testPapers, setTestPapers] = useState<TestPaper[]>([]);
+
+  const [formData, setFormData] = useState<TestPaper>({
+    id: 0,
+    title: "",
+    description: "",
+    teacher: "",
+    image: "",
+    downloadLink: "",
+    openLink: "",
+    class: classFromSession, // Set the class based on the session
+    subject: "", // Subject should be empty initially
+  });
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const fetchTestPapers = async (
+    selectedClass: number,
+    subjectFlags: { [key: string]: boolean }
+  ) => {
+    try {
+      const query = new URLSearchParams();
+      query.append("class", selectedClass.toString());
+
+      // Map subjects based on the class
+      const subjectsForClass = subjectsMap[selectedClass] || {};
+
+      Object.keys(subjectFlags).forEach((subject) => {
+        if (subjectFlags[subject]) {
+          const mappedSubject = subjectsForClass[subject] || subject; // Use mapped subject or original subject
+          query.append("subject", mappedSubject);
+        }
+      });
+
+      const response = await fetch(`/api/testpapers?${query.toString()}`);
+      const data = await response.json();
+      // console.log(data);
+      if (data.length === 0) {
+        alert("No test papers found for the selected criteria.");
       }
-      return prevIndex - 3; // Show the previous set of 3 cards
-    });
+
+      // Flatten the test papers structure
+      const flattenedTestPapers = data.reduce(
+        (acc: TestPaper[], subjectObj: any) => {
+          const testPapers = subjectObj.testPapers || [];
+          testPapers.forEach((paper: any) => {
+            acc.push({
+              id: paper.id,
+              title: paper.title,
+              description: paper.description,
+              teacher: paper.teacher,
+              image: paper.image,
+              downloadLink: paper.downloadLink,
+              openLink: paper.openLink,
+              class: subjectObj.class,
+              subject: subjectObj.subject,
+            });
+          });
+          return acc;
+        },
+        []
+      );
+      setTestPapers(flattenedTestPapers);
+    } catch (error) {
+      console.error("Error fetching test papers:", error);
+      alert("An error occurred while fetching test papers.");
+    }
+  };
+
+  useEffect(() => {
+    fetchTestPapers(formData.class, subjectFlags);
+  }, [formData.class, subjectFlags]);
+
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 3 >= testPapers.length ? 0 : prevIndex + 3
+    );
+  };
+
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex - 3 < 0 ? testPapers.length - 3 : prevIndex - 3
+    );
   };
 
   return (
     <motion.div
-      className="bg-transparent p-6 pt-0"
+      className="bg-transparent text-gray-600 p-6 pt-0"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Header */}
-      <header className="p-4 bg-transparent">
-        <h1 className="text-xl font-bold text-SessionContext">Test Papers</h1>
+      <header className="p-4 bg-transparent flex justify-between items-center">
+        <h1 className="text-xl text-primary-a20 font-bold">
+          Admin: Manage Test Papers
+        </h1>
       </header>
 
-      {/* Test Papers Section */}
-      <div className="mt-8">
-        {/* Mobile view: Flex container for slideshow */}
-        <div className="lg:hidden overflow-x-auto flex space-x-4">
-          {allTestPapers
-            .slice(currentIndex, currentIndex + 3) // Slice to show only 3 cards at a time
-            .map((paper, index) => (
-              <motion.div
-                key={paper.id}
-                className="md:w-1/3 w-auto p-4 bg-white rounded-lg shadow-lg flex-shrink-0"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                <img
-                  src={paper.image}
-                  alt={paper.title}
-                  className="w-full h-40 object-cover rounded-lg mb-4"
-                />
-                <div>
-                  <h4 className="font-bold text-gray-800">{paper.title}</h4>
-                  <p className="text-sm text-gray-600 mb-2">{paper.description}</p>
-                  <span className="text-xs text-gray-500">By {paper.teacher}</span>
-                  <div className="mt-4 space-x-4">
-                    <a
-                      href={paper.downloadLink}
-                      className="text-primary-a20 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Download PDF
-                    </a>
-                    <a
-                      href={paper.openLink}
-                      className="text-green-500 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open PDF
-                    </a>
-                  </div>
+      <div className="mt-4">
+        <div className="flex gap-4">
+          {testPapers.slice(currentIndex, currentIndex + 3).map((paper) => (
+            <motion.div
+              key={paper.id}
+              className="w-full lg:w-1/2 p-2 md:p-4 bg-white rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img
+                src={paper.image}
+                alt={paper.title}
+                className="w-full h-40 object-cover rounded-lg mb-4"
+              />
+              <div>
+                <h4 className="font-bold text-gray-800">{paper.title}</h4>
+                <p className="text-sm text-gray-600 mb-2">
+                  {paper.description}
+                </p>
+                <span className="text-xs text-gray-500">
+                  By {paper.teacher}
+                </span>
+                <div className="mt-4 space-x-4">
+                  <a
+                    href={paper.downloadLink}
+                    className="text-primary-a20 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Download PDF
+                  </a>
+                  <a
+                    href={paper.openLink}
+                    className="text-green-500 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open PDF
+                  </a>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Large screens: Grid container */}
-        <div className="hidden lg:grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {allTestPapers
-            .slice(currentIndex, currentIndex + 3)
-            .map((paper, index) => (
-              <motion.div
-                key={paper.id}
-                className="w-full p-4 bg-white rounded-lg shadow-lg"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                <img
-                  src={paper.image}
-                  alt={paper.title}
-                  className="w-full h-40 object-cover rounded-lg mb-4"
-                />
-                <div>
-                  <h4 className="font-bold text-gray-800">{paper.title}</h4>
-                  <p className="text-sm text-gray-600 mb-2">{paper.description}</p>
-                  <span className="text-xs text-gray-500">By {paper.teacher}</span>
-                  <div className="mt-4 space-x-4">
-                    <a
-                      href={paper.downloadLink}
-                      className="text-primary-a20 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Download PDF
-                    </a>
-                    <a
-                      href={paper.openLink}
-                      className="text-green-500 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open PDF
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-        </div>
-
-        {/* Pagination Buttons */}
         <div className="flex justify-between mt-4">
           <button
             onClick={handlePrevClick}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
+            className="bg-primary-a20 text-white py-2 px-4 rounded hover:bg-primary-a20"
           >
             Prev
           </button>
           <button
             onClick={handleNextClick}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
+            className="bg-primary-a20 text-white py-2 px-4 rounded hover:bg-primary-a20"
           >
             Next
           </button>

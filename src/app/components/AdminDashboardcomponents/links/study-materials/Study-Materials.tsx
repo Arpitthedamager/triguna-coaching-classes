@@ -122,7 +122,6 @@ const StudyMaterial: FC = () => {
       alert("Failed to delete material");
     }
   };
-
   const filteredRecentlyViewed = recentlyViewed
   .map((viewed) => {
     const material = studyMaterials.find(

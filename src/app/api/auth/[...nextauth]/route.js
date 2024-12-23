@@ -35,6 +35,7 @@ const authOptions = {
               recentlyViewed: user.recentlyViewed
                 ? user.recentlyViewed.map((view) => view.material.toString())
                 : [],
+              createdAt: user.createdAt, // Add createdAt here
             };
           }
         }
@@ -58,6 +59,7 @@ const authOptions = {
           rollNo: token.rollNo,
           subjects: token.subjects,
           recentlyViewed: token.recentlyViewed,
+          createdAt: token.createdAt, // Pass createdAt to the session
         };
       }
       return session;
@@ -75,6 +77,7 @@ const authOptions = {
         token.rollNo = user.rollNo || 0;
         token.subjects = user.subjects || { physics: false, math: false, chemistry: false };
         token.recentlyViewed = user.recentlyViewed || [];
+        token.createdAt = user.createdAt; // Add createdAt to the token
       }
       return token;
     },
