@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
         <div>
           <h2 className="text-xl font-semibold text-yellow-400 mb-3">Quick Links</h2>
           <ul className="space-y-2">
-            {["Home", "Courses", "About Us", "Contact"].map((link, index) => (
+            {["Home", "About Us", "Contact"].map((link, index) => (
               <motion.li
                 key={index}
                 initial={{ opacity: 0, x: 20 }}
@@ -150,7 +150,7 @@ const Footer: React.FC = () => {
 
       {/* Copyright Section */}
       <motion.div
-        className="text-center mt-10 text-xl text-gray-700 relative z-10"
+        className="text-center mt-10 text-xl text-gray-600 relative z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.5 }}
