@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 
 const Statement = () => {
   return (
-    <section className="py-16 px-40 bg-primary-content">
-      <div className="container mx-auto px-4">
+    <section className="py-16 px-4 md:px-16 lg:px-40 bg-primary-content">
+      <div className="container mx-auto">
         <div className="flex flex-col">
+
           {/* Animated Heading */}
           <motion.div
             className="mb-8"
@@ -14,7 +15,7 @@ const Statement = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl font-bold text-gray-800">
+            <h2 className="text-4xl sm:text-4xl lg:text-5xl font-bold text-gray-800">
               Statement of Beliefs
             </h2>
           </motion.div>
@@ -29,14 +30,14 @@ const Statement = () => {
             <img
               src="https://cdn.dorik.com/60d808c119777c001197db2e/6159487c88e0ff001f9e0c9b/images/Mask-group_ajdllld1.png"
               alt="Statement of Beliefs"
-              className="w-full  rounded-lg shadow-lg"
+              className="w-full rounded-lg shadow-lg"
               loading="lazy"
             />
           </motion.div>
 
           {/* Text Content */}
           <motion.div
-            className="text-gray-600 text-xl mb-8"
+            className="text-gray-600 text-lg sm:text-xl mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}

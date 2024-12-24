@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 
 const Beliefs = () => {
   return (
-    <section className="py-16  bg-primary-content">
-      <div className="container  mx-auto px-44">
+    <section className="py-16 px-4 md:px-16 lg:px-40 bg-primary-content">
+      <div className="container mx-auto">
         {/* Main Statement */}
         <div className="mb-12">
           <motion.h2
-            className="text-5xl font-bold text-gray-800 mb-6"
+            className="text-4xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-6"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -17,7 +17,7 @@ const Beliefs = () => {
             Our Statement of Beliefs
           </motion.h2>
           <motion.p
-            className="text-gray-600 text-xl leading-relaxed"
+            className="text-gray-600 text-lg sm:text-xl lg:text-xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -47,15 +47,15 @@ const Beliefs = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Mission */}
           <motion.div
-            className="text-center"
+            className="md:text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            <h3 className="text-xl sm:text-2xl lg:text-2xl font-semibold text-gray-800 mb-4">
               MISSION
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-lg sm:text-xl">
               Higher were times always or live out were sides obscurity,
               themselves help her be in into and other any would needed text
               evaluate she and as the queen's tones writers.
@@ -64,15 +64,15 @@ const Beliefs = () => {
 
           {/* Philosophy */}
           <motion.div
-            className="text-center"
+            className="md:text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            <h3 className="text-xl sm:text-2xl lg:text-2xl font-semibold text-gray-800 mb-4">
               Our Philosophy
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-lg sm:text-xl">
               Higher were times always or live out were sides obscurity,
               themselves help her be in into and other any would needed text
               evaluate she and as the queen's tones writers.
@@ -81,15 +81,15 @@ const Beliefs = () => {
 
           {/* Antiracism */}
           <motion.div
-            className="text-center"
+            className="md:text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            <h3 className="text-xl sm:text-2xl lg:text-2xl font-semibold text-gray-800 mb-4">
               ANTIRACISM
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-lg sm:text-xl">
               Higher were times always or live out were sides obscurity,
               themselves help her be in into and other any would needed text
               evaluate she and as the queen's tones writers.

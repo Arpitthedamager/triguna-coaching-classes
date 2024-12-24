@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 
 const OurHistory = () => {
   return (
-    <section className="py-16 bg-primary-content">
-      <div className="container  mx-auto px-40">
+    <section className="py-16 px-4 md:px-16 lg:px-40 bg-primary-content">
+      <div className="container mx-auto">
         {/* Heading */}
         <motion.h2
-          className="text-5xl font-bold text-gray-800 mb-8"
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -17,7 +17,7 @@ const OurHistory = () => {
         </motion.h2>
 
         {/* Paragraphs */}
-        <div className="space-y-6 text-xl text-gray-600">
+        <div className="space-y-6 text-lg sm:text-xl lg:text-xl text-gray-600">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}

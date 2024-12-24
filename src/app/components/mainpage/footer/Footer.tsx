@@ -1,9 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const Footer: React.FC = () => {
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+  const [randomPositions, setRandomPositions] = useState<{ top: string; left: string }[]>([]);
+
+  // Generate random positions for background dots after initial render (client-side)
+  useEffect(() => {
+    const positions = Array.from({ length: 40 }, () => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+    }));
+    setRandomPositions(positions);
+  }, []);
+
   return (
     <footer className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white py-20 px-6 lg:px-20 xl:px-52 overflow-hidden">
       {/* Background Spot with Framer Motion */}
@@ -29,13 +41,13 @@ const Footer: React.FC = () => {
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {[...Array(40)].map((_, i) => (
+        {randomPositions.map((position, i) => (
           <motion.div
             key={i}
             className="absolute w-3 h-3 bg-yellow-400 rounded-full"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              top: position.top,
+              left: position.left,
             }}
             initial={{ opacity: 0, y: "0%" }}
             animate={{
@@ -157,7 +169,7 @@ const Footer: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}  // Runs animation when in view
         viewport={{ once: true }}  // Ensures it runs only once
       >
-        <p>&copy; {new Date().getFullYear()} Triguna Coaching Classes. All Rights Reserved.</p>
+        <p>&copy; {currentYear} Triguna Coaching Classes. All Rights Reserved.</p>
       </motion.div>
 
       {/* Additional Animated Element */}
