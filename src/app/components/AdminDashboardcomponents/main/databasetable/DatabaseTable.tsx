@@ -196,19 +196,29 @@ const DatabaseTable: FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      <div className="block lg:hidden md:hidden px-24">
-        
+      <div className="block lg:hidden md:hidden justify-between items-center ">
+      <h2 className="text-2xl font-bold md:hidden block mb-2 text-primary-a30">Admin Dashboard</h2>
         <AddStudentButton />
       </div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-primary-a30">Admin Dashboard</h2>
+        <h2 className="text-2xl font-bold hidden md:block text-primary-a30">Admin Dashboard</h2>
         <div className="hidden lg:block md:block p-4">
         
         <AddStudentButton />
       </div>
-        <div className="space-y-2 md:space-y-0 md:flex">
-          <select
+        <div className=" flex space-y-0 md:flex">
+        <select
             className="select select-bordered md:max-w-xs bg-transparent text-primary-a40"
+            value={selectedClass}
+            onChange={(e) => setSelectedClass(e.target.value)}
+          >
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+          </select>
+          <select
+            className="select select-bordered md:ml-2  md:max-w-xs bg-transparent text-primary-a40"
             value={subjectFilter || ""}
             onChange={(e) => setSubjectFilter(e.target.value || null)}
           >

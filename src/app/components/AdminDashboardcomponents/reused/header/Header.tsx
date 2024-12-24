@@ -13,7 +13,7 @@ const Header: FC = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="relative">
-          <Link href="/StudyMaterials">
+          {/* <Link href="/StudyMaterials"> */}
           <input
             type="text"
             placeholder="Search"
@@ -22,7 +22,7 @@ const Header: FC = () => {
           <div className="bg-primary-a30 right-0 top-1/2 transform -translate-y-1/2 absolute text-neutral-content rounded-full w-12 h-12 flex items-center justify-center">
             <span>👤</span>
           </div>
-            </Link>
+            {/* </Link> */}
         </div>
       </motion.div>
     </header>
