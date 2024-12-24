@@ -65,7 +65,7 @@ const Sidebar = ({ onMenuClick }) => {
     { label: "Dashboard", key: "dashboard" },
     { label: "Profile", key: "profile" },
     { label: "Study Materials", key: "studyMaterials" },
-    // { label: "Students", key: "students" },
+    { label: "Students", key: "students" },
     { label: "Exams", key: "exams" },
     { label: "Results", key: "results" },
     { label: "Fees", key: "fees" },

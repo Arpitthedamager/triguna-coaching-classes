@@ -15,6 +15,7 @@ import Exams from "../components/AdminDashboardcomponents/links/exams/Exams";
 import Fees from "../components/AdminDashboardcomponents/links/fees/Fees";
 import Results from "../components/AdminDashboardcomponents/links/results/Results";
 import StudyMaterial from "../components/AdminDashboardcomponents/links/study-materials/Study-Materials";
+import MStudents from "../components/AdminDashboardcomponents/links/mstudents/MStudents";
 
 const AdminDashboard = () => {
   const [activeContent, setActiveContent] = useState("dashboard");
@@ -69,6 +70,8 @@ const AdminDashboard = () => {
         return <Results />;
       case "studyMaterials":
         return <StudyMaterial />;
+        case "students":
+        return <MStudents />;
       default:
         return null;
     }
