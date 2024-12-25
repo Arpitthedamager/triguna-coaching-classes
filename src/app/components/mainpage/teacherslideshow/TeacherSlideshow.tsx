@@ -52,7 +52,7 @@ const TeacherSlideshow = () => {
       </p>
 
       {/* Slideshow */}
-      <div className="relative w-full max-w-5xl mx-auto rounded-lg p-6 lg:p-10">
+      <div className="relative w-full max-w-5xl mx-auto rounded-lg p-4 lg:p-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -64,7 +64,7 @@ const TeacherSlideshow = () => {
           >
             {/* Image */}
             <motion.div
-              className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-gray-200 rounded-full overflow-hidden mb-6 md:mb-0 md:mr-8"
+              className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-gray-200 rounded-full overflow-hidden mb-6 md:mb-0 md:mr-2"
               whileHover={{ scale: 1.1 }}
             >
               <img

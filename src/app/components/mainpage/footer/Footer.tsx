@@ -105,7 +105,7 @@ const Footer: React.FC = () => {
                 viewport={{ once: true }}  // Ensures it runs only once
               >
                 <a
-                  href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`${link.toLowerCase().replace(/\s+/g, "")}`}
                   className="text-white hover:text-yellow-400 transition"
                 >
                   {link}

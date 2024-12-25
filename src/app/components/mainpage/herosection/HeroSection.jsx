@@ -58,17 +58,17 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <a href="#about" className="hover:text-gray-300">
-            About
+          <a href="/" className="text-gray-300">
+            Home
           </a>
-          <a href="#enroll" className="hover:text-gray-300">
+          <a href="/aboutus" className="hover:text-gray-300">
+            About Us
+          </a>
+          <a href="/signin" className="hover:text-gray-300">
             Enroll Now
           </a>
           <a href="#contact" className="hover:text-gray-300">
             Contact
-          </a>
-          <a href="#notes" className="hover:text-gray-300">
-            Notes
           </a>
         </motion.div>
         

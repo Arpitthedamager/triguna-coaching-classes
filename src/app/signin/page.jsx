@@ -24,7 +24,7 @@ export default function SignIn() {
   }, [status, session, router])
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    // return <div>Loading...</div>;
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
