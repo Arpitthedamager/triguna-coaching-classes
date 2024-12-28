@@ -12,12 +12,12 @@ import FAQs from "./components/mainpage/faqs/FAQs"
 import FeaturesSection from "./components/mainpage/featuressection/FeaturesSection"
 import FeedbackSection from "./components/mainpage/feedbacksection/FeedbackSection"
 import Footer from "./components/mainpage/footer/Footer"
-import Game from "./components/mainpage/game/Game"
+// import Game from "./components/mainpage/game/Game"
 import HeroSection from "./components/mainpage/herosection/HeroSection"
 import MapComponent from "./components/mainpage/mapcomponent/MapComponent"
 import TeacherSlideshow from "./components/mainpage/teacherslideshow/TeacherSlideshow"
-import TopRankingStudents from "./components/UserDashboardcomponents/onetimeused/toprankingstudents/TopRankingStudents"
-import CallToAction from "./components/mainpage/calltoaction/CallToAction"
+// import TopRankingStudents from "./components/UserDashboardcomponents/onetimeused/toprankingstudents/TopRankingStudents"
+// import CallToAction from "./components/mainpage/calltoaction/CallToAction"
 
 export default function Home() {
   const { data: session, status } = useSession()

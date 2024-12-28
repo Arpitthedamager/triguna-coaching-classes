@@ -48,8 +48,8 @@ interface ITestPaper {
 
 interface ITestPaperClass extends Document {
   class: number; // Class number (9-12)
-  subject:  String, 
-  testPapers: ITestPaper[];  // Array of test papers for this class
+  subject: string;
+    testPapers: ITestPaper[];  // Array of test papers for this class
 }
 
 interface IStatistics extends Document {

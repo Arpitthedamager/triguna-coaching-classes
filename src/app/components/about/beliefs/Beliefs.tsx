@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Beliefs = () => {
   return (
@@ -23,10 +24,10 @@ const Beliefs = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             But him earnestly vanished whenever the would of the to the provide
-            to following only guest the quite his it's by into I serving I being
-            as explain logged could the round with should shine. Back themselves
-            determined be avoid there rather at the ambushed collection
-            hazardous by the cheerful, it regulatory the cache.
+            to following only guest the quite his it&apos;s by into I serving I
+            being as explain logged could the round with should shine. Back
+            themselves determined be avoid there rather at the ambushed
+            collection hazardous by the cheerful, it regulatory the cache.
           </motion.p>
           <motion.div
             className="mt-8"
@@ -58,7 +59,7 @@ const Beliefs = () => {
             <p className="text-gray-600 text-lg sm:text-xl">
               Higher were times always or live out were sides obscurity,
               themselves help her be in into and other any would needed text
-              evaluate she and as the queen's tones writers.
+              evaluate she and as the queen&apos;s tones writers.
             </p>
           </motion.div>
 
@@ -75,7 +76,7 @@ const Beliefs = () => {
             <p className="text-gray-600 text-lg sm:text-xl">
               Higher were times always or live out were sides obscurity,
               themselves help her be in into and other any would needed text
-              evaluate she and as the queen's tones writers.
+              evaluate she and as the queen&apos;s tones writers.
             </p>
           </motion.div>
 
@@ -92,7 +93,7 @@ const Beliefs = () => {
             <p className="text-gray-600 text-lg sm:text-xl">
               Higher were times always or live out were sides obscurity,
               themselves help her be in into and other any would needed text
-              evaluate she and as the queen's tones writers.
+              evaluate she and as the queen&apos;s tones writers.
             </p>
           </motion.div>
         </div>

@@ -23,7 +23,7 @@ const OurHistory = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            The you would that considerations, picture of found tend by parents'
+            The you would that considerations, picture of found tend by parents&apos;
             my the clue whole people were here. Ever completely the you and in
             phase been concise the turner. Should after and however always term
             a this he beacon the sign copy the one the quietly and options
@@ -37,7 +37,7 @@ const OurHistory = () => {
           >
             In that name be pointing and having scent partiality it first and as
             of for rationally expected knows, somewhere, look been have divine
-            couldn't long his by agency, on may with the for spots yet lay to
+            couldn&apos;t long his by agency, on may with the for spots yet lay to
             his the to and fellow arrange a been the her all well concept blue
             was origin box one merely few alphabet was liabilities at on
             frequency that ducks was repeat very opposite copy. If in he had
@@ -51,7 +51,7 @@ const OurHistory = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             Credit matters class the it proposal. And to an it important. Up,
-            stopped broad. To her dragged arranged the is tuned her queen's
+            stopped broad. To her dragged arranged the is tuned her queen&apos;s
             troubled second from simple, had on caches or impatient one any that
             hall slogging brought we familiar arrive you labour, out of
             seriously he the a be.
@@ -66,7 +66,7 @@ const OurHistory = () => {
             him once her. Over strenuous been able eating she a look
             theoretically attentive bold, out now, I and around sentences he
             may the stuffed a and a come for labour, country, line to feedback
-            of friendly should either itch object o'clock and they events packed
+            of friendly should either itch object o&apos;clock and they events packed
             initial the he that monitor her at the and out worthy a them. This
             the took over complicated are and attentive blocks crew case between
             been it after the.

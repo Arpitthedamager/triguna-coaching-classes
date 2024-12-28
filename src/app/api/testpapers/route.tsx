@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       const subjectParams = url.searchParams.getAll("subject"); // Get all subject values
   
       // Build the query object for filtering
-      let query: any = {};
+      const query: any = {};
   
       if (classParam) {
         query.class = Number(classParam); // Convert class to number

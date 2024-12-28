@@ -2,21 +2,17 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+// import Image from "next/image";
 
 const HeroSection = () => {
   const [isClient, setIsClient] = useState(false);
 
-  // Ensure particles are only rendered on the client side
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   return (
-    <section
-      className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white md:py-20 py-6 px-6 lg:px-20 xl:px-52 overflow-hidden"
-      // className="relative bg-gradient-to-b from-[#241448] to-[#5631AE] text-white py-10 px-6 lg:px-20 xl:px-52 overflow-hidden"
-    >
-      {/* Particle Animation */}
+    <section className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8] text-white md:py-20 py-6 px-6 lg:px-20 xl:px-52 overflow-hidden">
       {isClient && (
         <div className="absolute inset-0 pointer-events-none z-0">
           {[...Array(50)].map((_, i) => (
@@ -58,21 +54,20 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <a href="/" className="text-gray-300">
+          <Link href="/" className="text-gray-300">
             Home
-          </a>
-          <a href="/aboutus" className="hover:text-gray-300">
+          </Link>
+          <Link href="/aboutus" className="hover:text-gray-300">
             About Us
-          </a>
-          <a href="/signin" className="hover:text-gray-300">
+          </Link>
+          <Link href="/signin" className="hover:text-gray-300">
             Enroll Now
-          </a>
-          <a href="#contact" className="hover:text-gray-300">
+          </Link>
+          <Link href="/contact" className="hover:text-gray-300">
             Contact
-          </a>
+          </Link>
         </motion.div>
-        
-        <Link href="/signin" >
+        <Link href="/signin">
           <motion.button
             className="px-6 py-2 bg-yellow-500 text-[#241448] font-bold rounded-lg hover:bg-yellow-400"
             whileHover={{ scale: 1.1 }}
@@ -108,7 +103,7 @@ const HeroSection = () => {
               >
                 Enroll Now
               </motion.button>
-            </Link>{" "}
+            </Link>
             <Link href="/signin">
               <motion.button
                 className="px-8 py-4 bg-[#241448] text-white font-bold rounded-lg hover:bg-[#362161]"
@@ -131,7 +126,7 @@ const HeroSection = () => {
 
         {/* Right Section */}
         <motion.div
-          className="md:flex hidden items-center  justify-center space-x-4 relative"
+          className="md:flex hidden items-center justify-center space-x-4 relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
