@@ -39,7 +39,7 @@ interface ITestPaper {
   id: number;
   title: string;
   description: string;
-  teacher: string;  // Assuming teacher is a reference to the User model
+  teacher: string; // Assuming teacher is a reference to the User model
   image: string;
   downloadLink: string;
   openLink: string;
@@ -49,7 +49,7 @@ interface ITestPaper {
 interface ITestPaperClass extends Document {
   class: number; // Class number (9-12)
   subject: string;
-    testPapers: ITestPaper[];  // Array of test papers for this class
+  testPapers: ITestPaper[]; // Array of test papers for this class
 }
 
 interface IStatistics extends Document {
@@ -71,7 +71,6 @@ interface IAttendance extends Document {
   date: Date;
   attendance: Map<string, "present" | "absent" | null>;
 }
-
 
 interface IRecentlyView extends Document {
   email: string; // The email of the user who viewed the
@@ -165,14 +164,14 @@ const UserSchema = new Schema<IUser>(
 );
 
 const TestPaperSchema = new Schema<ITestPaperClass>({
-  class: { type: Number, required: true, min: 9, max: 12 },  // Class number (9 to 12)
-  subject: { type: String, required: true },  // Subject field
+  class: { type: Number, required: true, min: 9, max: 12 }, // Class number (9 to 12)
+  subject: { type: String, required: true }, // Subject field
   testPapers: [
     {
       id: { type: Number, required: true },
       title: { type: String, required: true },
       description: { type: String },
-      teacher: { type: String },  // Assuming teacher is an ObjectId reference to the User model
+      teacher: { type: String }, // Assuming teacher is an ObjectId reference to the User model
       image: { type: String },
       downloadLink: { type: String },
       openLink: { type: String },
@@ -279,8 +278,9 @@ const StudyMaterialSchema = new Schema<IStudyMaterial>({
 });
 
 const RecentlyViewSchema = new Schema<IRecentlyView>({
-  email: { // Replace userId with email
-    type: String, 
+  email: {
+    // Replace userId with email
+    type: String,
     required: true,
   },
   materialId: {
@@ -293,7 +293,6 @@ const RecentlyViewSchema = new Schema<IRecentlyView>({
     default: Date.now, // Defaults to the current date if not provided
   },
 });
-
 
 const NoticeSchema = new Schema<INotice>({
   class: { type: Number, required: true, min: 9, max: 12 },
@@ -342,7 +341,8 @@ const CalendarSchema = new Schema<Calendar>({
 const User: Model<IUser> =
   mongoose.models.User || mongoose.model("User", UserSchema);
 const TestPaperClass: Model<ITestPaperClass> =
-  mongoose.models.TestPaperClass || mongoose.model("TestPaperClass", TestPaperSchema);
+  mongoose.models.TestPaperClass ||
+  mongoose.model("TestPaperClass", TestPaperSchema);
 const Fee: Model<IFee> =
   mongoose.models.Fee || mongoose.model("Fee", FeeSchema);
 const Attendance: Model<IAttendance> =
@@ -359,8 +359,9 @@ const CalendarModel: Model<Calendar> =
   mongoose.model<Calendar>("Calendar", CalendarSchema);
 const TestModel: Model<ITest> =
   mongoose.models.Test || mongoose.model<ITest>("Test", TestSchema);
-  const RecentlyView: Model<IRecentlyView> =
-  mongoose.models.RecentlyView || mongoose.model("RecentlyView", RecentlyViewSchema);
+const RecentlyView: Model<IRecentlyView> =
+  mongoose.models.RecentlyView ||
+  mongoose.model("RecentlyView", RecentlyViewSchema);
 export {
   User,
   TestPaperClass,

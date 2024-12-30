@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/utils";
-import {TestModel} from "@/app/lib/models"; // Adjust the import path as necessary
+import { TestModel } from "@/app/lib/models"; // Adjust the import path as necessary
 
 interface Test {
   date: string | Date;
   marksObtained: number;
   totalMarks: number;
 }
-
 
 interface SubjectData {
   userEmail: string;
@@ -30,7 +29,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     const calculateMonthlyAverages = (subject: SubjectData[]) => {
-      const monthlyTotals: { [month: string]: { total: number; count: number } } = {};
+      const monthlyTotals: {
+        [month: string]: { total: number; count: number };
+      } = {};
 
       subject.forEach((student) => {
         student.tests.forEach((test) => {
@@ -51,7 +52,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
       return Object.keys(monthlyTotals).map((month) => ({
         month,
-        average: (monthlyTotals[month].total / monthlyTotals[month].count).toFixed(2),
+        average: (
+          monthlyTotals[month].total / monthlyTotals[month].count
+        ).toFixed(2),
       }));
     };
 

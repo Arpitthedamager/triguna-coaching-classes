@@ -13,7 +13,7 @@ const Profile = () => {
   // Check if session is loaded
   useEffect(() => {
     if (status === "loading") return;
-    if (!session) return;
+    if (!session)  return;
     
     const fetchProfile = async () => {
       try {
@@ -90,6 +90,15 @@ const Profile = () => {
   const buttonHover = {
     hover: { scale: 1.05, boxShadow: "0px 8px 15px rgba(0,0,0,0.2)" },
   };
+
+  
+  if (status === "loading") {
+    return <p>Loading session...</p>;
+  }
+
+  if (!session) {
+    return <p>Not signed in</p>;
+  }
 
   if (!profile) {
     return <p>Loading profile...</p>;

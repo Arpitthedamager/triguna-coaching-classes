@@ -123,21 +123,21 @@ const StudyMaterial: FC = () => {
     }
   };
   const filteredRecentlyViewed = recentlyViewed
-  .map((viewed) => {
-    const material = studyMaterials.find(
-      (mat) => mat._id.toString() === viewed.materialId._id.toString()
+    .map((viewed) => {
+      const material = studyMaterials.find(
+        (mat) => mat._id.toString() === viewed.materialId._id.toString()
+      );
+      return material ? { ...material, visitedDate: viewed.visitedDate } : null; // Spread material directly
+    })
+    .filter(Boolean) // Remove null entries where material is not found
+    .sort(
+      (a, b) =>
+        new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
     );
-    return material ? { ...material, visitedDate: viewed.visitedDate } : null; // Spread material directly
-  })
-  .filter(Boolean) // Remove null entries where material is not found
-  .sort(
-    (a, b) =>
-      new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
-  );
 
-// console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
+  // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
 
-// console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
+  // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
 
   const sortedRecentlyAdded = [...studyMaterials].sort(
     (a, b) => new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
@@ -173,7 +173,7 @@ const StudyMaterial: FC = () => {
   const renderMaterials = (materials: any[]) =>
     materials.map((material, index) => (
       <motion.div
-        key={material.id}
+        key={material._id} // Use _id as the unique key
         className="card bg-transparent p-4 bg-white rounded-lg shadow hover:shadow-lg"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

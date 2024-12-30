@@ -35,15 +35,23 @@ const Hero = () => {
         </motion.div>
 
         <motion.div
-          className="hidden lg:flex space-x-8 text-white font-semibold"
+          className="hidden lg:flex space-x-8 text-gray-50 font-semibold"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <Link href="/" className="hover:underline">Home</Link>
-          <Link href="/about" className="hover:underline">About Us</Link>
-          <Link href="/signin" className="hover:underline">Enroll Now</Link>
-          <Link href="/contact" className="hover:underline">Contact</Link>
+          <Link href="/" className="hover:text-gray-200">
+            Home
+          </Link>
+          <Link href="/about" className="hover:text-gray-200">
+            About Us
+          </Link>
+          <Link href="/signin" className="hover:text-gray-200">
+            Enroll Now
+          </Link>
+          <Link href="/contact" className="hover:text-gray-200">
+            Contact
+          </Link>
         </motion.div>
 
         <Link href="/signin">
@@ -95,14 +103,20 @@ const Hero = () => {
             transition={{ duration: 1, delay: 0.5 }}
           >
             {/* <Link > */}
-              <Link href="/about" className="px-6 py-3 bg-yellow-500 text-[#241448] font-bold rounded-lg shadow-md hover:bg-yellow-400">
-                Learn More
-              </Link>
+            <Link
+              href="/about"
+              className="px-6 py-3 bg-yellow-500 text-[#241448] font-bold rounded-lg shadow-md hover:bg-yellow-400"
+            >
+              Learn More
+            </Link>
             {/* </Link> */}
             {/* <Link href="/contact"> */}
-              <Link href="/contact" className="px-6 py-3 bg-white text-[#241448] font-bold rounded-lg shadow-md hover:bg-gray-200">
-                Contact Us
-              </Link>
+            <Link
+              href="/contact"
+              className="px-6 py-3 bg-white text-[#241448] font-bold rounded-lg shadow-md hover:bg-gray-200"
+            >
+              Contact Us
+            </Link>
             {/* </Link> */}
           </motion.div>
         </div>
@@ -122,9 +136,10 @@ const Hero = () => {
                 {questions[currentQuestion]}
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                At EduSpark, we are dedicated to fostering a passion for learning
-                and personal growth. Our innovative methods and state-of-the-art
-                resources help students excel and achieve their dreams.
+                At EduSpark, we are dedicated to fostering a passion for
+                learning and personal growth. Our innovative methods and
+                state-of-the-art resources help students excel and achieve their
+                dreams.
               </p>
             </motion.div>
 
