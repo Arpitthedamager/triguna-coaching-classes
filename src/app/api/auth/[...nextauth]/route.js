@@ -84,17 +84,6 @@ const authOptions = {
   },
   pages: {
     signIn: "/signin",
-    async redirect({ url, baseUrl }) {
-      const role = session?.user?.role; // Get the user role from session
-
-      if (role === "admin") {
-        console.log("Redirecting to admin dashboard");
-        return "/admindashboard"; // Redirect admin to admin dashboard
-      } else {
-        console.log("Redirecting to admin dashboard");
-        return "/userdashboard"; // Redirect user to user dashboard
-      }
-    }
   },
 };
 

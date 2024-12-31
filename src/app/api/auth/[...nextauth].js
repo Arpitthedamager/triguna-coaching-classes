@@ -81,19 +81,19 @@ const authOptions = {
   },
   pages: {
     signIn: "/signin",
-    async redirect({ url, baseUrl, session }) {
-      if (!session) return baseUrl; // Default redirect to baseUrl if session is not available
+    // async redirect({ url, baseUrl, session }) {
+    //   if (!session) return baseUrl; // Default redirect to baseUrl if session is not available
 
-      const role = session.user?.role;
+    //   const role = session.user?.role;
 
-      if (role === "admin") {
-        console.log("Redirecting to admin dashboard");
-        return "/admindashboard"; // Redirect admin to admin dashboard
-      } else {
-        console.log("Redirecting to user dashboard");
-        return "/userdashboard"; // Redirect user to user dashboard
-      }
-    },
+    //   if (role === "admin") {
+    //     console.log("Redirecting to admin dashboard");
+    //     return "/admindashboard"; // Redirect admin to admin dashboard
+    //   } else {
+    //     console.log("Redirecting to user dashboard");
+    //     return "/userdashboard"; // Redirect user to user dashboard
+    //   }
+    // },
   },
 };
 
