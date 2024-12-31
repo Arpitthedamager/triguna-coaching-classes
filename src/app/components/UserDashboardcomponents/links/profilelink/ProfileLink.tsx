@@ -4,7 +4,7 @@ import CircularProgress from "../../main/circularprogress/CircularProgress";
 import StatisticsGraph from "../../main/statisticsgraph/StatisticsGraph";
 import Header from "../../reused/header/Header";
 import Profile from "../../onetimeused/profile/Profile";
-import AttendanceCalendar from "../../onetimeused/attendancecalendar/AttendanceCalendar";
+// import AttendanceCalendar from "../../onetimeused/attendancecalendar/AttendanceCalendar";
 interface AttendanceData {
   [date: string]: ("present" | "absent" | null)[] | undefined;
 }
@@ -33,7 +33,7 @@ const ProfileLink: React.FC = () => {
           </div>
         </div>
         <div className="flex-none"> 
-        <AttendanceCalendar attendanceData={attendanceData} />
+        {/* <AttendanceCalendar attendanceData={attendanceData} /> */}
         </div>
       </main>
     </>
