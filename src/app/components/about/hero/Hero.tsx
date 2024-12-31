@@ -43,7 +43,7 @@ const Hero = () => {
           <Link href="/" className="hover:text-gray-200">
             Home
           </Link>
-          <Link href="/about" className="hover:text-gray-200">
+          <Link href="/aboutus" className="hover:text-gray-200">
             About Us
           </Link>
           <Link href="/signin" className="hover:text-gray-200">
