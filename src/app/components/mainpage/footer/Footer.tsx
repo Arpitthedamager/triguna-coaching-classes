@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+
 
 const Footer: React.FC = () => {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
@@ -15,6 +17,12 @@ const Footer: React.FC = () => {
     }));
     setRandomPositions(positions);
   }, []);
+  const socialLinks = [
+    { icon: <FaFacebookF />, href: "https://facebook.com" },
+    { icon: <FaTwitter />, href: "https://twitter.com" },
+    { icon: <FaInstagram />, href: "https://instagram.com" },
+    { icon: <FaLinkedinIn />, href: "https://linkedin.com" },
+  ];
 
   return (
     <footer className="relative bg-gradient-to-b from-[#8b50fc] to-[#570df8 ] text-white py-20 px-6 lg:px-20 xl:px-52 overflow-hidden">
@@ -140,20 +148,21 @@ const Footer: React.FC = () => {
             </a>
           </p>
           <div className="flex space-x-4 mt-4">
-            {["facebook", "twitter", "instagram", "linkedin"].map((platform, index) => (
+            {socialLinks.map((social, index) => (
               <motion.a
                 key={index}
-                href={`https://${platform}.com`}
+                href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-yellow-400 transition"
+                className="text-white text-xl hover:text-yellow-400 transition"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 + index * 0.1, duration: 0.3 }}
-                whileInView={{ opacity: 1, scale: 1 }}  // Runs animation when in view
-                viewport={{ once: true }}  // Ensures it runs only once
+                transition={{
+                  delay: 0.5 + index * 0.1,
+                  duration: 0.4,
+                }}
               >
-                <i className={`fab fa-${platform} text-2xl`}></i>
+                {social.icon}
               </motion.a>
             ))}
           </div>

@@ -24,14 +24,14 @@ const teachers = [
 
 const TeacherCardLayout = () => {
   return (
-    <section className="py-10 px-6 md:px-10 lg:px-20 lg:py-32">
+    <section className="py-5  px-6 md:px-10 lg:px-20 lg:py-12">
       {/* Heading */}
-      <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary-a20 font-bold mb-4 md:text-center">
+      {/* <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary-a20 font-bold mb-4 md:text-center">
         Contect Our Educators
       </h2>
       <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-10 text-center">
         Dedicated educators driving our mission to inspire and empower students.
-      </p>
+      </p> */}
 
       {/* Cards */}
       <div className="flex  space-x-4">
@@ -60,10 +60,10 @@ const TeacherCardLayout = () => {
                 {teacher.subject}
               </p>
               <p className="text-gray-600 mt-1">
-                Phone: <a href={`tel:${teacher.phone}`} className="text-blue-500 hover:underline">{teacher.phone}</a>
+                Phone: <a href={`tel:${teacher.phone}`} className="text-primary-a20 hover:underline">{teacher.phone}</a>
               </p>
               <p className="text-gray-600 mt-1">
-                Email: <a href={`mailto:${teacher.email}`} className="text-blue-500 hover:underline">{teacher.email}</a>
+                Email: <a href={`mailto:${teacher.email}`} className="text-primary-a20 hover:underline">{teacher.email}</a>
               </p>
               <p className="text-gray-500 mt-3">{teacher.details}</p>
             </div>
