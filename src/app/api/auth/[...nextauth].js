@@ -23,7 +23,7 @@ const authOptions = {
           if (isPasswordValid) {
             return {
               id: user._id.toString(),
-              name: user.name || null,  // Ensure name is null if not available
+              name: user.name || null,
               email: user.email || "",
               phone: user.phone || "",
               address: user.address || "",
@@ -48,7 +48,7 @@ const authOptions = {
       if (token) {
         session.user = {
           id: token.id,
-          name: token.name ?? null,  // Ensure name is string | null (use null if undefined)
+          name: token.name ?? null,
           email: token.email,
           phone: token.phone,
           address: token.address,
@@ -65,7 +65,7 @@ const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.name = user.name ?? null;  // Ensure name is string | null (use null if undefined)
+        token.name = user.name ?? null;
         token.email = user.email;
         token.phone = user.phone;
         token.address = user.address;
@@ -81,6 +81,19 @@ const authOptions = {
   },
   pages: {
     signIn: "/signin",
+    async redirect({ url, baseUrl, session }) {
+      if (!session) return baseUrl; // Default redirect to baseUrl if session is not available
+
+      const role = session.user?.role;
+
+      if (role === "admin") {
+        console.log("Redirecting to admin dashboard");
+        return "/admindashboard"; // Redirect admin to admin dashboard
+      } else {
+        console.log("Redirecting to user dashboard");
+        return "/userdashboard"; // Redirect user to user dashboard
+      }
+    },
   },
 };
 
