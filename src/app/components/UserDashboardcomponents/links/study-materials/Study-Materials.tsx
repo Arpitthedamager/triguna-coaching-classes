@@ -170,7 +170,7 @@ const StudyMaterial: FC = () => {
   const renderMaterials = (materials: any[]) =>
     materials.map((material, index) => (
       <motion.div
-        key={material.id}
+        key={material._id}
         className="card bg-transparent p-4 bg-white rounded-lg shadow hover:shadow-lg"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
