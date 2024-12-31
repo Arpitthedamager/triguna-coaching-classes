@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const FeatureCard = ({ imageSrc, altText, title }: { imageSrc: string; altText: string; title: string }) => {
+const FeatureCard = ({ imageSrc, altText, title }: { imageSrc: string; altText: string; title: string }) => { 
   return (
     <motion.div
       className="relative m-3"
@@ -30,33 +30,33 @@ const FeaturesSection = () => {
   const features = [
     {
       imageSrc: "https://via.placeholder.com/150",
-      altText: "Expert Faculty",
-      title: "Expert Faculty Committed to Your Success",
+      altText: "Expert Mentors",
+      title: "Expert Mentors Who Guide You to Success",
     },
     {
       imageSrc: "https://via.placeholder.com/150",
-      altText: "Tailored Coaching",
-      title: "Tailored Coaching Plans for Every Student",
+      altText: "Customized Learning",
+      title: "Customized Learning Plans for Every Student",
     },
     {
       imageSrc: "https://via.placeholder.com/150",
-      altText: "Academic Excellence",
-      title: "Proven Track Record of Academic Excellence",
+      altText: "Comprehensive Course Material",
+      title: "Comprehensive Course Material and Resources",
     },
     {
       imageSrc: "https://via.placeholder.com/150",
-      altText: "Guidance",
-      title: "Step-by-Step Guidance for Every Student",
+      altText: "24/7 Availability",
+      title: "24/7 Availability for Doubts and Queries",
     },
     {
       imageSrc: "https://via.placeholder.com/150",
       altText: "Interactive Learning",
-      title: "Interactive Learning and Engaging Activities",
+      title: "Interactive Learning Environment to Keep You Engaged",
     },
     {
       imageSrc: "https://via.placeholder.com/150",
-      altText: "Assessments",
-      title: "Regular Assessments to Track Progress",
+      altText: "Consistent Evaluations",
+      title: "Regular Evaluations to Measure Progress",
     },
   ];
 
@@ -76,7 +76,7 @@ const FeaturesSection = () => {
   }, []);
 
   return (
-    <section className="text-center md:pt-36  py-10 px-6 lg:px-20 xl:px-52">
+    <section className="text-center md:pt-36 py-10 px-6 lg:px-20 xl:px-52">
       {/* Heading */}
       <motion.div
         className="mb-8"
@@ -86,11 +86,11 @@ const FeaturesSection = () => {
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4">
-          Unlock Your Potential with Expert Coaching
+          Achieve Your Academic Goals with Our Coaching
         </h2>
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600">
-          Our expert facilities are dedicated to nurturing each student&apos;s unique abilities. Experience personalized
-          coaching that leads to outstanding academic results.
+          Our institute offers personalized coaching and guidance to help students achieve their academic aspirations. 
+          With expert mentors, interactive lessons, and continuous support, your success is our priority.
         </p>
       </motion.div>
 
@@ -144,7 +144,7 @@ const FeaturesSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        Sign up
+        Get Started Now
       </motion.button>
     </section>
   );
