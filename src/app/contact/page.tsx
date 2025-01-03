@@ -13,6 +13,44 @@ import Footer from "../components/mainpage/footer/Footer";
 export default function ContactUs() {
   return (
     <>
+          
+      {/* Structured Data (JSON-LD) for Contact Page */}
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ContactPage",
+              "mainEntityOfPage": "https://trigunacoachingclasses.in/contact",
+              "name": "Contact Us - Triguna Coaching Classes",
+              "description":
+                "Get in touch with Triguna Coaching Classes for inquiries, feedback, or assistance. Located in Agra, we are here to help you.",
+              "url": "https://trigunacoachingclasses.in/contact",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+919917989914",
+                "contactType": "Customer Service",
+                "areaServed": "IN",
+                "availableLanguage": "English",
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "B-294, A Block, Kalindi Vihar",
+                "addressLocality": "Agra",
+                "addressRegion": "UP",
+                "postalCode": "282006",
+                "addressCountry": "India",
+              },
+              "sameAs": [
+                "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/",
+                "https://www.instagram.com/pachaurirupesh/",
+              ],
+            }),
+          }}
+        />
+      </head>
+
     <div className="bg-primary-content">
 
       <nav className="relative bg-primary-a50 py-4 flex justify-between items-center z-10 px-4 md:px-8 shadow-lg">

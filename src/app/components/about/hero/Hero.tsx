@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+
 const Hero = () => {
+  
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const questions = [
     "Empower Your Learning Journey!",
