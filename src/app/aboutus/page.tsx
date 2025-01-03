@@ -43,14 +43,14 @@ export const metadata: Metadata = {
 };
 
 export default function About() {
-    return (
-        <div>
-      <Hero/>
-      <Statement/>
-      <Beliefs/>
-      <TeacherSlideshow/>
-      <OurHistory/>
-      <Footer/>
-        </div>
-    );
+  return (
+    <div>
+      <Hero />
+      <Statement />
+      <Beliefs />
+      <TeacherSlideshow />
+      <OurHistory />
+      <Footer />
+    </div>
+  );
 }

@@ -69,7 +69,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <meta name="google-site-verification" content="ZxOhBMQBy8eaOIRimm2wJyD2GyQgOnoYs-ioSIyt-tY" />
+        <meta
+          name="google-site-verification"
+          content="ZxOhBMQBy8eaOIRimm2wJyD2GyQgOnoYs-ioSIyt-tY"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -96,6 +99,35 @@ export default function RootLayout({
               sameAs: [
                 "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/",
                 "https://www.instagram.com/pachaurirupesh/",
+              ],
+            }),
+          }}
+        />{" "}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://trigunacoachingclasses.in/",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "About Us",
+                  item: "https://trigunacoachingclasses.in/about",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: "Contact Us",
+                  item: "https://trigunacoachingclasses.in/contact",
+                },
               ],
             }),
           }}

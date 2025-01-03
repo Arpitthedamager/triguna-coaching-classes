@@ -26,7 +26,7 @@ const Hero = () => {
   return (
     <div className="bg-primary-content">
       {/* Navbar */}
-      <nav className="relative bg-primary-a50 py-4 flex justify-between items-center z-10 px-4 md:px-8 shadow-lg">
+      <nav aria-label="Breadcrumb" className="relative bg-primary-a50 py-4 flex justify-between items-center z-10 px-4 md:px-8 shadow-lg">
         <motion.div
           className="text-lg font-extrabold text-yellow-500"
           initial={{ opacity: 0, x: -50 }}

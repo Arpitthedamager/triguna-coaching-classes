@@ -39,7 +39,7 @@ const HeroSection = () => {
       )}
 
       {/* Navbar */}
-      <nav className="relative flex justify-between items-center mb-10 z-10">
+      <nav aria-label="Breadcrumb" className="relative flex justify-between items-center mb-10 z-10">
         <motion.div
           className="text-lg font-bold"
           initial={{ opacity: 0, x: -50 }}
