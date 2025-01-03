@@ -8,6 +8,7 @@ import TeacherContactCard from "../components/contect/teachercard/TeacherCard";
 import ContactForm from "../components/contect/form/Form";
 import MapComponent from "../components/mainpage/mapcomponent/MapComponent";
 import Footer from "../components/mainpage/footer/Footer";
+import Head from "next/head";
 // import Hero from "../components/contect/hero/Hero";
 
 export default function ContactUs() {
@@ -15,7 +16,7 @@ export default function ContactUs() {
     <>
           
       {/* Structured Data (JSON-LD) for Contact Page */}
-      <head>
+      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -49,7 +50,7 @@ export default function ContactUs() {
             }),
           }}
         />
-      </head>
+      </Head>
 
     <div className="bg-primary-content">
 
