@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { 
+import {   
   FaMapMarkerAlt, 
   FaPhoneAlt, 
   FaEnvelope, 
@@ -28,7 +28,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-10 mt-16  max-w-6xl mx-auto">
+    <div className="flex flex-col md:flex-row gap-10 mt-16 max-w-6xl mx-auto px-4 md:px-6">
       {/* Left Section */}
       <motion.div
         className="w-full md:w-1/2 space-y-6"
@@ -100,7 +100,7 @@ const ContactForm = () => {
         <div className="mt-6">
           <h4 className="font-bold text-left text-gray-900">Follow Us:</h4>
           <div className="flex gap-4 mt-2">
-            {[
+            {[ 
               { icon: FaFacebookF, link: "#" },
               { icon: FaTwitter, link: "#" },
               { icon: FaInstagram, link: "#" },
@@ -122,7 +122,7 @@ const ContactForm = () => {
 
       {/* Right Section */}
       <motion.div
-        className="w-full md:w-1/2 bg-white p-8 ml-10 rounded-3xl shadow-lg"
+        className="w-full md:w-1/2 bg-white p-8 md:ml-10 rounded-3xl shadow-lg"
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
@@ -131,7 +131,7 @@ const ContactForm = () => {
           Send a Message
         </h2>
         <form onSubmit={handleSubmit} className="mt-6 text-left text-gray-500 space-y-4">
-          {[
+          {[ 
             { id: "name", label: "Name", type: "text" },
             { id: "email", label: "Email", type: "email" },
             { id: "contactNumber", label: "Contact Number", type: "tel" },
