@@ -40,7 +40,7 @@ export default function ContactUs() {
           <Link href="/signin" className="hover:text-gray-200">
             Enroll Now
           </Link>
-          <Link href="/contact" className="hover:text-gray-200">
+          <Link href="/contact" className="text-gray-200">
             Contact
           </Link>
         </motion.div>
