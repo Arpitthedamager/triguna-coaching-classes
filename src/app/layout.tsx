@@ -77,7 +77,7 @@ export default function RootLayout({
               "@type": "EducationalOrganization",
               name: "Triguna Coaching Classes",
               url: "https://trigunacoachingclasses.in",
-              logo: "https://trigunacoachingclasses.in/favicon.ico",
+              logo: "/favicon.ico",
               description: "Exceptional coaching for Class 1 to 12 in Agra.",
               address: {
                 "@type": "PostalAddress",

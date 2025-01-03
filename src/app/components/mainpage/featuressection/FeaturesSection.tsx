@@ -117,7 +117,7 @@ const FeaturesSection = () => {
       </motion.div>
 
       {/* Mobile Slideshow */}
-      <div className="lg:hidden relative">
+      <div className="lg:hidden md:hidden relative">
         <FeatureCard
           imageSrc={features[currentIndex].imageSrc}
           altText={features[currentIndex].altText}

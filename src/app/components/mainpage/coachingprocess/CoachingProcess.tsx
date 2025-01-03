@@ -29,37 +29,37 @@ const FeatureCard = ({ imageSrc, altText, title }: { imageSrc: string; altText: 
 const FeaturesSection = () => {
   const features = [
     {
-      imageSrc: "https://via.placeholder.com/150",
-      altText: "Expert Mentors",
-      title: "Expert Mentors Who Guide You to Success",
-    },
-    {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/tc.jpg",
       altText: "Customized Learning",
       title: "Customized Learning Plans for Every Student",
     },
     {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/t.jpg",
       altText: "Comprehensive Course Material",
       title: "Comprehensive Course Material and Resources",
     },
     {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/pt.jpg",
       altText: "24/7 Availability",
       title: "24/7 Availability for Doubts and Queries",
     },
     {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/pe.jpg",
       altText: "Interactive Learning",
       title: "Interactive Learning Environment to Keep You Engaged",
     },
     {
-      imageSrc: "https://via.placeholder.com/150",
+      imageSrc: "/main/tcp.jpg",
       altText: "Consistent Evaluations",
       title: "Regular Evaluations to Measure Progress",
     },
+    {
+      imageSrc: "/main/ptr.jpg",
+      altText: "Expert Mentors",
+      title: "Expert Mentors Who Guide You to Success",
+    },
   ];
-
+  
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -95,7 +95,7 @@ const FeaturesSection = () => {
       </motion.div>
 
       {/* Features Section */}
-      <div className="relative lg:hidden">
+      <div className="relative md:hidden lg:hidden">
         <FeatureCard
           imageSrc={features[currentIndex].imageSrc}
           altText={features[currentIndex].altText}
