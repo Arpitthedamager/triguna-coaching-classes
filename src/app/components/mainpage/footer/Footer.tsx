@@ -149,16 +149,16 @@ const Footer: React.FC = () => {
           <p className="text-white mb-2">
             Email:{" "}
             <a
-              href="mailto:info@trigunaclasses.com"
+              href="mailto:trigunacoachingclasses@gmail.com"
               className="hover:text-yellow-400"
             >
-              info@trigunaclasses.com
+              trigunacoachingclasses@gmail.com{" "}
             </a>
           </p>
           <p className="text-white mb-2">
             Phone:{" "}
-            <a href="tel:+917891234567" className="hover:text-yellow-400">
-              +91 7891234567
+            <a href="tel:+919917989914" className="hover:text-yellow-400">
+              +91 9917989914
             </a>
           </p>
           <div className="flex space-x-4 mt-4">
