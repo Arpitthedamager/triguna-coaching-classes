@@ -2,13 +2,26 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 const Footer: React.FC = () => {
-  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
-  const [randomPositions, setRandomPositions] = useState<{ top: string; left: string }[]>([]);
-
+  const [currentYear, setCurrentYear] = useState<number>(
+    new Date().getFullYear()
+  );
+  const [randomPositions, setRandomPositions] = useState<
+    { top: string; left: string }[]
+  >([]);
+  const links = [
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/aboutus" },
+    { name: "Contact", href: "/contact" },
+    // Add more links as needed
+  ];
   // Generate random positions for background dots after initial render (client-side)
   useEffect(() => {
     const positions = Array.from({ length: 40 }, () => ({
@@ -43,8 +56,8 @@ const Footer: React.FC = () => {
           translateY: "-50%",
         }}
         transition={{ duration: 2, ease: "easeInOut", delay: 0.3 }}
-        whileInView={{ opacity: 1, scale: 1 }}  // Runs animation when in view
-        viewport={{ once: true }}  // Ensures it runs only once
+        whileInView={{ opacity: 1, scale: 1 }} // Runs animation when in view
+        viewport={{ once: true }} // Ensures it runs only once
       />
 
       {/* Animated Background Elements */}
@@ -67,9 +80,9 @@ const Footer: React.FC = () => {
               duration: Math.random() * 5 + 3,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: Math.random() * 0.5 + 0.2,  // Add random delay for background elements
+              delay: Math.random() * 0.5 + 0.2, // Add random delay for background elements
             }}
-            whileInView={{ opacity: 1, y: ["0%", "100%"] }}  // Runs animation when in view
+            whileInView={{ opacity: 1, y: ["0%", "100%"] }} // Runs animation when in view
           />
         ))}
       </div>
@@ -79,8 +92,8 @@ const Footer: React.FC = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-        whileInView={{ opacity: 1, y: 0 }}  // Runs animation when in view
-        viewport={{ once: true }}  // Ensures it runs only once
+        whileInView={{ opacity: 1, y: 0 }} // Runs animation when in view
+        viewport={{ once: true }} // Ensures it runs only once
       >
         {/* Branding Section */}
         <div className="space-y-4">
@@ -89,8 +102,8 @@ const Footer: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.4 }}
-            whileInView={{ opacity: 1, x: 0 }}  // Runs animation when in view
-            viewport={{ once: true }}  // Ensures it runs only once
+            whileInView={{ opacity: 1, x: 0 }} // Runs animation when in view
+            viewport={{ once: true }} // Ensures it runs only once
           >
             Triguna Coaching Classes
           </motion.h1>
@@ -101,22 +114,24 @@ const Footer: React.FC = () => {
 
         {/* Navigation Links */}
         <div>
-          <h2 className="text-xl font-semibold text-yellow-400 mb-3">Quick Links</h2>
+          <h2 className="text-xl font-semibold text-yellow-400 mb-3">
+            Quick Links
+          </h2>
           <ul className="space-y-2">
-            {["Home", "About Us", "Contact"].map((link, index) => (
+            {links.map((link, index) => (
               <motion.li
                 key={index}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 + index * 0.1, duration: 0.4 }}
-                whileInView={{ opacity: 1, x: 0 }}  // Runs animation when in view
-                viewport={{ once: true }}  // Ensures it runs only once
+                whileInView={{ opacity: 1, x: 0 }} // Runs animation when in view
+                viewport={{ once: true }} // Ensures it runs only once
               >
                 <a
-                  href={`${link.toLowerCase().replace(/\s+/g, "")}`}
+                  href={link.href}
                   className="text-white hover:text-yellow-400 transition"
                 >
-                  {link}
+                  {link.name}
                 </a>
               </motion.li>
             ))}
@@ -125,7 +140,9 @@ const Footer: React.FC = () => {
 
         {/* Address & Contact */}
         <div>
-          <h2 className="text-xl font-semibold text-yellow-400 mb-3">Contact Us</h2>
+          <h2 className="text-xl font-semibold text-yellow-400 mb-3">
+            Contact Us
+          </h2>
           <p className="text-white mb-2">
             Kalindi Vihar B-Block, Tedi Bhagiya, Agra 282006
           </p>
@@ -140,10 +157,7 @@ const Footer: React.FC = () => {
           </p>
           <p className="text-white mb-2">
             Phone:{" "}
-            <a
-              href="tel:+917891234567"
-              className="hover:text-yellow-400"
-            >
+            <a href="tel:+917891234567" className="hover:text-yellow-400">
               +91 7891234567
             </a>
           </p>
@@ -175,10 +189,12 @@ const Footer: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.5 }}
-        whileInView={{ opacity: 1, y: 0 }}  // Runs animation when in view
-        viewport={{ once: true }}  // Ensures it runs only once
+        whileInView={{ opacity: 1, y: 0 }} // Runs animation when in view
+        viewport={{ once: true }} // Ensures it runs only once
       >
-        <p>&copy; {currentYear} Triguna Coaching Classes. All Rights Reserved.</p>
+        <p>
+          &copy; {currentYear} Triguna Coaching Classes. All Rights Reserved.
+        </p>
       </motion.div>
 
       {/* Additional Animated Element */}
@@ -187,9 +203,9 @@ const Footer: React.FC = () => {
           className="orange-elipse"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}  // Added delay for this element
-          whileInView={{ scale: 1 }}  // Runs animation when in view
-          viewport={{ once: true }}  // Ensures it runs only once
+          transition={{ duration: 1, delay: 0.5 }} // Added delay for this element
+          whileInView={{ scale: 1 }} // Runs animation when in view
+          viewport={{ once: true }} // Ensures it runs only once
         />
       </div>
     </footer>

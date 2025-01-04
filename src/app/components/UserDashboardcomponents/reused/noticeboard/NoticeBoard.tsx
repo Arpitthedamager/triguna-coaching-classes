@@ -54,10 +54,10 @@ export default function NoticeBoard() {
         if (res.ok) {
           setNotices(data.notices || []);
         } else {
-          alert(data.message || "Error fetching notices");
+          console.error(data.message || "Error fetching notices");
         }
       } catch (error) {
-        alert("Error fetching notices");
+        console.error("Error fetching notices");
       } finally {
         setLoading(false);
       }

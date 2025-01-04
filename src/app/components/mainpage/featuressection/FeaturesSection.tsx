@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const FeatureCard = ({
   imageSrc,
@@ -138,15 +139,17 @@ const FeaturesSection = () => {
       </div>
 
       {/* Call to Action */}
-      <motion.button
-        className="bg-yellow-500 text-white px-6 py-3 md:px-10 md:py-5 rounded-lg font-bold hover:bg-yellow-400 mt-6"
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        Sign up
-      </motion.button>
+      <Link href="/signin">
+        <motion.button
+          className="bg-yellow-500 text-white px-6 py-3 md:px-10 md:py-5 rounded-lg font-bold hover:bg-yellow-400 mt-6"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Sign up
+        </motion.button>
+      </Link>
     </section>
   );
 };

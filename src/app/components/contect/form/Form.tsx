@@ -1,13 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
-import {   
-  FaMapMarkerAlt, 
-  FaPhoneAlt, 
-  FaEnvelope, 
-  FaFacebookF, 
-  FaTwitter, 
-  FaInstagram, 
-  FaLinkedinIn 
+import {
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
 } from "react-icons/fa";
 
 const ContactForm = () => {
@@ -22,7 +22,9 @@ const ContactForm = () => {
       data.email as string
     )}%0AContact Number: ${encodeURIComponent(
       data.contactNumber as string
-    )}%0AMessage: ${encodeURIComponent(data.message as string)}%0A%0AThank you!`;
+    )}%0AMessage: ${encodeURIComponent(
+      data.message as string
+    )}%0A%0AThank you!`;
     const groupMessageLink = `https://wa.me/?text=${whatsappMessage}`;
     window.open(groupMessageLink, "_blank");
   };
@@ -52,11 +54,11 @@ const ContactForm = () => {
             <div>
               <h4 className="font-bold text-left text-gray-900">Address</h4>
               <a
-                href="https://goo.gl/maps/dummy-link"
+                href="https://www.google.com/maps/place/Triguna+Coaching+Classes/@27.2248173,78.0587476,823m/data=!3m2!1e3!4b1!4m6!3m5!1s0x39747b48dbb8692b:0x78872c32e0b2a866!8m2!3d27.2248173!4d78.0587476!16s%2Fg%2F11hkp1qzfz?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 className="text-gray-600 hover:text-primary-a30 transition"
               >
-                London Eye, London, UK
+                B-294, A Block, Kalindi Vihar, Agra, Uttar Pradesh 282006{" "}
               </a>
             </div>
           </motion.div>
@@ -69,12 +71,14 @@ const ContactForm = () => {
               <FaPhoneAlt />
             </div>
             <div>
-              <h4 className="font-bold text-left text-gray-900">Phone Number</h4>
+              <h4 className="font-bold text-left text-gray-900">
+                Phone Number
+              </h4>
               <a
-                href="tel:+1234567890"
+                href="tel:+91 9917989914"
                 className="text-gray-600 hover:text-primary-a30 transition"
               >
-                +123-456-7890
+                +91 9917989914
               </a>
             </div>
           </motion.div>
@@ -89,10 +93,10 @@ const ContactForm = () => {
             <div>
               <h4 className="font-bold text-left text-gray-900">E-Mail</h4>
               <a
-                href="mailto:mail@subx.com"
+                href="mailto:trigunacoachingclasses@gmail.com"
                 className="text-gray-600 hover:text-primary-a30 transition"
               >
-                mail@subx.com
+                trigunacoachingclasses@gmail.com
               </a>
             </div>
           </motion.div>
@@ -100,7 +104,7 @@ const ContactForm = () => {
         <div className="mt-6">
           <h4 className="font-bold text-left text-gray-900">Follow Us:</h4>
           <div className="flex gap-4 mt-2">
-            {[ 
+            {[
               { icon: FaFacebookF, link: "#" },
               { icon: FaTwitter, link: "#" },
               { icon: FaInstagram, link: "#" },
@@ -130,17 +134,17 @@ const ContactForm = () => {
         <h2 className="text-2xl font-bold text-primary-a20 text-center">
           Send a Message
         </h2>
-        <form onSubmit={handleSubmit} className="mt-6 text-left text-gray-500 space-y-4">
-          {[ 
+        <form
+          onSubmit={handleSubmit}
+          className="mt-6 text-left text-gray-500 space-y-4"
+        >
+          {[
             { id: "name", label: "Name", type: "text" },
             { id: "email", label: "Email", type: "email" },
             { id: "contactNumber", label: "Contact Number", type: "tel" },
           ].map(({ id, label, type }) => (
             <div key={id}>
-              <label
-                htmlFor={id}
-                className="block text-gray-400 font-medium"
-              >
+              <label htmlFor={id} className="block text-gray-400 font-medium">
                 {label}
               </label>
               <motion.input
@@ -154,7 +158,10 @@ const ContactForm = () => {
             </div>
           ))}
           <div>
-            <label htmlFor="message" className="block text-gray-400 font-medium">
+            <label
+              htmlFor="message"
+              className="block text-gray-400 font-medium"
+            >
               Message
             </label>
             <motion.textarea

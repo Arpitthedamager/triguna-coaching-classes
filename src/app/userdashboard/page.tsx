@@ -18,6 +18,7 @@ import Results from "../components/UserDashboardcomponents/links/results/Results
 import Exams from "../components/UserDashboardcomponents/links/exams/Exams";
 import Fees from "../components/UserDashboardcomponents/links/fees/Fees";
 import ProfileLink from "../components/UserDashboardcomponents/links/profilelink/ProfileLink";
+import Head from "next/head";
 
 const UserDashboard = () => {
   const { data: session, status } = useSession();
@@ -119,51 +120,64 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row bg-primary-content">
-      <div className="md:sticky block top-0 left-0 h-full lg:w-64 z-10">
-        <Sidebar onMenuClick={setActiveContent} />
-      </div>
-      <div className="flex-1 p-4 md:p-0 space-y-6">
-        <div className="sticky flex justify-end space-x-4 md:sticky lg:hidden">
-          {activeContent === "dashboard" && <Header />}
-
-          <button
-            onClick={() => setModalContent("calendar")}
-            className="text-primary hover:text-primary-focus"
-          >
-            <FaCalendarAlt size={24} />
-          </button>
-          <button
-            onClick={() => setModalContent("notice")}
-            className="text-primary hover:text-primary-focus"
-          >
-            <FaBell size={24} />
-          </button>
+    <>
+      <Head>
+        <title>
+          {activeContent === "dashboard" ? "User Dashboard" : activeContent} -
+          UserDashbord-Triguna Coaching Classes
+        </title>
+        <meta
+          name="description"
+          content={`Access ${activeContent} details, notifications, and statistics for your class at Triguna Coaching Classes.`}
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="flex flex-col lg:flex-row bg-primary-content">
+        <div className="md:sticky block top-0 left-0 h-full lg:w-64 z-10">
+          <Sidebar onMenuClick={setActiveContent} />
         </div>
-        <main className="md:p-6 pt-0 mt-0 min-h-screen overflow-auto flex flex-col lg:flex-row gap-6">
-          <div className="lg:w-2/3 space-y-6">{renderContent()}</div>
-          <div className="hidden md:hidden lg:block lg:w-1/3 space-y-6">
-            <Calendar />
-            <NoticeBoard />
-          </div>
-        </main>
+        <div className="flex-1 p-4 md:p-0 space-y-6">
+          <div className="sticky flex justify-end space-x-4 md:sticky lg:hidden">
+            {activeContent === "dashboard" && <Header />}
 
-        {modalContent && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg p-6 w-11/12 max-w-md shadow-lg">
-              <button
-                onClick={() => setModalContent(null)}
-                className="text-primary mb-4 hover:text-primary-focus"
-              >
-                Close
-              </button>
-              {modalContent === "calendar" && <Calendar />}
-              {modalContent === "notice" && <NoticeBoard />}
-            </div>
+            <button
+              onClick={() => setModalContent("calendar")}
+              className="text-primary hover:text-primary-focus"
+            >
+              <FaCalendarAlt size={24} />
+            </button>
+            <button
+              onClick={() => setModalContent("notice")}
+              className="text-primary hover:text-primary-focus"
+            >
+              <FaBell size={24} />
+            </button>
           </div>
-        )}
+          <main className="md:p-6 pt-0 mt-0 min-h-screen overflow-auto flex flex-col lg:flex-row gap-6">
+            <div className="lg:w-2/3 space-y-6">{renderContent()}</div>
+            <div className="hidden md:hidden lg:block lg:w-1/3 space-y-6">
+              <Calendar />
+              <NoticeBoard />
+            </div>
+          </main>
+
+          {modalContent && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white rounded-lg p-6 w-11/12 max-w-md shadow-lg">
+                <button
+                  onClick={() => setModalContent(null)}
+                  className="text-primary mb-4 hover:text-primary-focus"
+                >
+                  Close
+                </button>
+                {modalContent === "calendar" && <Calendar />}
+                {modalContent === "notice" && <NoticeBoard />}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -95,7 +95,7 @@ const HeroSection = () => {
             the best faculties and study materials.
           </p>
           <div className="flex flex-col lg:flex-row justify-center lg:justify-start space-y-4 lg:space-y-0 lg:space-x-4">
-            <Link href="/signin">
+            <Link href="/contact">
               <motion.button
                 className="px-8 py-4 bg-yellow-500 text-[#241448] font-bold rounded-lg hover:bg-yellow-400"
                 whileHover={{ scale: 1.1 }}

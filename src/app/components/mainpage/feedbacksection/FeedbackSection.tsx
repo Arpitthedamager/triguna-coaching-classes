@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 interface Feedback {
   name: string;
@@ -185,10 +186,11 @@ const FeedbackSection: React.FC = () => {
           &gt;
         </button>
       </div>
-
+      <Link href="/signin">
       <button className="mt-8 bg-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-600 transition duration-300 block mx-auto">
         And Many More...
       </button>
+      </Link>
     </motion.div>
   );
 };

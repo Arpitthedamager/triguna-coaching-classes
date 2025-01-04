@@ -106,7 +106,7 @@ const Hero = () => {
           >
             {/* <Link > */}
             <Link
-              href="/about"
+              href="/aboutus"
               className="px-6 py-3 bg-yellow-500 text-[#241448] font-bold rounded-lg shadow-md hover:bg-yellow-400"
             >
               Learn More

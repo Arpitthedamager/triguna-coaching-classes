@@ -9,24 +9,34 @@ interface FAQItem {
 }
 
 const FAQs: React.FC = () => {
-  // FAQ Data
-  const faqs: FAQItem[] = [
-    {
-      question: "What subjects does your institution offer?",
-      answer:
-        "Our institution offers a wide range of subjects including Science, Arts, Commerce, and specialized courses in technology.",
-    },
-    {
-      question: "How can I contact admissions support?",
-      answer:
-        "You can contact our admissions support via email at support@institution.com or call us at +1 234 567 890.",
-    },
-    {
-      question: "What is your refund policy?",
-      answer:
-        "Our refund policy allows you to request a refund within 30 days of enrollment if you meet the eligibility criteria.",
-    },
-  ];
+ 
+const faqs: FAQItem[] = [
+  {
+    question: "What courses are offered at Triguna Coaching Classes?",
+    answer:
+      "We offer comprehensive coaching for high school and higher secondary students, focusing on subjects like Mathematics, SST, Physics, Chemistry and Biology, as well as competitive exams such as JEE, NEET.",
+  },
+  {
+    question: "What are the qualifications of your teaching faculty?",
+    answer:
+      "Our faculty members are highly experienced and qualified, holding advanced degrees in their respective fields with a proven track record of helping students excel academically.",
+  },
+  {
+    question: "How can I enroll in your programs?",
+    answer:
+      "You can enroll by visiting our center or through the 'Register' button on our website. For assistance, feel free to contact us at [contact details].",
+  },
+  {
+    question: "Do you provide study materials and regular tests?",
+    answer:
+      "Yes, we provide detailed study materials like notes, books pdf, test papers on our website and conduct weekly tests to track students' progress and help them prepare effectively for their exams.",
+  },
+  {
+    question: "Is there a demo class available before enrollment?",
+    answer:
+      "Absolutely! We offer demo classes to help students and parents experience our teaching methodology and determine if it's the right fit for their needs.",
+  },
+];
 
   // State to track the currently open FAQ
   const [openIndex, setOpenIndex] = useState<number | null>(null);

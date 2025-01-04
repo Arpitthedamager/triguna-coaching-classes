@@ -3,8 +3,17 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
-const FeatureCard = ({ imageSrc, altText, title }: { imageSrc: string; altText: string; title: string }) => { 
+const FeatureCard = ({
+  imageSrc,
+  altText,
+  title,
+}: {
+  imageSrc: string;
+  altText: string;
+  title: string;
+}) => {
   return (
     <motion.div
       className="relative m-3"
@@ -59,7 +68,7 @@ const FeaturesSection = () => {
       title: "Expert Mentors Who Guide You to Success",
     },
   ];
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -67,7 +76,9 @@ const FeaturesSection = () => {
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? features.length - 1 : prevIndex - 1));
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? features.length - 1 : prevIndex - 1
+    );
   };
 
   useEffect(() => {
@@ -89,8 +100,10 @@ const FeaturesSection = () => {
           Achieve Your Academic Goals with Our Coaching
         </h2>
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600">
-          Our institute offers personalized coaching and guidance to help students achieve their academic aspirations. 
-          With expert mentors, interactive lessons, and continuous support, your success is our priority.
+          Our institute offers personalized coaching and guidance to help
+          students achieve their academic aspirations. With expert mentors,
+          interactive lessons, and continuous support, your success is our
+          priority.
         </p>
       </motion.div>
 
@@ -132,20 +145,27 @@ const FeaturesSection = () => {
         }}
       >
         {features.slice(0, 3).map((feature, index) => (
-          <FeatureCard key={index} imageSrc={feature.imageSrc} altText={feature.altText} title={feature.title} />
+          <FeatureCard
+            key={index}
+            imageSrc={feature.imageSrc}
+            altText={feature.altText}
+            title={feature.title}
+          />
         ))}
       </motion.div>
 
       {/* Call to Action */}
-      <motion.button
-        className="bg-yellow-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-lg font-bold text-sm sm:text-base md:text-lg hover:bg-yellow-400"
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        Get Started Now
-      </motion.button>
+      <Link href="/signin">
+        <motion.button
+          className="bg-yellow-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-lg font-bold text-sm sm:text-base md:text-lg hover:bg-yellow-400"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Get Started Now
+        </motion.button>
+      </Link>
     </section>
   );
 };

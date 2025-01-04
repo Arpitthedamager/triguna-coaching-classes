@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Banner: React.FC = () => {
   return (
@@ -50,9 +51,10 @@ const Banner: React.FC = () => {
       </motion.div>
 
       {/* Button Section */}
+      <Link href="/aboutus">
       <motion.button
         className="bg-orange-500 text-black px-6 md:px-8 font-bold py-3 md:py-4 rounded-lg hover:bg-orange-600 transition duration-300"
-        onClick={() => alert("Learn more about us!")}
+        // onClick={() => alert("Learn more about us!")}
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -62,6 +64,7 @@ const Banner: React.FC = () => {
       >
         About us
       </motion.button>
+        </Link>
     </motion.div>
   );
 };
