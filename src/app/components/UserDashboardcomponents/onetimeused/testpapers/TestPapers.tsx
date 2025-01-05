@@ -132,16 +132,16 @@ const TestPapers: FC = () => {
     >
       <header className="p-4 bg-transparent flex justify-between items-center">
         <h1 className="text-xl text-primary-a20 font-bold">
-          Admin: Manage Test Papers
+          Test Papers
         </h1>
       </header>
 
       <div className="mt-4">
-        <div className="flex gap-4">
-          {testPapers.slice(currentIndex, currentIndex + 3).map((paper) => (
+        <div className="grid grid-cols-1  lg:grid-cols-3 gap-4">
+          {testPapers.slice(currentIndex, currentIndex + 1).map((paper) => (
             <motion.div
               key={paper.id}
-              className="w-full lg:w-1/2 p-2 md:p-4 bg-white rounded-lg shadow-lg"
+              className="w-full  p-2 md:p-4 bg-white rounded-lg shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}

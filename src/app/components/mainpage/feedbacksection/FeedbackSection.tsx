@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Feedback {
   name: string;
@@ -115,11 +116,18 @@ const FeedbackSection: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
-              
               className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 border-b border-gray-300 pb-6"
             >
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
+                <div className="w-12 h-12 bg-gray-300 rounded-full">
+                  {" "}
+                  <Image
+                    src="/default-avatar.jpg" // Replace this with the actual image URL or path
+                    alt="User Avatar"
+                    width={48}  // Set the width for the image
+                    height={48} // Set the height for the image
+                    className="object-cover"                  />
+                </div>
                 <div>
                   <motion.div
                     className="flex items-center mb-2"
@@ -187,9 +195,9 @@ const FeedbackSection: React.FC = () => {
         </button>
       </div>
       <Link href="/signin">
-      <button className="mt-8 bg-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-600 transition duration-300 block mx-auto">
-        And Many More...
-      </button>
+        <button className="mt-8 bg-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-600 transition duration-300 block mx-auto">
+          And Many More...
+        </button>
       </Link>
     </motion.div>
   );

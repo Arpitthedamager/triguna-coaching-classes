@@ -1,38 +1,46 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 
 const AcademicTimeline = () => {
   // Timeline item data without images
   const timelineItems = [
     {
-      title: "Important Dates",
-      description: "Stay informed with our key academic dates and events",
+      title: "Central Board of Secondary Education (CBSE)",
+      description:
+        "Stay updated with CBSE curriculum, exam schedules, and other announcements.",
       icon: "ℹ️",
+      link: "https://www.cbse.gov.in",
     },
     {
-      title: "Results",
-      description: "Stay informed on every result",
+      title: "Uttar Pradesh Board (UPMSP)",
+      description:
+        "Access academic calendars, syllabus details, and board examination updates for the Uttar Pradesh Board.",
       icon: "📈",
+      link: "https://upmsp.edu.in",
     },
     {
-      title: "Test Schedule",
-      description: "Stay informed with our class test series",
+      title: "Joint Entrance Examination (JEE)",
+      description:
+        "Check JEE Main exam dates, registration details, and study resources.",
       icon: "📝",
+      link: "https://jeemain.nta.nic.in",
     },
     {
-      title: "Registration of JEE",
-      description: "Stay informed with registration forms and admit cards",
+      title: "National Testing Agency (NTA)",
+      description:
+        "Find updates on national-level exams like JEE, NEET, CUET, and others.",
       icon: "📋",
+      link: "https://nta.ac.in",
     },
   ];
-
   // Separate constant for image URLs
   const timelineImages = [
     "/2.jpg", // Image for Important Dates
-    "/images/results.jpg", // Image for Results
+    "/default-avatar.jpg", // Image for Results
     "/2.jpg", // Image for Test Schedule
-    "/images/jee-registration.jpg", // Image for JEE Registration
+    "/opengraph-image.jpg", // Image for JEE Registration
   ];
 
   return (
@@ -46,7 +54,9 @@ const AcademicTimeline = () => {
                 key={index}
                 className="flex items-center justify-center mb-12 md:mb-80 md:mt-24"
               >
-                <img
+                <Image
+                  width={500}
+                  height={500}
                   src={imageUrl}
                   alt={`Timeline image ${index + 1}`}
                   className="w-full h-48 md:h-64 object-cover border-white shadow-md"
@@ -61,23 +71,25 @@ const AcademicTimeline = () => {
           <h2 className="text-2xl md:text-3xl text-primary-a10 font-bold mb-6 text-center md:text-left">
             Academic Year Timeline:
           </h2>
-          <div className="space-y-0 md:space-y-12">
+          <div className="space-y-0 md:space-y-6">
             {timelineItems.map((item, index) => (
               <div
                 key={index}
                 className="flex gap-2 md:flex-row items-start md:space-x-4 hover:bg-primary-a50 p-4 rounded-lg transition"
               >
-                <div className="flex mt-3 md:mt-0  items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-black text-white text-xl md:text-2xl font-bold rounded-md">
-                  {item.icon}
-                </div>
-                <div className="mt-2 md:mt-0">
-                  <h3 className="text-base md:text-lg text-primary-a20 font-semibold">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-gray-600">
-                    {item.description}
-                  </p>
-                </div>
+                <a href={item.link} target="_blank" rel="noopener noreferrer">
+                  <div className="flex mt-3 md:mt-0  items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-black text-white text-xl md:text-2xl font-bold rounded-md">
+                    {item.icon}
+                  </div>
+                  <div className="mt-2 md:mt-0">
+                    <h3 className="text-base md:text-lg text-primary-a20 font-semibold">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-gray-600">
+                      {item.description}
+                    </p>
+                  </div>
+                </a>
               </div>
             ))}
           </div>

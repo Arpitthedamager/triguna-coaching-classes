@@ -114,7 +114,7 @@ const faqs: FAQItem[] = [
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <p className="mt-2 text-sm sm:text-base md:text-lg text-gray-700">
+                  <p className="mt-2 text-left text-sm sm:text-base md:text-lg text-gray-700">
                     {faq.answer}
                   </p>
                 </motion.div>
