@@ -8,18 +8,22 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
+  const [success, setSuccess] = useState(false); // Success state
   const { data: session, status } = useSession()
   const router = useRouter()
 
+  const handleRedirection = () => {
+    if (session?.user?.role === "student") {
+      router.push("/userdashboard");
+    } else if (session?.user?.role === "teacher") {
+      router.push("/admindashboard");
+    }
+  };
   useEffect(() => {
     // Check if the session is loaded and user data is available
     if (status === "authenticated") {
-      // Redirect based on the user's role
-      if (session.user?.role === "student") {
-        router.push("/userdashboard")
-      } else if (session.user?.role === "teacher") {
-        router.push("/admindashboard")
-      }
+     handleRedirection();
     }
   }, [status, session, router])
 
@@ -29,6 +33,7 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true); // Set loading to true
 
     const res = await signIn("credentials", {
       redirect: false,
@@ -36,10 +41,13 @@ export default function SignIn() {
       password,
     });
     if (res.ok) {
-      window.location.reload(); // Refresh to load session
+      setSuccess(true); // Set success state
+      handleRedirection();
+      // window.location.reload(); // Refresh to load session
     } else {
       setError("Invalid username or password.");
     }
+    setLoading(false); // Set loading to false after response
   };
 
   return (
@@ -55,6 +63,11 @@ export default function SignIn() {
           </p>
 
           {/* Login Form */}
+            {success &&
+            <p className="text-green-600 bg-green-100 p-3 text-center rounded-lg text-lg">
+                Login Successful! Redirecting...
+              </p>
+            }
           <form onSubmit={handleSubmit} className="mt-6 space-y-6">
             {error && (
               <p className="text-red-600 bg-red-100 p-3 text-center rounded-lg text-lg">
@@ -76,11 +89,40 @@ export default function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-4 text-lg text-gray-500 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <button
+             <button
               type="submit"
-              className="w-full btn btn-primary text-white  text-lg rounded-lg transition"
+              className={`w-full btn btn-primary text-white text-lg rounded-lg transition ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading} // Disable button when loading
             >
-              Login
+              {loading ? (
+                <div className="flex items-center justify-center space-x-2">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8H4z"
+                    ></path>
+                  </svg>
+                  <span>Loading...</span>
+                </div>
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
           <div className="text-center mt-8">

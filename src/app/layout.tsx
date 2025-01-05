@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "Triguna Coaching Classes - Leading Coaching in Agra",
     description:
       "Triguna Coaching Classes provides exceptional coaching for students from Class 1 to 12. Located in Agra, we specialize in delivering quality education and comprehensive learning experiences.",
-    url: "https://trigunacoachingclasses.in",
+    url: "https://trigunacoachingclasses.in/favicon.ico",
     siteName: "Triguna Coaching Classes",
     images: [
       {
