@@ -38,12 +38,12 @@ const UserDashboard = () => {
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
 
-  useEffect(() => {
-    if (status === "loading") return;
-    if (!session) {
-      router.push("/signin");
-    }
-  }, [session, status, router]);
+  // useEffect(() => {
+  //   if (status === "loading") return;
+  //   if (!session) {
+  //     router.push("/signin");
+  //   }
+  // }, [session, status, router]);
 
   const renderContent = () => {
     switch (activeContent) {
