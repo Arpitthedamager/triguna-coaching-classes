@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 // import Image from "next/image";
 
 const HeroSection = () => {
@@ -39,14 +40,26 @@ const HeroSection = () => {
       )}
 
       {/* Navbar */}
-      <nav aria-label="Breadcrumb" className="relative flex justify-between items-center mb-10 z-10">
+      <nav
+        aria-label="Breadcrumb"
+        className="relative flex justify-between items-center mb-10 z-10"
+      >
         <motion.div
           className="text-lg font-bold"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Logo
+          <Image
+          height={140}
+          width={140}
+            src="/logo.png" // Update this with your image path
+            alt="Logo"
+            className="" // Adjust the size as needed
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          />
         </motion.div>
         <motion.div
           className="hidden lg:flex space-x-6"
@@ -90,10 +103,10 @@ const HeroSection = () => {
           <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-yellow-600 text-transparent bg-clip-text">
             Welcome to TRIGUNA
           </h1>
-          <p className="text-lg lg:text-xl mb-8">
-            Welcome to Triguna Coaching Classes, Achieve your dreams here with
-            the best faculties and study materials.
-          </p>
+          <h2 className="text-lg lg:text-xl mb-8">
+            Welcome to Triguna Coaching Classes, Top coaching in Agra Achieve
+            your dreams here with the best faculties and study materials.
+          </h2>
           <div className="flex flex-col lg:flex-row justify-center lg:justify-start space-y-4 lg:space-y-0 lg:space-x-4">
             <Link href="/contact">
               <motion.button
@@ -114,14 +127,14 @@ const HeroSection = () => {
               </motion.button>
             </Link>
           </div>
-          <motion.p
+          <motion.h3
             className="text-sm text-gray-100 mt-2 md:mt-32"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.5 }}
           >
-            The New Way To Achieve Success
-          </motion.p>
+            The New Way To Achieve Success Expert coaching in Agra
+          </motion.h3>
         </motion.div>
 
         {/* Right Section */}
