@@ -41,8 +41,12 @@ export default function Register() {
 
   useEffect(() => {
     if (status === "loading") return; // Wait until session is loaded
-    if (session) {
-      // Redirect if the user is logged in
+
+    if (!session) {
+      // Redirect to home if no session (user is not logged in)
+      router.push("/");
+    } else {
+      // Check if user is logged in and redirect based on their role
       if (session.user?.role !== "teacher") {
         router.push("/"); // Redirect non-admin users to the homepage or another page
       }
@@ -108,7 +112,8 @@ export default function Register() {
         {/* Left Section */}
         <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center bg-green-100">
           {error && <p className="text-red-600 bg-red-100 p-2 text-center rounded-lg">{error}</p>}
-          <h2 className="text-3xl font-bold ">Create an Account</h2>
+
+          <h2 className="text-3xl font-bold ">Create an Account in Triguna Coaching Classes the best 1 to 12 Coaching classes in agra </h2>
           <p className="mt-4">Fill in the form below to create your account.</p>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <input
