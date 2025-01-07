@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/AdminDashboardcomponents/reused/sidebar/Sidebar";
 import Header from "../components/AdminDashboardcomponents/reused/header/Header";
 import StatisticsGraph from "../components/AdminDashboardcomponents/main/statisticsgraph/StatisticsGraph";
@@ -16,6 +16,8 @@ import Fees from "../components/AdminDashboardcomponents/links/fees/Fees";
 import Results from "../components/AdminDashboardcomponents/links/results/Results";
 import StudyMaterial from "../components/AdminDashboardcomponents/links/study-materials/Study-Materials";
 import MStudents from "../components/AdminDashboardcomponents/links/mstudents/MStudents";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 
 const AdminDashboard = () => {
@@ -27,7 +29,22 @@ const AdminDashboard = () => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring" } },
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } },
   };
+ const { data: session, status } = useSession(); // Get session data and status
+  const router = useRouter();
 
+  useEffect(() => {
+    if (status === "loading") return; // Wait until session is loaded
+
+    if (!session) {
+      // Redirect to home if no session (user is not logged in)
+      router.push("/");
+    } else {
+      // Check if user is logged in and redirect based on their role
+      if (session.user?.role !== "teacher") {
+        router.push("/"); // Redirect non-admin users to the homepage or another page
+      }
+    }
+  }, [session, status, router]);
   const renderContent = () => {
     switch (activeContent) {
       case "dashboard":
