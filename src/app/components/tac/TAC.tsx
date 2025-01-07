@@ -96,7 +96,7 @@ const TermsAndConditions = () => {
             1. General Terms
           </h2>
           <p className="text-gray-700">
-            These Terms and Conditions ("Terms") apply to all users of the
+            These Terms and Conditions (&quot;Terms&quot;) apply to all users of the
             Triguna Coaching Classes website and services, including students,
             parents, and other users. By using our services, you agree to these
             Terms in full. If you are under the age of 18, you must obtain
@@ -131,8 +131,8 @@ const TermsAndConditions = () => {
               any illegal or unethical activities.
             </li>
             <li className="mb-3">
-              Not disrupt, damage, or interfere with the website’s operation or
-              other users' experience.
+              Not disrupt, damage, or interfere with the website&quot;s operation or
+              other users&quot; experience.
             </li>
           </ul>
         </motion.section>

@@ -1,6 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useState } from "react";
 import Sidebar from "../components/UserDashboardcomponents/reused/sidebar/Sidebar";
 import Header from "../components/UserDashboardcomponents/reused/header/Header";
 import StatisticsGraph from "../components/UserDashboardcomponents/main/statisticsgraph/StatisticsGraph";
@@ -11,7 +10,6 @@ import StatCard from "../components/UserDashboardcomponents/main/statcard/StatCa
 import DatabaseTable from "../components/UserDashboardcomponents/main/databasetable/DatabaseTable";
 import { motion } from "framer-motion";
 import { FaCalendarAlt, FaBell } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import StudyMaterial from "../components/UserDashboardcomponents/links/study-materials/Study-Materials";
 import Results from "../components/UserDashboardcomponents/links/results/Results";
@@ -21,12 +19,10 @@ import ProfileLink from "../components/UserDashboardcomponents/links/profilelink
 import Head from "next/head";
 
 const UserDashboard = () => {
-  const { data: session, status } = useSession();
   const [activeContent, setActiveContent] = useState("dashboard");
   const [modalContent, setModalContent] = useState<
     "calendar" | "notice" | null
   >(null);
-  const router = useRouter();
 
   const contentVariants = {
     hidden: { opacity: 0, x: 50 },
