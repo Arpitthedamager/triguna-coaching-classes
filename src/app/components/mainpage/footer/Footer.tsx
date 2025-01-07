@@ -8,6 +8,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
+import Image from "next/image";
 
 const Footer: React.FC = () => {
   const [currentYear, setCurrentYear] = useState<number>(
@@ -20,6 +21,9 @@ const Footer: React.FC = () => {
     { name: "Home", href: "/" },
     { name: "About Us", href: "/aboutus" },
     { name: "Contact", href: "/contact" },
+    { name: "Privacy Policy", href: "/privacypolicy" },
+    { name: "Terms & Conditions", href: "/termsandconditions" },
+
     // Add more links as needed
   ];
   // Generate random positions for background dots after initial render (client-side)
@@ -30,6 +34,7 @@ const Footer: React.FC = () => {
     }));
     setRandomPositions(positions);
   }, []);
+
   const socialLinks = [
     { icon: <FaFacebookF />, href: "https://facebook.com" },
     { icon: <FaTwitter />, href: "https://twitter.com" },
@@ -59,7 +64,6 @@ const Footer: React.FC = () => {
         whileInView={{ opacity: 1, scale: 1 }} // Runs animation when in view
         viewport={{ once: true }} // Ensures it runs only once
       />
-
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {randomPositions.map((position, i) => (
@@ -86,7 +90,6 @@ const Footer: React.FC = () => {
           />
         ))}
       </div>
-
       <motion.div
         className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10"
         initial={{ opacity: 0, y: 50 }}
@@ -182,32 +185,60 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </motion.div>
-
       {/* Copyright Section */}
       <motion.div
         className="text-center mt-10 text-xl text-gray-600 relative z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
+        transition={{ delay: 0, duration: 0.5 }}
         whileInView={{ opacity: 1, y: 0 }} // Runs animation when in view
         viewport={{ once: true }} // Ensures it runs only once
       >
         <p>
           &copy; {currentYear} Triguna Coaching Classes. All Rights Reserved.
         </p>
+        {/* Credits Section */}
+        <div className="mt-4 text-gray-500 text-sm">
+          <p>
+            Designed & Developed by{" "}
+            <span className="font-semibold text-yellow-400">AdSuper</span> (
+            <a
+              href="https://instagram.com/mr.damager"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-yellow-400"
+            >
+              @mr.damager
+            </a>{" "}
+            - Arpit Gupta)
+          </p>
+          <p>
+            For professional website development, contact{" "}
+            <a
+              href="mailto:protonwebservises@proton.com"
+              className="text-yellow-400 hover:underline"
+            >
+              adsuper@gmail.com
+            </a>{" "}
+            or call{" "}
+            <a
+              href="tel:+919259493075"
+              className="text-yellow-400 hover:underline"
+            >
+              +91 92594 93075
+            </a>
+            .
+          </p>
+        </div>
       </motion.div>
-
-      {/* Additional Animated Element */}
-      <div className="max-w-[1200px] mx-auto px-4 relative z-10">
-        <motion.div
-          className="orange-elipse"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1, delay: 0.5 }} // Added delay for this element
-          whileInView={{ scale: 1 }} // Runs animation when in view
-          viewport={{ once: true }} // Ensures it runs only once
-        />
-      </div>
+      {/* Logo as Background */}
+      <Image
+        alt="best caching classes in agra's logo"
+        height={280}
+        width={280}
+        className="absolute inset-0 m-auto z-0 opacity-60"
+        src="/favicon.ico"
+      />{" "}
     </footer>
   );
 };

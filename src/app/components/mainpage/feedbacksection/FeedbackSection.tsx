@@ -119,10 +119,10 @@ const FeedbackSection: React.FC = () => {
               className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 border-b border-gray-300 pb-6"
             >
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gray-300 rounded-full">
+                <div className="w-12 h-12  rounded-full">
                   {" "}
                   <Image
-                    src="/default-avatar.jpg" // Replace this with the actual image URL or path
+                    src="/default-avatar.png" // Replace this with the actual image URL or path
                     alt="User Avatar"
                     width={48}  // Set the width for the image
                     height={48} // Set the height for the image
