@@ -1,5 +1,5 @@
 // pages/signin.js
-import SignIncomponent from "../components/SignIn/SignIn"; // Make sure the import path is correct
+import SignIncomponent from "../components/signincomponent/SIgnincomponent"; // Make sure the import path is correct
 
 
 export const metadata = {
@@ -50,7 +50,7 @@ export const metadata = {
   },
 };
 
-export default function SignInPage() {
+export default function SignIn() {
   return (
     <>
       <SignIncomponent />
