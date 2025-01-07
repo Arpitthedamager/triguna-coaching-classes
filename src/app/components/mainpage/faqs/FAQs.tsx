@@ -77,7 +77,7 @@ const FAQs: React.FC = () => {
 
   return (
     <motion.section
-      className="text-primary-a20 text-center py-10 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-52"
+      className="text-primary-a20  py-10 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-52"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -86,13 +86,13 @@ const FAQs: React.FC = () => {
       <div className="py-10">
         {/* Heading */}
         <motion.div
-          className="mb-6"
+          className="mb-6 text-center"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
+          <h2 className="text-2xl  sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
             Frequently asked questions answered
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-600">
