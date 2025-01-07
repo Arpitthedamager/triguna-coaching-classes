@@ -237,7 +237,7 @@ const Footer: React.FC = () => {
         height={280}
         width={280}
         className="absolute inset-0 m-auto z-0 opacity-60"
-        src="/favicon.ico"
+        src="/logo.png"
       />{" "}
     </footer>
   );
