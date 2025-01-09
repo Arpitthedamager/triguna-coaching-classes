@@ -35,10 +35,10 @@ export const metadata: Metadata = {
     siteName: "Triguna Coaching Classes",
     images: [
       {
-        url: "/favicon.ico",
-        width: 800,
-        height: 600,
-        alt: "Triguna Coaching Classes Logo",
+        url: "/opengraph-image.jpg", // Updated Open Graph image path
+        width: 1200,
+        height: 630,
+        alt: "Triguna Coaching Classes Terms and Conditions",
       },
     ],
     type: "website",
@@ -49,12 +49,17 @@ export const metadata: Metadata = {
     title: "Terms and Conditions - Triguna Coaching Classes | Best Coaching in Agra",
     description:
       "Read the Terms and Conditions of Triguna Coaching Classes, your trusted coaching institute in Agra. Learn about our services, payment policies, and more.",
-    images: ["/favicon.ico"],
+    images: ["/opengraph-image.jpg"], // Updated Twitter card image path
   },
   alternates: {
     canonical: "https://trigunacoachingclasses.in/terms-and-conditions",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png", // Added Apple Touch Icon
+  },
 };
+
 const TermsPage = () => {
   return (
     <div className="bg-primary-content">

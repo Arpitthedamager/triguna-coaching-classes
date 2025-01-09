@@ -48,14 +48,14 @@ export const metadata: Metadata = {
     title: "Triguna Coaching Classes - Leading Coaching in Agra",
     description:
       "Triguna Coaching Classes provides exceptional coaching for students from Class 1 to 12. Located in Agra, we specialize in delivering quality education and comprehensive learning experiences.",
-    url: "https://trigunacoachingclasses.in/favicon.ico",
+    url: "https://trigunacoachingclasses.in",
     siteName: "Triguna Coaching Classes",
     images: [
       {
-        url: "/favicon.ico",
-        width: 800,
-        height: 600,
-        alt: "Triguna Coaching Classes Logo",
+        url: "/opengraph-image.jpg", // Updated Open Graph image path
+        width: 1200,
+        height: 630,
+        alt: "Triguna Coaching Classes Banner",
       },
     ],
     type: "website",
@@ -66,12 +66,17 @@ export const metadata: Metadata = {
     title: "Triguna Coaching Classes - Leading Coaching in Agra",
     description:
       "Triguna Coaching Classes provides exceptional coaching for students from Class 1 to 12. Located in Agra, we specialize in delivering quality education and comprehensive learning experiences.",
-    images: ["/favicon.ico"],
+    images: ["/opengraph-image.jpg"], // Updated Twitter card image
   },
   alternates: {
     canonical: "https://trigunacoachingclasses.in",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png", // Added Apple Touch Icon
+  },
 };
+
 
 export default function RootLayout({
   children,

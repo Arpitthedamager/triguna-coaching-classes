@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 const Header: FC = () => {
   return (
     <header className="flex items-center justify-between p-4 pt-0  bg-transparent">
-      <h1 className="md:text-xl ml-5 md:ml-0 text-lg font-bold text-SessionContext">My Dashboard</h1>
+      <h1 className="md:text-xl ml-5 md:ml-0 text-lg font-bold text-SessionContext">Admin Dashboard</h1>
       <motion.div
         className="flex items-center space-x-4"
         initial={{ opacity: 0 }}
