@@ -33,7 +33,11 @@ const Timetable = () => {
 
   // Add Notification
   const handleAddNotification = async () => {
-    if (!newNotification.icon || !newNotification.name || !newNotification.time) {
+    if (
+      !newNotification.icon ||
+      !newNotification.name ||
+      !newNotification.time
+    ) {
       alert("All fields are required!");
       return;
     }
@@ -93,7 +97,6 @@ const Timetable = () => {
           </option>
         ))}
       </select>
-      
 
       {/* Timetable Notification Items */}
       {currentIndex > 0 && (
@@ -110,8 +113,7 @@ const Timetable = () => {
           className="flex"
           initial={{ x: 0 }}
           animate={{ x: -currentIndex * 50 + "%" }} // Move one item at a time
-          transition={{ type: "spring", stiffness: 900, damping: 300 }} 
-         
+          transition={{ type: "spring", stiffness: 900, damping: 300 }}
         >
           {notifications.map((notification, index) => (
             <div
@@ -125,7 +127,7 @@ const Timetable = () => {
               </div>
               <button
                 onClick={() => handleDeleteNotification(index)}
-                  className="absolute top-2 right-2 text-red-500 hover:text-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-2 right-2 text-red-500 hover:text-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 Delete
               </button>

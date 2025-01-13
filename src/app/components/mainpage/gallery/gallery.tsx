@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-
 interface Student {
   name: string;
   grade: string;
@@ -86,7 +85,6 @@ const SchoolResults = () => {
         totalMarks: 100,
         photo: "/topstudents/8.jpg",
       },
-      
     ],
   };
 

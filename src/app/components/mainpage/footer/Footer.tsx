@@ -23,6 +23,8 @@ const Footer: React.FC = () => {
     { name: "Contact", href: "/contact" },
     { name: "Privacy Policy", href: "/privacypolicy" },
     { name: "Terms & Conditions", href: "/termsandconditions" },
+    { name: "Gallery", href: "/gallery" },
+
 
     // Add more links as needed
   ];
