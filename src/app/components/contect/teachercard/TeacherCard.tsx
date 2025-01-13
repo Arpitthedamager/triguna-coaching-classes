@@ -10,7 +10,7 @@ const teachers = [
     phone: "123-456-7890",
     email: "jagvendra@example.com",
     details: "Expert in Inorganic and Physical Chemistry.",
-    image: "/2.jpg",
+    image: "/teacher/sir2.jpg",
   },
   {
     name: "Radhika Ma'am",
@@ -18,7 +18,7 @@ const teachers = [
     phone: "987-654-3210",
     email: "radhika@example.com",
     details: "Specializes in Mechanics and Electromagnetism.",
-    image: "/2.jpg",
+    image: "/teacher/sir3.jpg",
   },
 ];
 

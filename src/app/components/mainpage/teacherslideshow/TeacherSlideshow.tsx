@@ -10,23 +10,15 @@ const teachers = [
     description:
       "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
     demoVideo: "Demo Video",
-    image: "/2.jpg", // Replace with actual image path
+    image: "/teacher/sir2.jpg", // Replace with actual image path
   },
   {
-    name: "Radhika Ma'am",
+    name: "Rupesh Sir",
     subject: "Physics",
     description:
-      "Radhika Ma'am has an exceptional knack for simplifying complex physics concepts, making them relatable and understandable for students of all levels.",
+      "Rupesh Sir has an exceptional knack for simplifying complex physics concepts, making them relatable and understandable for students of all levels.",
     demoVideo: "Demo Video",
-    image: "/path-to-image2.jpg", // Replace with actual image path
-  },
-  {
-    name: "Amit Sir",
-    subject: "Mathematics",
-    description:
-      "Amit Sir brings clarity to mathematics with his engaging teaching style and innovative problem-solving techniques.",
-    demoVideo: "Demo Video",
-    image: "/2.jpg", // Replace with actual image path
+    image: "/teacher/sir4.jpg", // Replace with actual image path
   },
 ];
 

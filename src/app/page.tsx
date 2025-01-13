@@ -15,6 +15,7 @@ import Footer from "./components/mainpage/footer/Footer";
 import HeroSection from "./components/mainpage/herosection/HeroSection";
 import MapComponent from "./components/mainpage/mapcomponent/MapComponent";
 import TeacherSlideshow from "./components/mainpage/teacherslideshow/TeacherSlideshow";
+import Hero from "./components/gallery/hero/hero";
 // import TopRankingStudents from "./components/UserDashboardcomponents/onetimeused/toprankingstudents/TopRankingStudents"
 // import CallToAction from "./components/mainpage/calltoaction/CallToAction"
 
@@ -40,6 +41,7 @@ export default function Home() {
       <div className="my-20">
         <Banner />
       </div>
+      <Hero/>
       {/* <TopRankingStudents /> */}
       <FeedbackSection />
       <FeaturesSection />
