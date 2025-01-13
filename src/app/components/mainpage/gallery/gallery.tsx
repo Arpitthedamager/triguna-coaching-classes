@@ -101,23 +101,21 @@ const SchoolResults = () => {
       <div className="lg:w-1/3 space-y-6">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6 }}
           className="space-y-4 hidden lg:block"
         >
           {["Location", "Name", "Year", "Type"].map((label, index) => {
             const value =
               schoolData[
-                label.toLowerCase().replace(" ", "") as keyof SchoolData
+                label.toLowerCase().replace(" ", "") as keyof typeof schoolData
               ];
-
             return (
               <div key={index}>
                 <p className="text-sm text-primary-a40">{label}</p>
                 <p className="font-medium text-primary-a20">
-                  {Array.isArray(value)
-                    ? `Total Students: ${value.length}` // Handle arrays separately
-                    : value}{" "}
+                  {Array.isArray(value) ? `Total Students: ${value.length}` : value}
                 </p>
               </div>
             );
@@ -125,8 +123,9 @@ const SchoolResults = () => {
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
         >
           <h1 className="text-3xl font-bold text-primary-a20 leading-snug">
             Student Results from{" "}
@@ -140,7 +139,8 @@ const SchoolResults = () => {
       <motion.div
         className="lg:w-2/3 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
         variants={{
           hidden: { opacity: 0, y: 50 },
           visible: {

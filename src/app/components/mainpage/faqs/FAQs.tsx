@@ -73,7 +73,7 @@ const FAQs: React.FC = () => {
     setShowMore(!showMore);
   };
 
-  const visibleFAQs = showMore ? faqs : faqs.slice(0, 5);
+  const visibleFAQs = showMore ? faqs : faqs.slice(0, 4);
 
   return (
     <motion.section

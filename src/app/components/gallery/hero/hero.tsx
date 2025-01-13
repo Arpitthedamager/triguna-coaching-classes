@@ -100,7 +100,7 @@ const SchoolResults = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-12 px-6 py-16 lg:px-24 bg-primary-content">
       {/* Left Section */}
-      <div className="lg:w-1/3 space-y-6">
+      <div className="lg:w-1/3 md:py-20 space-y-6">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
