@@ -62,7 +62,7 @@ const Gallery = () => {
       {
         name: "Ankur",
         grade: "10th Grade",
-        percentage:  96,
+        percentage: 96,
         photo: "/topstudents/6.jpg",
       },
       {
@@ -83,43 +83,43 @@ const Gallery = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-12 px-6 py-16 lg:px-24 bg-primary-content">
       {/* Left Section */}
-     <div className="lg:w-1/3 md:py-20 space-y-6">
-             <motion.div
-               initial={{ opacity: 0, x: -50 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.6 }}
-               className="space-y-4 hidden lg:block"
-             >
-               {["Location", "Name", "Year", "Type"].map((label, index) => {
-                 const value =
-                   schoolData[
-                     label.toLowerCase().replace(" ", "") as keyof SchoolData
-                   ];
-     
-                 return (
-                   <div key={index}>
-                     <p className="text-sm text-primary-a40">{label}</p>
-                     <p className="font-medium text-primary-a20">
-                       {Array.isArray(value)
-                         ? `Total Students: ${value.length}` // Handle arrays separately
-                         : value}{" "}
-                     </p>
-                   </div>
-                 );
-               })}
-             </motion.div>
-             <motion.div
-               initial={{ opacity: 0, x: -50 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.6, delay: 0.2 }}
-             >
-               <h1 className="text-3xl font-bold text-primary-a20 leading-snug">
-                 Student Results from{" "}
-                 <span className="text-green-600">{schoolData.name}</span>
-               </h1>
-               <p className="text-sm text-gray-600 mt-4">{schoolData.description}</p>
-             </motion.div>
-           </div>
+      <div className="lg:w-1/3 md:py-20 space-y-6">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-4 hidden lg:block"
+        >
+          {["Location", "Name", "Year", "Type"].map((label, index) => {
+            const value =
+              schoolData[
+                label.toLowerCase().replace(" ", "") as keyof SchoolData
+              ];
+
+            return (
+              <div key={index}>
+                <p className="text-sm text-primary-a40">{label}</p>
+                <p className="font-medium text-primary-a20">
+                  {Array.isArray(value)
+                    ? `Total Students: ${value.length}` // Handle arrays separately
+                    : value}{" "}
+                </p>
+              </div>
+            );
+          })}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <h1 className="text-3xl font-bold text-primary-a20 leading-snug">
+            Student Results from{" "}
+            <span className="text-green-600">{schoolData.name}</span>
+          </h1>
+          <p className="text-sm text-gray-600 mt-4">{schoolData.description}</p>
+        </motion.div>
+      </div>
 
       {/* Right Section */}
       <motion.div
@@ -180,12 +180,11 @@ const Gallery = () => {
           </motion.div>
         ))}
       </motion.div>
-      <Link href="/gallery">
-      <button
-      className="text-primary-a20 font-semibold hover:underline">
-        Show More
-      </button>
-        </Link>
+      <Link href="/gallery" className=" block md:hidden text-center">
+        <button className="text-primary-a20 font-semibold hover:underline">
+          Show More
+        </button>
+      </Link>
     </div>
   );
 };
