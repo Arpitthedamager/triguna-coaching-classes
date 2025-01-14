@@ -9,6 +9,7 @@ interface Feedback {
   name: string;
   achievement: string;
   feedback: string;
+  image: string; // Added the image property
 }
 
 const FeedbackSection: React.FC = () => {
@@ -17,21 +18,25 @@ const FeedbackSection: React.FC = () => {
       name: "Mohit Gola",
       achievement: "Jee Advance Topper",
       feedback: "This Coaching center helped me to achieve my success",
+      image: "/mohit-gola.jpg", // Replace with actual image path
     },
     {
       name: "Ram",
       achievement: "98% in 12th CBSE Board",
       feedback: "The Faculty is incredibly supportive and knowledgeable.",
+      image: "/ram.jpg", // Replace with actual image path
     },
     {
       name: "Sneha",
       achievement: "State Olympiad Winner",
       feedback: "This institution instilled confidence and clarity in me.",
+      image: "/topstudents/2.jpg", // Replace with actual image path
     },
     {
       name: "Ankit",
       achievement: "Best Paper Presentation Award",
       feedback: "They provide an amazing platform to learn and grow.",
+      image: "/topstudents/1.jpg", // Replace with actual image path
     },
   ];
 
@@ -119,14 +124,14 @@ const FeedbackSection: React.FC = () => {
               className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 border-b border-gray-300 pb-6"
             >
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12  rounded-full">
-                  {" "}
+                <div className="w-12 h-12 rounded-full overflow-hidden">
                   <Image
-                    src="/default-avatar.png" // Replace this with the actual image URL or path
-                    alt="User Avatar"
-                    width={48}  // Set the width for the image
-                    height={48} // Set the height for the image
-                    className="object-cover"                  />
+                    src={item.image} // Use the dynamic image from feedbacks
+                    alt={`${item.name}'s Avatar`}
+                    width={48} // Adjust the width as needed
+                    height={48} // Adjust the height as needed
+                    className="object-cover"
+                  />
                 </div>
                 <div>
                   <motion.div

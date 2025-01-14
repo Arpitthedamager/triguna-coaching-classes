@@ -20,12 +20,12 @@ interface SchoolData {
   students: Student[];
 }
 
-const Gallery = () => {
+const Hero1 = () => {
   const schoolData: SchoolData = {
     
     location: "Agra, India",
     name: "Triguna Coaching Classes",
-    year: "2024-2025",
+    year: "202-2023",
     type: "Student Results",
     description:
       "Our students excel in academics, and this page showcases their performance in recent tests. Explore their progress and achievements.",
@@ -86,6 +86,7 @@ const Gallery = () => {
         totalMarks: 100,
         photo: "/topstudents/8.jpg",
       },
+      
     ],
   };
 
@@ -97,7 +98,7 @@ const Gallery = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-12 px-6 py-16 lg:px-24 bg-primary-content">
+    <div className="flex flex-col lg:flex-row-reverse gap-12 px-6 py-16 lg:px-24 bg-primary-content">
       {/* Left Section */}
       <div className="lg:w-1/3 md:py-20 space-y-6">
         <motion.div
@@ -196,11 +197,8 @@ const Gallery = () => {
           </motion.div>
         ))}
       </motion.div>
-      <button className="text-primary-a20  font-semibold hover:underline">
-        Show More
-      </button>
     </div>
   );
 };
 
-export default Gallery;
+export default Hero1;

@@ -20,7 +20,7 @@ interface SchoolData {
   students: Student[];
 }
 
-const SchoolResults = () => {
+const Hero = () => {
   const schoolData: SchoolData = {
     
     location: "Agra, India",
@@ -201,4 +201,4 @@ const SchoolResults = () => {
   );
 };
 
-export default SchoolResults;
+export default Hero;
