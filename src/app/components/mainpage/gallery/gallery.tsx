@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Student {
   name: string;
@@ -179,9 +180,12 @@ const Gallery = () => {
           </motion.div>
         ))}
       </motion.div>
-      <button className="text-primary-a20 font-semibold hover:underline">
+      <Link href="/gallery">
+      <button
+      className="text-primary-a20 font-semibold hover:underline">
         Show More
       </button>
+        </Link>
     </div>
   );
 };
