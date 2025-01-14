@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+
 interface Student {
   name: string;
   grade: string;
@@ -19,7 +20,7 @@ interface SchoolData {
   students: Student[];
 }
 
-const SchoolResults = () => {
+const Gallery = () => {
   const schoolData: SchoolData = {
     
     location: "Agra, India",
@@ -71,20 +72,7 @@ const SchoolResults = () => {
         totalMarks: 100,
         photo: "/topstudents/6.jpg",
       },
-      {
-        name: "Karan Mehta",
-        grade: "12th Grade",
-        marks: 94,
-        totalMarks: 100,
-        photo: "/topstudents/7.jpg",
-      },
-      {
-        name: "Divya Bhardwaj",
-        grade: "11th Grade",
-        marks: 89,
-        totalMarks: 100,
-        photo: "/topstudents/8.jpg",
-      },
+      
     ],
   };
 
@@ -98,24 +86,26 @@ const SchoolResults = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-12 px-6 py-16 lg:px-24 bg-primary-content">
       {/* Left Section */}
-      <div className="lg:w-1/3 space-y-6">
+      <div className="lg:w-1/3 md:py-20 space-y-6">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           className="space-y-4 hidden lg:block"
         >
           {["Location", "Name", "Year", "Type"].map((label, index) => {
             const value =
               schoolData[
-                label.toLowerCase().replace(" ", "") as keyof typeof schoolData
+                label.toLowerCase().replace(" ", "") as keyof SchoolData
               ];
+
             return (
               <div key={index}>
                 <p className="text-sm text-primary-a40">{label}</p>
                 <p className="font-medium text-primary-a20">
-                  {Array.isArray(value) ? `Total Students: ${value.length}` : value}
+                  {Array.isArray(value)
+                    ? `Total Students: ${value.length}` // Handle arrays separately
+                    : value}{" "}
                 </p>
               </div>
             );
@@ -123,9 +113,8 @@ const SchoolResults = () => {
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.8 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h1 className="text-3xl font-bold text-primary-a20 leading-snug">
             Student Results from{" "}
@@ -139,8 +128,7 @@ const SchoolResults = () => {
       <motion.div
         className="lg:w-2/3 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate="visible"
         variants={{
           hidden: { opacity: 0, y: 50 },
           visible: {
@@ -195,8 +183,11 @@ const SchoolResults = () => {
           </motion.div>
         ))}
       </motion.div>
+      <button className="text-primary-a20  font-semibold hover:underline">
+        Show More
+      </button>
     </div>
   );
 };
 
-export default SchoolResults;
+export default Gallery;
