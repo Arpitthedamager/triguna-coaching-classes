@@ -54,7 +54,7 @@ const Gallery = () => {
         photo: "/topstudents/4.jpg",
       },
       {
-        name: "Ashish",
+        name: "Aman",
         grade: "10th Grade",
         percentage: 89,
         photo: "/topstudents/5.jpg",
@@ -72,7 +72,7 @@ const Gallery = () => {
         photo: "/topstudents/7.jpg",
       },
       {
-        name: "Aman",
+        name: "Ashish",
         grade: "10th Grade",
         percentage: 89,
         photo: "/topstudents/8.jpg",

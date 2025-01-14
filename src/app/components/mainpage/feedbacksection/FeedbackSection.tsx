@@ -15,28 +15,52 @@ interface Feedback {
 const FeedbackSection: React.FC = () => {
   const feedbacks: Feedback[] = [
     {
-      name: "Mohit Gola",
-      achievement: "Jee Advance Topper",
-      feedback: "This Coaching center helped me to achieve my success",
-      image: "/topstudents/4.jpg", // Replace with actual image path
+      name: "Sankalp",
+      achievement: "95% in 10th Grade",
+      feedback: "The personalized guidance and teaching methods here are exceptional.",
+      image: "/topstudents/1.jpg", // Replace with actual image path
     },
     {
-      name: "Ram",
-      achievement: "98% in 12th CBSE Board",
-      feedback: "The Faculty is incredibly supportive and knowledgeable.",
-      image: "/topstudents/3.jpg", // Replace with actual image path
-    },
-    {
-      name: "Sneha",
-      achievement: "State Olympiad Winner",
-      feedback: "This institution instilled confidence and clarity in me.",
+      name: "Bhavna",
+      achievement: "88.6% in 10th Grade",
+      feedback: "The structured learning environment greatly improved my scores.",
       image: "/topstudents/2.jpg", // Replace with actual image path
     },
     {
-      name: "Ankit",
-      achievement: "Best Paper Presentation Award",
-      feedback: "They provide an amazing platform to learn and grow.",
-      image: "/topstudents/1.jpg", // Replace with actual image path
+      name: "Ritika",
+      achievement: "92% in 10th Grade",
+      feedback: "The teachers' dedication and expertise motivated me to excel.",
+      image: "/topstudents/3.jpg", // Replace with actual image path
+    },
+    {
+      name: "Nikhil",
+      achievement: "90.2% in 10th Grade",
+      feedback: "I am grateful for the excellent support I received here.",
+      image: "/topstudents/4.jpg", // Replace with actual image path
+    },
+    {
+      name: "Ashish",
+      achievement: "89% in 10th Grade",
+      feedback: "The study materials and guidance were instrumental in my success.",
+      image: "/topstudents/5.jpg", // Replace with actual image path
+    },
+    {
+      name: "Ankur",
+      achievement: "96% in 10th Grade",
+      feedback: "This institute provides the perfect blend of guidance and mentorship.",
+      image: "/topstudents/6.jpg", // Replace with actual image path
+    },
+    {
+      name: "Simiran",
+      achievement: "87% in 10th Grade",
+      feedback: "Their focus on conceptual clarity made all the difference.",
+      image: "/topstudents/7.jpg", // Replace with actual image path
+    },
+    {
+      name: "Aman",
+      achievement: "89% in 10th Grade",
+      feedback: "The teaching methods here foster a deep understanding of subjects.",
+      image: "/topstudents/8.jpg", // Replace with actual image path
     },
   ];
 
