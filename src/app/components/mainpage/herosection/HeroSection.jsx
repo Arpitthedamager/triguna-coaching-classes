@@ -146,7 +146,7 @@ const HeroSection = () => {
         >
           {/* Student 2 */}
           <motion.img
-            src="/path/to/image2.jpg"
+            src="/teacher/sir2.jpg"
             alt="Student 2"
             className="rounded-full w-34 h-80 lg:w-36 lg:h-96 relative object-cover border-4 border-[#5631AE] shadow-xl"
             initial={{ opacity: 0, y: -500 }}
@@ -157,7 +157,7 @@ const HeroSection = () => {
           <div className="flex flex-col relative z-10 top-20">
             {/* Student 1 */}
             <motion.img
-              src="/path/to/image1.jpg"
+              src="/teacher/sir1.jpg"
               alt="Student 1"
               className="rounded-full w-34 h-80 lg:w-36 lg:h-96 relative bottom-52 object-cover border-4 border-[#241448] shadow-lg"
               initial={{ opacity: 0, y: 500 }}
@@ -166,7 +166,7 @@ const HeroSection = () => {
             />
             {/* Student 3 */}
             <motion.img
-              src="/path/to/image3.jpg"
+              src="/topstudents/7.jpg"
               alt="Student 3"
               className="rounded-full w-34 h-80 lg:w-36 lg:h-96 relative object-cover border-4 border-[#241448] shadow-lg"
               initial={{ opacity: 0, y: 500 }}
@@ -176,7 +176,7 @@ const HeroSection = () => {
           </div>
           {/* Student 2 Duplicate */}
           <motion.img
-            src="/path/to/image2.jpg"
+            src="/topstudents/2.jpg"
             alt="Student 2 Duplicate"
             className="rounded-full relative top-40 w-34 h-80 lg:w-36 lg:h-96 object-cover border-4 border-[#5631AE] shadow-xl"
             initial={{ opacity: 0, y: -500 }}

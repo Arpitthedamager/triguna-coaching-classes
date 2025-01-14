@@ -29,7 +29,7 @@ const Banner: React.FC = () => {
         className="text-center md:text-left"
       >
         <motion.h2
-          className="text-3xl md:text-4xl font-semibold mb-4"
+          className="text-3xl md:text-4xl font-semibold mb-1"
           variants={{
             hidden: { opacity: 0, y: -20 },
             visible: { opacity: 1, y: 0 },
