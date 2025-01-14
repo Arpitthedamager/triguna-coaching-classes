@@ -18,13 +18,13 @@ const FeedbackSection: React.FC = () => {
       name: "Mohit Gola",
       achievement: "Jee Advance Topper",
       feedback: "This Coaching center helped me to achieve my success",
-      image: "/mohit-gola.jpg", // Replace with actual image path
+      image: "/topstudents/4.jpg", // Replace with actual image path
     },
     {
       name: "Ram",
       achievement: "98% in 12th CBSE Board",
       feedback: "The Faculty is incredibly supportive and knowledgeable.",
-      image: "/ram.jpg", // Replace with actual image path
+      image: "/topstudents/3.jpg", // Replace with actual image path
     },
     {
       name: "Sneha",
