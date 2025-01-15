@@ -35,9 +35,9 @@ const Gallery = () => {
         photo: "/topstudents/9.jpg",
       },
       {
-        name: "Bhavna",
+        name: "arpit bhadauriya",
         grade: "10th Grade",
-        percentage: 88.6,
+        percentage:  95.2,
         photo: "/topstudents/10.jpg",
       },
       {
@@ -59,9 +59,9 @@ const Gallery = () => {
         photo: "/topstudents/13.jpg",
       },
       {
-        name: "Ankur",
-        grade: "10th Grade",
-        percentage:  96,
+        name: "Ashish bharadwaj",
+        grade: "10th 91.4 and jee mains Grade",
+        percentage:  99.4,
         photo: "/topstudents/14.jpg",
       },
     ],
