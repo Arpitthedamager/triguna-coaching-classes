@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
   }, []);
 
   const socialLinks = [
-    { icon: <FaFacebookF />, href: "https://facebook.com" },
+    { icon: <FaFacebookF />, href: "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/" },
     { icon: <FaTwitter />, href: "https://twitter.com" },
     { icon: <FaInstagram />, href: "https://instagram.com" },
     { icon: <FaLinkedinIn />, href: "https://linkedin.com" },

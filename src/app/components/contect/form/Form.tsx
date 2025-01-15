@@ -105,7 +105,7 @@ const ContactForm = () => {
           <h4 className="font-bold text-left text-gray-900">Follow Us:</h4>
           <div className="flex gap-4 mt-2">
             {[
-              { icon: FaFacebookF, link: "#" },
+              { icon: FaFacebookF, link: "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/" },
               { icon: FaTwitter, link: "#" },
               { icon: FaInstagram, link: "#" },
               { icon: FaLinkedinIn, link: "#" },

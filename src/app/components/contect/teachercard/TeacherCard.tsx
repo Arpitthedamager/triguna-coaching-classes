@@ -2,23 +2,36 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const teachers = [
   {
     name: "Jagvendra Sir",
     subject: "Chemistry",
-    phone: "123-456-7890",
-    email: "jagvendra@example.com",
-    details: "Expert in Inorganic and Physical Chemistry.",
+    phone: "+91 99179 89914",
+    email: "trigunacoachingclasses@gmail.com",
+    details: "Expert in Inorganic, Physical and organic Chemistry.",
     image: "/teacher/sir2.jpg",
+    social: {
+      facebook: "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/",
+      instagram: "https://www.instagram.com/jagvendrasikarwar/",
+      linkedin: "https://www.linkedin.com/in/jagvendra",
+      twitter: "https://www.twitter.com/jagvendra",
+    },
   },
   {
-    name: "Radhika Ma'am",
+    name: "Rupesh Sir",
     subject: "Physics",
-    phone: "987-654-3210",
-    email: "radhika@example.com",
-    details: "Specializes in Mechanics and Electromagnetism.",
+    phone: "+91 88591 44956",
+    email: "trigunacoachingclasses@gmail.com",
+    details: "Specializes in maths and physics.",
     image: "/teacher/sir3.jpg",
+    social: {
+      facebook: "https://www.facebook.com/rupesh.pachauri.9?mibextid=ZbWKwL",
+      instagram: "https://www.instagram.com/pachaurirupesh/",
+      linkedin: "https://www.linkedin.com/in/rupesh",
+      twitter: "https://www.twitter.com/rupesh",
+    },
   },
 ];
 
@@ -38,7 +51,7 @@ const TeacherCardLayout = () => {
             <motion.img
               src={teacher.image}
               alt={teacher.name}
-              className="w-full lg:h-96 h-full md:w-1/3  rounded-lg object-cover"
+              className="w-full lg:h-96 h-full md:w-1/3 rounded-lg object-cover"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
@@ -70,6 +83,42 @@ const TeacherCardLayout = () => {
                 </a>
               </p>
               <p className="text-gray-500 mt-3">{teacher.details}</p>
+
+              {/* Social Media Links */}
+              <div className="flex gap-4 mt-4">
+                <a
+                  href={teacher.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 transition"
+                >
+                  <FaFacebook size={24} />
+                </a>
+                <a
+                  href={teacher.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pink-500 hover:text-pink-700 transition"
+                >
+                  <FaInstagram size={24} />
+                </a>
+                {/* <a
+                  href={teacher.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:text-blue-700 transition"
+                >
+                  <FaLinkedin size={24} />
+                </a>
+                <a
+                  href={teacher.social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-600 transition"
+                >
+                  <FaTwitter size={24} />
+                </a> */}
+              </div>
             </div>
           </div>
         ))}
