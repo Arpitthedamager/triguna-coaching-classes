@@ -23,13 +23,19 @@ const UserEdit = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [filters, setFilters] = useState<Filters>({ class: "", subjects: "" });
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Add loading state
+
 
   // Fetch users on component mount
   useEffect(() => {
+    // setLoading(true); // Set loading to true when fetching data
     fetch("/api/edituser")
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
+      setLoading(false); // Set loading to false even if there's an error
+      // console.log("Users fetched successfully!");
+      
   }, []);
 
   const handleFilterChange = (
@@ -51,6 +57,26 @@ const UserEdit = () => {
 
   const handleEdit = (user: User) => {
     setSelectedUser(user);
+  };
+
+  const handleDelete = (userId: string) => {
+    if (confirm("Are you sure you want to delete this user?")) {
+      fetch("/api/edituser", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ _id: userId }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed t  o delete user");
+          return res.json();
+        })
+        .then(() => {
+          setUsers((prev) => prev.filter((user) => user._id !== userId));
+          alert("User deleted successfully!");
+          setSelectedUser(null);
+        })
+        .catch((err) => alert("Error deleting user: " + err.message));
+    }
   };
 
   const handleSave = () => {
@@ -94,6 +120,7 @@ const UserEdit = () => {
   return (
     <div className="p-6 text-gray-600 min-h-screen">
       <div className="max-w-4xl mx-auto">
+        
         {/* Filters Section */}
         <motion.div
           className="mb-6 p-4 bg-white rounded-lg shadow-lg"
@@ -148,8 +175,16 @@ const UserEdit = () => {
             </div>
           </div>
         </motion.div>
+         {/* Loading Spinner */}
+         {loading && (
+          <div className="flex justify-center items-center min-h-screen">
+            <h2 className="text-2xl font-semibold text-gray-800">Loading Users...</h2>
+            <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+          </div>
+        )}
 
         {/* Users List Section */}
+        {!loading && (
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           initial={{ opacity: 0 }}
@@ -200,6 +235,7 @@ const UserEdit = () => {
             </motion.div>
           ))}
         </motion.div>
+        )}
 
         {/* Edit User Modal */}
         {selectedUser && (
@@ -308,6 +344,12 @@ const UserEdit = () => {
                     onClick={() => setSelectedUser(null)} // Reset selected user
                   >
                     Cancel
+                  </button>
+                  <button
+                    className="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                    onClick={() => handleDelete(selectedUser._id)}
+                  >
+                    Delete
                   </button>
                 </div>
               </div>
