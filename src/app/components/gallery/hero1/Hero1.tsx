@@ -35,7 +35,7 @@ const Gallery = () => {
         photo: "/topstudents/9.jpg",
       },
       {
-        name: "Arpit bhadauriya",
+        name: "Arpit Bhadauriya",
         grade: "12th Grade",
         percentage:  95.2,
         photo: "/topstudents/10.jpg",
@@ -59,8 +59,14 @@ const Gallery = () => {
         photo: "/topstudents/13.jpg",
       },
       {
-        name: "Ashish bharadwaj",
-        grade: "10th 91.4 and jee mains Grade",
+        name: "Ashish Bharadwaj",
+        grade: "jee mains",
+        percentage:  99.4,
+        photo: "/topstudents/14.jpg",
+      },
+      {
+        name: "Ashish Bharadwaj",
+        grade: "12s",
         percentage:  99.4,
         photo: "/topstudents/14.jpg",
       },
@@ -149,11 +155,11 @@ const Gallery = () => {
                 alt={student.name}
                 className="w-full h-48 object-center rounded-lg shadow-md"
               />
-              <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                {student.grade}
-              </div>
             </div>
             <div className="mt-4">
+              <div className=" left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                {student.grade}
+              </div>
               <p className="text-lg font-semibold text-primary-a20">
                 {student.name}
               </p>

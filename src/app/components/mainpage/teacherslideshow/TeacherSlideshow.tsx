@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const teachers = [
   {
-    name: "Jagvendra Sir",
+    name: "Jagvendra Sir (Founder)",
     subject: "Chemistry",
     description:
       "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
@@ -13,8 +13,8 @@ const teachers = [
     image: "/teacher/sir2.jpg", // Replace with actual image path
   },
   {
-    name: "Rupesh Sir",
-    subject: "Physics",
+    name: "Rupesh Sir (Founder)",
+    subject: "Physics and Maths",
     description:
       "Rupesh Sir has an exceptional knack for simplifying complex physics concepts, making them relatable and understandable for students of all levels.",
     demoVideo: "Demo Video",

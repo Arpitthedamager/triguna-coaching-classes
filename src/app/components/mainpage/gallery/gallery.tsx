@@ -162,9 +162,9 @@ const Gallery = () => {
                 alt={student.name}
                 className="w-full h-48 object-center rounded-lg shadow-md"
               />
-              <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+              {/* <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
                 {student.grade}
-              </div>
+              </div> */}
             </div>
             <div className="mt-4">
               <p className="text-lg font-semibold text-primary-a20">
