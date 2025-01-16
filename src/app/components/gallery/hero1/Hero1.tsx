@@ -61,12 +61,12 @@ const Gallery = () => {
       {
         name: "Ashish Bharadwaj",
         grade: "jee mains",
-        percentage:  99.4,
+        percentage:  99.6418,
         photo: "/topstudents/14.jpg",
       },
       {
         name: "Ashish Bharadwaj",
-        grade: "12s",
+        grade: "12th Grade ",
         percentage:  99.4,
         photo: "/topstudents/14.jpg",
       },

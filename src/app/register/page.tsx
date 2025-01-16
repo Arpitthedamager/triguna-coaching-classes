@@ -39,19 +39,19 @@ export default function Register() {
   const { data: session, status } = useSession(); // Get session data and status
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === "loading") return; // Wait until session is loaded
+  // useEffect(() => {
+  //   if (status === "loading") return; // Wait until session is loaded
 
-    if (!session) {
-      // Redirect to home if no session (user is not logged in)
-      router.push("/");
-    } else {
-      // Check if user is logged in and redirect based on their role
-      if (session.user?.role !== "teacher") {
-        router.push("/"); // Redirect non-admin users to the homepage or another page
-      }
-    }
-  }, [session, status, router]);
+  //   if (!session) {
+  //     // Redirect to home if no session (user is not logged in)
+  //     router.push("/");
+  //   } else {
+  //     // Check if user is logged in and redirect based on their role
+  //     if (session.user?.role !== "teacher") {
+  //       router.push("/"); // Redirect non-admin users to the homepage or another page
+  //     }
+  //   }
+  // }, [session, status, router]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;

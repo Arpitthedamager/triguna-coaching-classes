@@ -8,8 +8,8 @@ const teachers = [
   {
     name: "Jagvendra Sir",
     subject: "Chemistry",
-    phone: "+91 99179 89914",
-    email: "trigunacoachingclasses@gmail.com",
+    phone: "+91 9068089914",
+    email: "jagvendra3@gmail.com",
     details: "Expert in Inorganic, Physical and organic Chemistry.",
     image: "/teacher/sir2.jpg",
     social: {
@@ -22,8 +22,8 @@ const teachers = [
   {
     name: "Rupesh Sir",
     subject: "Physics",
-    phone: "+91 88591 44956",
-    email: "trigunacoachingclasses@gmail.com",
+    phone: "+91 7830716657",
+    email: "pachaurirupesh1@gmail.com",
     details: "Specializes in maths and physics.",
     image: "/teacher/sir3.jpg",
     social: {
