@@ -54,7 +54,7 @@ const ContactForm = () => {
             <div>
               <h4 className="font-bold text-left text-gray-900">Address</h4>
               <a
-                href="https://www.google.com/maps/place/Triguna+Coaching+Classes/@27.2248173,78.0587476,823m/data=!3m2!1e3!4b1!4m6!3m5!1s0x39747b48dbb8692b:0x78872c32e0b2a866!8m2!3d27.2248173!4d78.0587476!16s%2Fg%2F11hkp1qzfz?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
+                href="https://maps.app.goo.gl/uVad1SPp73gbfQH28"
                 target="_blank"
                 className="text-gray-600 hover:text-primary-a30 transition"
               >

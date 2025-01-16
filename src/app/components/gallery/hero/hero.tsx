@@ -31,7 +31,7 @@ const Gallery = () => {
       {
         name: "Sankalp",
         grade: "10th Grade",
-        percentage: 95,
+        percentage: 95.8,
         photo: "/topstudents/1.jpg",
       },
       {
