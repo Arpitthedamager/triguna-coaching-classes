@@ -177,7 +177,7 @@ const UserEdit = () => {
         </motion.div>
          {/* Loading Spinner */}
          {loading && (
-          <div className="flex justify-center items-center min-h-screen">
+          <div className="flex justify-center items-center ">
             <h2 className="text-2xl font-semibold text-gray-800">Loading Users...</h2>
             <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
           </div>
