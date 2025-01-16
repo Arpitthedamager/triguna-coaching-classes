@@ -137,7 +137,7 @@ const FeedbackSection: React.FC = () => {
       </motion.p>
 
       <div className="relative max-w-4xl mx-auto">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           {getFeedbacksForSlide(currentIndex).map((item, index) => (
             <motion.div
               key={index}

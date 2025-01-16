@@ -47,7 +47,7 @@ const AcademicTimeline = () => {
     <section className="md:py-16 py-10 px-4 md:min-h-screen">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start">
         {/* Left Image Section */}
-        <div className="flex-shrink-0 w-full md:w-1/2 mb-8 md:mb-0">
+        <div className="flex-shrink-0 w-full mt-0 md:mt-28 md:w-1/2 mb-8 md:mb-0">
           <div className="relative md:block hidden ">
             {timelineImages.map((imageUrl, index) => (
               <div
