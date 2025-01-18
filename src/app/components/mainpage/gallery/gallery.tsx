@@ -85,10 +85,10 @@ const Gallery = () => {
 
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-  const sortedStudents = [...schoolData.students].sort((a, b) =>
-    sortOrder === "asc" ? a.percentage - b.percentage : b.percentage - a.percentage
-  )
+  const sortedStudents = [...schoolData.students]
+  .sort((a, b) => (sortOrder === "asc" ? b.percentage - a.percentage : a.percentage - b.percentage))
   .slice(0, 8); // Limit to 8 students
+
 
 
   return (
