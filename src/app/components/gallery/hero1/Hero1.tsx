@@ -37,7 +37,7 @@ const Gallery = () => {
       {
         name: "Arpit Bhadauriya",
         grade: "12th Grade",
-        percentage:  91.4,
+        percentage:  95.2,
         photo: "/topstudents/10.jpg",
       },
       {
@@ -67,7 +67,7 @@ const Gallery = () => {
       {
         name: "Ashish Bharadwaj",
         grade: "12th Grade ",
-        percentage:  99.4,
+        percentage:  91.4,
         photo: "/topstudents/14.jpg",
       },
     ],

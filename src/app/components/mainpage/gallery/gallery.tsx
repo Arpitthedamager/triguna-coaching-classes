@@ -25,7 +25,7 @@ const Gallery = () => {
   const schoolData: SchoolData = {
     location: "Agra, India",
     name: "Triguna Coaching Classes",
-    year: "2024-2025",
+    year: "2023-2024",
     type: "Student Results",
     description:
       "Our students excel in academics, and this page showcases their performance in recent tests. Explore their progress and achievements.",
@@ -47,7 +47,7 @@ const Gallery = () => {
       {
         name: "Arpit Bhadauriya",
         grade: "12th Grade",
-        percentage:  91.4,
+        percentage:  95.2,
         photo: "/topstudents/10.jpg",
       },
       {
@@ -69,15 +69,15 @@ const Gallery = () => {
         photo: "/topstudents/13.jpg",
       },
       {
-        name: "Arpit Bharadwaj",
+        name: "Ashish Bharadwaj",
         grade: "jee mains",
         percentage:  99.6418,
-        photo: "/topstudents/10.jpg",
+        photo: "/topstudents/14.jpg",
       },
       {
         name: "Ashish Bharadwaj",
         grade: "12th Grade ",
-        percentage:  99.4,
+        percentage:  91.4,
         photo: "/topstudents/14.jpg",
       },
     ],
