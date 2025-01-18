@@ -159,7 +159,7 @@ export default function Register() {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-green-300"
             >
               <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
+              {/* <option value="teacher">Teacher</option> */}
             </select>
             <select
               name="class"
