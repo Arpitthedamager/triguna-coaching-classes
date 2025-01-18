@@ -37,7 +37,7 @@ const Gallery = () => {
       {
         name: "Arpit Bhadauriya",
         grade: "12th Grade",
-        percentage:  95.2,
+        percentage:  91.4,
         photo: "/topstudents/10.jpg",
       },
       {
@@ -157,7 +157,7 @@ const Gallery = () => {
               />
             </div>
             <div className="mt-4">
-              <div className=" left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+              <div className=" left-4 bg-green-500 text-white px-3 py-1 mr-32 rounded-full text-xs font-bold">
                 {student.grade}
               </div>
               <p className="text-lg font-semibold text-primary-a20">
