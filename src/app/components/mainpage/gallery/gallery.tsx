@@ -30,14 +30,54 @@ const Gallery = () => {
     description:
       "Our students excel in academics, and this page showcases their performance in recent tests. Explore their progress and achievements.",
     students: [
-      { name: "Sankalp", grade: "10th Grade", percentage: 95, photo: "/topstudents/1.jpg" },
-      { name: "Bhavna", grade: "10th Grade", percentage: 88.6, photo: "/topstudents/2.jpg" },
-      { name: "Ritika", grade: "10th Grade", percentage: 92, photo: "/topstudents/3.jpg" },
-      { name: "Nikhil", grade: "10th Grade", percentage: 90.2, photo: "/topstudents/4.jpg" },
-      { name: "Aman", grade: "10th Grade", percentage: 89, photo: "/topstudents/5.jpg" },
-      { name: "Ankur", grade: "10th Grade", percentage: 96, photo: "/topstudents/6.jpg" },
-      { name: "Simiran", grade: "10th Grade", percentage: 87, photo: "/topstudents/7.jpg" },
-      { name: "Ashish", grade: "10th Grade", percentage: 89, photo: "/topstudents/8.jpg" },
+      {
+        name: "Sankalp",
+        grade: "10th Grade",
+        percentage: 95,
+        photo: "/topstudents/1.jpg",
+      },
+      {
+        name: "Bhavna",
+        grade: "10th Grade",
+        percentage: 88.6,
+        photo: "/topstudents/2.jpg",
+      },
+      {
+        name: "Ritika",
+        grade: "10th Grade",
+        percentage: 92,
+        photo: "/topstudents/3.jpg",
+      },
+      {
+        name: "Nikhil",
+        grade: "10th Grade",
+        percentage: 90.2,
+        photo: "/topstudents/4.jpg",
+      },
+      {
+        name: "Aman",
+        grade: "10th Grade",
+        percentage: 89,
+        photo: "/topstudents/5.jpg",
+      },
+      {
+        name: "Ankur",
+        grade: "10th Grade",
+        percentage: 96,
+        photo: "/topstudents/6.jpg",
+      },
+      {
+        name: "Simiran",
+        grade: "10th Grade",
+        percentage: 87,
+        photo: "/topstudents/7.jpg",
+      },
+      {
+        name: "Ashish",
+        grade: "10th Grade",
+        percentage: 89,
+        photo: "/topstudents/8.jpg",
+      },
       {
         name: "Smriti",
         grade: "10th Grade",
@@ -45,9 +85,9 @@ const Gallery = () => {
         photo: "/topstudents/9.jpg",
       },
       {
-        name: "Arpit Bhadauriya",
+        name: "Arpit",
         grade: "12th Grade",
-        percentage:  95.2,
+        percentage: 95.2,
         photo: "/topstudents/10.jpg",
       },
       {
@@ -69,15 +109,15 @@ const Gallery = () => {
         photo: "/topstudents/13.jpg",
       },
       {
-        name: "Ashish Bharadwaj",
+        name: "Ashish",
         grade: "jee mains",
-        percentage:  99.6418,
+        percentage: 99.64,
         photo: "/topstudents/14.jpg",
       },
       {
-        name: "Ashish Bharadwaj",
+        name: "Ashish",
         grade: "12th Grade ",
-        percentage:  91.4,
+        percentage: 91.4,
         photo: "/topstudents/14.jpg",
       },
     ],
@@ -86,13 +126,15 @@ const Gallery = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const sortedStudents = [...schoolData.students]
-  .sort((a, b) => (sortOrder === "asc" ? b.percentage - a.percentage : a.percentage - b.percentage))
-  .slice(0, 8); // Limit to 8 students
-
-
+    .sort((a, b) =>
+      sortOrder === "asc"
+        ? b.percentage - a.percentage
+        : a.percentage - b.percentage
+    )
+    .slice(0, 8); // Limit to 8 students
 
   return (
-    <div className="flex flex-col lg:flex-row gap-12 px-6 py-16 lg:px-24 bg-primary-content">
+    <div className="flex flex-col lg:flex-row gap-12 px-6 md:py-16 lg:px-24 bg-primary-content">
       {/* Left Section */}
       <div className="lg:w-1/3 md:py-20 space-y-6">
         <motion.div
@@ -103,7 +145,9 @@ const Gallery = () => {
         >
           {["Location", "Name", "Year", "Type"].map((label, index) => {
             const value =
-              schoolData[label.toLowerCase().replace(" ", "") as keyof SchoolData];
+              schoolData[
+                label.toLowerCase().replace(" ", "") as keyof SchoolData
+              ];
 
             return (
               <div key={index}>
@@ -132,7 +176,6 @@ const Gallery = () => {
 
       {/* Right Section */}
       <div className="lg:w-2/3">
-
         <motion.div
           className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8"
           initial="hidden"
@@ -165,28 +208,28 @@ const Gallery = () => {
                 index % 3 === 0 ? "rotate-[-2deg]" : "rotate-[1deg]"
               }`}
             >
-              <div className="relative w-full">
+              <div className="flex flex-col h-full">
                 <Image
                   width={300}
                   height={300}
                   src={student.photo}
                   alt={student.name}
-                  className="w-full h-48 object-center rounded-lg shadow-md"
+                  className="w-full h-48 object-fill rounded-lg shadow-md"
                 />
-              </div>
-              <div className="mt-4">
-              <div className=" left-4 bg-green-500 text-white px-3 mr-32 py-1 rounded-full text-xs font-bold">
-                {student.grade}
-              </div>
-                <p className="text-lg font-semibold text-primary-a20">
-                  {student.name}
-                </p>
-                <p className="text-sm text-gray-600 mt-1">
-                  Percentage:{" "}
-                  <span className="font-semibold text-green-600">
-                    {student.percentage}%
-                  </span>
-                </p>
+                <div className="mt-4 flex-grow space-y-2">
+                  <div className="bg-green-500 text-white px-3 py-1 md:mr-32 rounded-full text-xs font-bold">
+                    {student.grade}
+                  </div>
+                  <p className="text-lg font-semibold text-primary-a20">
+                    {student.name}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Percentage:{" "}
+                    <span className="font-semibold text-green-600">
+                      {student.percentage}%
+                    </span>
+                  </p>
+                </div>
               </div>
             </motion.div>
           ))}
