@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     canonical: "https://trigunacoachingclasses.in/privacypolicy",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon1.ico",
     apple: "/apple-touch-icon.png", // Added Apple Touch Icon
   },
 };

@@ -24,7 +24,7 @@ const Top = () => {
   }, []);
 
   return (
-    <div className="bg-primary-content">
+    <div className="bg-primary-content pb-8">
       {/* Navbar */}
       <nav aria-label="Breadcrumb" className="relative bg-primary-a50 py-4 flex justify-between items-center z-10 px-4 md:px-8 shadow-lg">
         <motion.div
@@ -126,42 +126,7 @@ const Top = () => {
       </section>
 
       {/* Information Section */}
-      <section className="py-16 bg-primery-a50 text-gray-800">
-        <div className="container mx-auto px-4 sm:px-8 lg:px-20">
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              className="flex flex-col justify-center"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                {questions[currentQuestion]}
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                At EduSpark, we are dedicated to fostering a passion for
-                learning and personal growth. Our innovative methods and
-                state-of-the-art resources help students excel and achieve their
-                dreams.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="rounded-lg shadow-lg overflow-hidden"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <img
-                src="/party/5.jpg"
-                // https://images.pexels.com/photos/4143792/pexels-photo-4143792.jpeg?auto=compress&cs=tinysrgb&w=1920
-                alt="Students Learning"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 };

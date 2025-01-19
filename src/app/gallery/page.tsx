@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "Triguna Coaching Classes",
     images: [
       {
-        url: "/gallery-opengraph.jpg", // Replace with your actual Open Graph image path
+        url: "/opengraph-image.jpg", // Replace with your actual Open Graph image path
         width: 1200,
         height: 630,
         alt: "Gallery - Triguna Coaching Classes",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Gallery | Triguna Coaching Classes",
     description:
       "Explore the gallery of Triguna Coaching Classes showcasing top-performing students, events, and more. Join the best coaching institute in Agra today!",
-    images: ["/gallery-opengraph.jpg"], // Replace with your actual Twitter card image path
+    images: ["/opengraph-image.jpg"], // Replace with your actual Twitter card image path
   },
   alternates: {
     canonical: "https://trigunacoachingclasses.in/gallery",

@@ -24,6 +24,7 @@ const Footer: React.FC = () => {
     { name: "Privacy Policy", href: "/privacypolicy" },
     { name: "Terms & Conditions", href: "/termsandconditions" },
     { name: "Gallery", href: "/gallery" },
+    { name: "Study Material", href: "/StudyMaterial" },
 
 
     // Add more links as needed

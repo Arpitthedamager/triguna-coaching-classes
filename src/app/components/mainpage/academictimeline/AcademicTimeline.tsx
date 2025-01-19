@@ -37,10 +37,10 @@ const AcademicTimeline = () => {
   ];
   // Separate constant for image URLs
   const timelineImages = [
-    "/2.jpg", // Image for Important Dates
-    "/default-avatar.jpg", // Image for Results
-    "/2.jpg", // Image for Test Schedule
-    "/opengraph-image.jpg", // Image for JEE Registration
+    "/party/3.jpeg", // Image for Important Dates
+    "/party/5.jpg", // Image for Results
+    "/party/6.jpeg", // Image for Test Schedule
+    "/party/7.jpeg", // Image for JEE Registration
   ];
 
   return (
