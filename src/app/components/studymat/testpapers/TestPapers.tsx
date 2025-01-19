@@ -30,7 +30,6 @@ const TestPapers: FC = () => {
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchTestPapers = async (
     selectedClass: number,
@@ -108,14 +107,6 @@ const TestPapers: FC = () => {
     11: ["Physics", "Chemistry", "Maths"],
     12: ["Physics", "Chemistry", "Maths"],
   };
-  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newClass = Number(e.target.value);
-    setFormData({
-      ...formData,
-      class: newClass,
-      subject: "", // Reset subject when class changes
-    });
-  };
   // Get subjects based on class
   const getSubjects = (classNumber: number) => {
     switch (classNumber) {
@@ -130,61 +121,7 @@ const TestPapers: FC = () => {
     }
   };
 
-  const handleAddOrEdit = async () => {
-    try {
-      const testPaperData = {
-        class: formData.class,
-        subject: formData.subject, // Pass the selected subject
-        title: formData.title,
-        description: formData.description,
-        teacher: formData.teacher,
-        image: formData.image,
-        downloadLink: formData.downloadLink,
-        openLink: formData.openLink,
-      };
 
-      const response = await fetch("/api/testpapers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(testPaperData),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        setTestPapers((prev) => [...prev, result]);
-        setIsModalOpen(false);
-      } else {
-        alert(result.error || "Failed to add Test Paper");
-      }
-    } catch (error) {
-      console.error("Error adding Test Paper:", error);
-      alert("An error occurred while adding the Test Paper.");
-    }
-  };
-
-  const handleDelete = async (id: number) => {
-    try {
-      const response = await fetch("/api/testpapers", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        setTestPapers((prev) => prev.filter((paper) => paper.id !== id));
-      } else {
-        alert(result.error || "Failed to delete Test Paper");
-      }
-    } catch (error) {
-      console.error("Error deleting Test Paper:", error);
-      alert("An error occurred while deleting the Test Paper.");
-    }
-  };
 
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
@@ -207,27 +144,8 @@ const TestPapers: FC = () => {
     >
       <header className="p-4 bg-transparent flex justify-between items-center">
         <h1 className="text-xl text-primary-a20 font-bold">
-          Admin: Manage Test Papers
+           Test Papers
         </h1>
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-          onClick={() => {
-            setFormData({
-              id: 0,
-              title: "",
-              description: "",
-              teacher: "",
-              image: "",
-              downloadLink: "",
-              openLink: "",
-              class: 10,
-              subject: "",
-            });
-            setIsModalOpen(true);
-          }}
-        >
-          Add Test Paper
-        </button>
         <select
           value={formData.class}
           onChange={(e) => {
@@ -268,7 +186,7 @@ const TestPapers: FC = () => {
           {testPapers.slice(currentIndex, currentIndex + 3).map((paper) => (
             <motion.div
               key={paper.id}
-              className="w-full lg:w-1/2 p-2 md:p-4 bg-white rounded-lg shadow-lg"
+              className="w-full lg:w-1/2 p-4 md:p-4 bg-white rounded-lg shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
@@ -304,14 +222,7 @@ const TestPapers: FC = () => {
                     Open PDF
                   </a>
                 </div>
-                <div className="mt-4 space-x-2">
-                  <button
-                    onClick={() => handleDelete(paper.id)} // Pass the paper id to handleDelete
-                    className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
+                
               </div>
             </motion.div>
           ))}
@@ -333,111 +244,7 @@ const TestPapers: FC = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="font-semibold text-lg mb-4">Add Test Paper</h2>
-            <div className="grid grid-cols-1 gap-4">
-              <input
-                type="text"
-                placeholder="Title"
-                className="border p-2 rounded"
-                value={formData.title}
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Description"
-                className="border p-2 rounded"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Teacher"
-                className="border p-2 rounded"
-                value={formData.teacher}
-                onChange={(e) =>
-                  setFormData({ ...formData, teacher: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Image URL"
-                className="border p-2 rounded"
-                value={formData.image}
-                onChange={(e) =>
-                  setFormData({ ...formData, image: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Download Link"
-                className="border p-2 rounded"
-                value={formData.downloadLink}
-                onChange={(e) =>
-                  setFormData({ ...formData, downloadLink: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Open Link"
-                className="border p-2 rounded"
-                value={formData.openLink}
-                onChange={(e) =>
-                  setFormData({ ...formData, openLink: e.target.value })
-                }
-              />
-              <select
-                value={formData.class}
-                onChange={handleClassChange}
-                className="border p-2 rounded"
-              >
-                <option value={9}>Class 9</option>
-                <option value={10}>Class 10</option>
-                <option value={11}>Class 11</option>
-                <option value={12}>Class 12</option>
-              </select>
-
-              {/* Show subjects based on selected class */}
-              <select
-                value={formData.subject}
-                onChange={(e) =>
-                  setFormData({ ...formData, subject: e.target.value })
-                }
-                className="border p-2 rounded"
-              >
-                <option value="">Select Subject</option>
-                {subjects[formData.class]?.map((subject) => (
-                  <option key={subject} value={subject}>
-                    {subject}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="mt-4 flex justify-end space-x-2">
-              <button
-                className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                onClick={handleAddOrEdit}
-              >
-                Add
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </motion.div>
+         </motion.div>
   );
 };
 

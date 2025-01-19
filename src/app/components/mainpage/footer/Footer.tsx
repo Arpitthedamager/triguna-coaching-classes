@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
   const socialLinks = [
     { icon: <FaFacebookF />, href: "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/" },
     { icon: <FaTwitter />, href: "https://twitter.com" },
-    { icon: <FaInstagram />, href: "https://instagram.com" },
+    { icon: <FaInstagram />, href: "https://www.instagram.com/triguna_coaching_classes" },
     { icon: <FaLinkedinIn />, href: "https://linkedin.com" },
   ];
 
@@ -205,17 +205,18 @@ const Footer: React.FC = () => {
           &copy; {currentYear} Triguna Coaching Classes. All Rights Reserved.
         </p>
         {/* Credits Section */}
-        <div className="mt-4 text-gray-500 text-sm">
+        <div className="mt-4 text-gray-500 text-lg">
           <p>
             Designed & Developed by{" "}
-            <span className="font-semibold text-yellow-400">AdSuper</span> (
+            <br/>
+            {/* <span className="font-semibold text-yellow-400">AdSuper</span>  */}
             <a
               href="https://instagram.com/mr.damager"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-yellow-400"
             >
-              @mr.damager
+            (  @mr.damager
             </a>{" "}
             - Arpit Gupta)
           </p>
@@ -223,14 +224,14 @@ const Footer: React.FC = () => {
             For professional website development, contact{" "}
             <a
               href="mailto:protonwebservises@proton.com"
-              className="text-yellow-400 hover:underline"
+              className="text-yellow-800 hover:underline"
             >
-              adsuper@gmail.com
+              mr.damager2006@gmail.com
             </a>{" "}
             or call{" "}
             <a
               href="tel:+919259493075"
-              className="text-yellow-400 hover:underline"
+              className="text-yellow-800 hover:underline"
             >
               +91 92594 93075
             </a>

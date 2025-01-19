@@ -235,7 +235,7 @@ const Gallery = () => {
           ))}
         </motion.div>
         <Link href="/gallery" className="block md:hidden text-center">
-          <button className="text-primary-a20 font-semibold hover:underline">
+          <button className="text-primary-a20 font-semibold hover:underline mt-6">
             Show More
           </button>
         </Link>

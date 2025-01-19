@@ -10,28 +10,28 @@ const AcademicTimeline = () => {
       title: "Central Board of Secondary Education (CBSE)",
       description:
         "Stay updated with CBSE curriculum, exam schedules, and other announcements.",
-      icon: "ℹ️",
+      icon: "/admin/cbse.jpeg",
       link: "https://www.cbse.gov.in",
     },
     {
       title: "Uttar Pradesh Board (UPMSP)",
       description:
         "Access academic calendars, syllabus details, and board examination updates for the Uttar Pradesh Board.",
-      icon: "📈",
+      icon: "/admin/upboard.jpeg",
       link: "https://upmsp.edu.in",
     },
     {
       title: "Joint Entrance Examination (JEE)",
       description:
         "Check JEE Main exam dates, registration details, and study resources.",
-      icon: "📝",
+      icon: "/admin/JEE-Mains.jpg",
       link: "https://jeemain.nta.nic.in",
     },
     {
       title: "National Testing Agency (NTA)",
       description:
         "Find updates on national-level exams like JEE, NEET, CUET, and others.",
-      icon: "📋",
+      icon: "/admin/NEETlogo.jpg",
       link: "https://nta.ac.in",
     },
   ];
@@ -78,9 +78,9 @@ const AcademicTimeline = () => {
                 className="flex gap-2 md:flex-row items-start md:space-x-4 hover:bg-primary-a50 p-4 rounded-lg transition"
               >
                 <a href={item.link} target="_blank" rel="noopener noreferrer">
-                  <div className="flex mt-3 md:mt-0  items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-black text-white text-xl md:text-2xl font-bold rounded-md">
-                    {item.icon}
-                  </div>
+                  <img src={item.icon} className="flex mt-3 md:mt-0  items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-black text-white text-xl md:text-2xl font-bold rounded-md">
+
+                  </img>
                   <div className="mt-2 md:mt-0">
                     <h3 className="text-base md:text-lg text-primary-a20 font-semibold">
                       {item.title}

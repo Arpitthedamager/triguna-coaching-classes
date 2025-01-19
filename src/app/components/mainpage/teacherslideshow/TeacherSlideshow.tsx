@@ -36,7 +36,7 @@ const TeacherSlideshow = () => {
   return (
     <section className="py-10 px-6 md:px-10 lg:px-20 bg-primary-a50 lg:py-32">
       {/* Heading */}
-      <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary-a20 font-bold mb-4 md:text-center">
+      <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary-a20 font-bold mb-4 text-center">
         Meet Our Educators
       </h2>
       <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-6 text-center">

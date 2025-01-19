@@ -6,7 +6,6 @@ const StudyMaterial: FC = () => {
   const [recentlyViewed, setRecentlyViewed] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [materials, setMaterials] = useState([]);
   const [newMaterial, setNewMaterial] = useState({
     title: "",
     description: "",
@@ -17,12 +16,7 @@ const StudyMaterial: FC = () => {
     classLevel: "9", // default class level
   });
   const [selectedClass, setSelectedClass] = useState<string>("9"); // Default to "9"
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  // ) => {
-  //   const { name, value } = e.target;
-  //   setNewMaterial((prev) => ({ ...prev, [name]: value }));
-  // };
+
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
@@ -48,7 +42,6 @@ const StudyMaterial: FC = () => {
       }
       const data = await response.json();
       setRecentlyViewed(data);
-      // console.log("Fetched recently viewed materials:", data);
     } catch (error) {
       console.error("Failed to fetch recently viewed materials:", error);
     }
@@ -135,9 +128,6 @@ const StudyMaterial: FC = () => {
         new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
     );
 
-  // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
-
-  // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
 
   const sortedRecentlyAdded = [...studyMaterials].sort(
     (a, b) => new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
@@ -207,12 +197,6 @@ const StudyMaterial: FC = () => {
           >
             Open PDF
           </a>
-          <button
-            onClick={() => handleDelete(material._id)}
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-          >
-            Delete
-          </button>
         </div>
       </motion.div>
     ));
@@ -250,125 +234,6 @@ const StudyMaterial: FC = () => {
         </motion.div>
       </header>
 
-      {/* Modal for adding new study material */}
-      {/* {showModal && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={toggleModal} // Close modal when clicking outside
-        >
-          <div
-            className="bg-white p-6 rounded-lg w-96 relative z-60"
-            onClick={(e) => e.stopPropagation()} // Prevent modal closure when clicking inside
-          >
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
-              Add New Material
-            </h3>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-gray-600">Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={newMaterial.title}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Description</label>
-                <input
-                  type="text"
-                  name="description"
-                  value={newMaterial.description}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Teacher</label>
-                <input
-                  type="text"
-                  name="teacher"
-                  value={newMaterial.teacher}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Image URL</label>
-                <input
-                  type="text"
-                  name="image"
-                  value={newMaterial.image}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Download Link</label>
-                <input
-                  type="text"
-                  name="downloadLink"
-                  value={newMaterial.downloadLink}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Open Link</label>
-                <input
-                  type="text"
-                  name="openLink"
-                  value={newMaterial.openLink}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Class Level</label>
-                <select
-                  name="classLevel"
-                  value={newMaterial.classLevel}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                >
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
-              </div>
-              <div className="flex justify-between">
-                <button
-                  type="button"
-                  onClick={toggleModal}
-                  className="bg-gray-500 text-white py-2 px-4 rounded-lg"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-primary-a20 text-white py-2 px-4 rounded-lg"
-                >
-                  Add Material
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )} */}
-      {/* <button
-        onClick={toggleModal}
-        className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
-      >
-        Add New Material
-      </button> */}
       <select
         className="select select-bordered text-gray-600"
         value={selectedClass}
@@ -392,35 +257,7 @@ const StudyMaterial: FC = () => {
         </div>
       )}
 
-      {/* Recently Viewed Section */}
-      {/* <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-700 mb-4">
-          Recently Viewed
-        </h3>
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {renderMaterials(
-            filteredRecentlyViewed.slice(
-              currentIndexViewed,
-              currentIndexViewed + 3
-            )
-          )}
-        </div>
-        <div className="flex justify-between mt-4">
-          <button
-            onClick={handlePrevClickViewed}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg"
-          >
-            Prev
-          </button>
-          <button
-            onClick={handleNextClickViewed}
-            className="bg-primary-a20 text-white py-2 px-4 rounded-lg"
-          >
-            Next
-          </button>
-        </div> */}
-      {/* </div> */}
-
+      
       {/* Recently Added Section */}
       <div>
         <h3 className="text-lg font-semibold text-gray-700 mb-4">
