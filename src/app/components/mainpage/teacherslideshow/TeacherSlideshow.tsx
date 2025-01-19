@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const teachers = [
   {
-    name: "Jagvendra Sir (Founder)",
+    name: "Jagvendra Sir",
     subject: "Chemistry",
     description:
       "Founder and Chief visionary, Mr. Jagvendra Sir is the driving force behind the institution. He loves to keep his hands full by participating in the development of the curriculum and student experience strategies.",
@@ -13,7 +13,7 @@ const teachers = [
     image: "/teacher/sir2.jpg", // Replace with actual image path
   },
   {
-    name: "Rupesh Sir (Founder)",
+    name: "Rupesh Sir",
     subject: "Physics and Maths",
     description:
       "Rupesh Sir has an exceptional knack for simplifying complex physics concepts, making them relatable and understandable for students of all levels.",
@@ -71,9 +71,12 @@ const TeacherSlideshow = () => {
               <h3 className="text-2xl md:text-3xl lg:text-4xl text-gray-800 font-bold">
                 {teachers[current].name}
               </h3>
-              <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4">
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-600 pb-4">
+              (Founder)
                 {teachers[current].subject}
               </p>
+              {/* <p className="text-lg md:text-xl lg:text-2xl text-gray-600 ">
+              </p> */}
               <button className="bg-yellow-500 text-white px-4 py-2 md:px-6 md:py-3   rounded-lg hover:bg-yellow-400 transition mb-4">
                 {teachers[current].demoVideo}
               </button>
