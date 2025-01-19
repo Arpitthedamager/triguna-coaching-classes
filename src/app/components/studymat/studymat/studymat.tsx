@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const StudyMaterial: FC = () => {
   const [studyMaterials, setStudyMaterials] = useState<any[]>([]);
@@ -17,7 +18,6 @@ const StudyMaterial: FC = () => {
   });
   const [selectedClass, setSelectedClass] = useState<string>("9"); // Default to "9"
 
-
   const toggleModal = () => setShowModal((prev) => !prev);
 
   const fetchStudyMaterials = async () => {
@@ -28,7 +28,7 @@ const StudyMaterial: FC = () => {
 
   const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newClass = e.target.value;
-    console.log("Selected class: ", newClass); // Log the selected class to debug
+    // console.log("Selected class: ", newClass); // Log the selected class to debug
     setSelectedClass(newClass); // Set the selected class level
     fetchStudyMaterials(); // Fetch materials for the new class
     fetchRecentlyViewed(); // Fetch recently viewed for the new class
@@ -52,69 +52,69 @@ const StudyMaterial: FC = () => {
     fetchRecentlyViewed();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
 
-    const response = await fetch("/api/studymaterials", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newMaterial),
-    });
+  //   const response = await fetch("/api/studymaterials", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(newMaterial),
+  //   });
 
-    if (response.ok) {
-      const addedMaterial = await response.json();
-      setStudyMaterials((prev) => [...prev, addedMaterial]);
-      setShowModal(false); // Close the modal
-    } else {
-      alert("Failed to add study material");
-    }
-  };
+  //   if (response.ok) {
+  //     const addedMaterial = await response.json();
+  //     setStudyMaterials((prev) => [...prev, addedMaterial]);
+  //     setShowModal(false); // Close the modal
+  //   } else {
+  //     alert("Failed to add study material");
+  //   }
+  // };
 
-  const addRecentlyViewed = async (materialId: string) => {
-    try {
-      const response = await fetch("/api/recentlyviewed", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ materialId, email: "user@example.com" }), // Replace with user's email dynamically
-      });
+  // const addRecentlyViewed = async (materialId: string) => {
+  //   try {
+  //     const response = await fetch("/api/recentlyviewed", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ materialId, email: "user@example.com" }), // Replace with user's email dynamically
+  //     });
 
-      if (!response.ok) {
-        fetchRecentlyViewed();
+  //     if (!response.ok) {
+  //       fetchRecentlyViewed();
 
-        const errorData = await response.json();
-        console.error(
-          "Failed to add recently viewed material:",
-          errorData.error
-        );
-      }
-    } catch (error) {
-      console.error("Error adding recently viewed material:", error);
-    }
-  };
+  //       const errorData = await response.json();
+  //       console.error(
+  //         "Failed to add recently viewed material:",
+  //         errorData.error
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding recently viewed material:", error);
+  //   }
+  // };
 
   const filteredMaterials = studyMaterials.filter((material) =>
     material.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleDelete = async (id: string) => {
-    const confirmed = confirm("Are you sure you want to delete this material?");
-    if (!confirmed) return;
+  // const handleDelete = async (id: string) => {
+  //   const confirmed = confirm("Are you sure you want to delete this material?");
+  //   if (!confirmed) return;
 
-    const response = await fetch(`/api/studymaterials?id=${id}`, {
-      method: "DELETE",
-    });
-    if (response.ok) {
-      setStudyMaterials((prev) =>
-        prev.filter((material) => material._id !== id)
-      );
-    } else {
-      alert("Failed to delete material");
-    }
-  };
+  //   const response = await fetch(`/api/studymaterials?id=${id}`, {
+  //     method: "DELETE",
+  //   });
+  //   if (response.ok) {
+  //     setStudyMaterials((prev) =>
+  //       prev.filter((material) => material._id !== id)
+  //     );
+  //   } else {
+  //     alert("Failed to delete material");
+  //   }
+  // };
   const filteredRecentlyViewed = recentlyViewed
     .map((viewed) => {
       const material = studyMaterials.find(
@@ -127,7 +127,6 @@ const StudyMaterial: FC = () => {
       (a, b) =>
         new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
     );
-
 
   const sortedRecentlyAdded = [...studyMaterials].sort(
     (a, b) => new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
@@ -178,25 +177,25 @@ const StudyMaterial: FC = () => {
         <p className="text-sm text-gray-600 mb-2">{material.description}</p>
         <span className="text-xs text-gray-500">By {material.teacher}</span>
         <div className="mt-4 space-x-4">
-          <a
+          <Link
             href={material.downloadLink}
             className="text-primary-a20 hover:underline"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => addRecentlyViewed(material._id)} // Add to recently viewed
+            // onClick={() => addRecentlyViewed(material._id)} // Add to recently viewed
           >
             Download PDF
-          </a>
+          </Link>
 
-          <a
+          <Link
             href={material.openLink}
             className="text-green-500 hover:underline"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => addRecentlyViewed(material._id)} // Add to recently viewed
+            // onClick={() => addRecentlyViewed(material._id)} // Add to recently viewed
           >
             Open PDF
-          </a>
+          </Link>
         </div>
       </motion.div>
     ));
@@ -257,7 +256,6 @@ const StudyMaterial: FC = () => {
         </div>
       )}
 
-      
       {/* Recently Added Section */}
       <div>
         <h3 className="text-lg font-semibold text-gray-700 mb-4">

@@ -34,7 +34,7 @@ const StudyMaterial: FC = () => {
 
   const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newClass = e.target.value;
-    console.log("Selected class: ", newClass); // Log the selected class to debug
+    // console.log("Selected class: ", newClass); // Log the selected class to debug
     setSelectedClass(newClass); // Set the selected class level
     fetchStudyMaterials(); // Fetch materials for the new class
     fetchRecentlyViewed(); // Fetch recently viewed for the new class

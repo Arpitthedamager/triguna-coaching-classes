@@ -27,7 +27,7 @@ export async function GET(req: Request) {
 
     // Fetch test papers based on the query
     const testPapers = await TestPaperClass.find(query);
-    console.log(testPapers);
+    // console.log(testPapers);
     // Return the filtered list of test papers as JSON
     return NextResponse.json(testPapers);
   } catch (error) {

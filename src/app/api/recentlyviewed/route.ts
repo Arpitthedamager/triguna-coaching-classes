@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     }
 
     await connectToDatabase();
-    console.log("Connected to MongoDB");
+    // console.log("Connected to MongoDB");
 
     // Check if the record exists for the same material and user
     const existingRecord = await RecentlyView.findOne({ materialId, email });
