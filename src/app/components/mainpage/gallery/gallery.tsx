@@ -44,7 +44,7 @@ const Gallery = () => {
       },
       {
         name: "Ritika",
-        grade: "10th Grade",
+        grade: "12th Grade",
         percentage: 92,
         photo: "/topstudents/3.jpg",
       },
@@ -74,13 +74,13 @@ const Gallery = () => {
       },
       {
         name: "Ashish",
-        grade: "10th Grade",
+        grade: "12th Grade",
         percentage: 89,
         photo: "/topstudents/8.jpg",
       },
       {
         name: "Smriti",
-        grade: "10th Grade",
+        grade: "12th Grade",
         percentage: 89,
         photo: "/topstudents/9.jpg",
       },
@@ -104,7 +104,7 @@ const Gallery = () => {
       },
       {
         name: "Kavya",
-        grade: "10th Grade",
+        grade: "12th Grade",
         percentage: 88,
         photo: "/topstudents/13.jpg",
       },
