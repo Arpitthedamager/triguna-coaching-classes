@@ -122,10 +122,10 @@ const StudyMaterial: FC = () => {
     }
   };
 
-  const filteredMaterials = studyMaterials.filter((material) =>
-    material.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredMaterials = (studyMaterials || []).filter(
+    (material) => material?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase() || "")
   );
-
+  
   const handleDelete = async (id: string) => {
     const confirmed = confirm("Are you sure you want to delete this material?");
     if (!confirmed) return;
