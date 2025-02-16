@@ -30,7 +30,7 @@ const Gallery = () => {
     students: [
       {
         name: "Smriti",
-        grade: "10th Grade",
+        grade: "12th Grade",
         percentage: 89,
         photo: "/topstudents/9.jpg",
       },
@@ -54,7 +54,7 @@ const Gallery = () => {
       },
       {
         name: "Kavya",
-        grade: "10th Grade",
+        grade: "12th Grade",
         percentage: 88,
         photo: "/topstudents/13.jpg",
       },
