@@ -37,14 +37,22 @@ const StudyMaterial: FC = () => {
     setStudyMaterials(data);
   };
 
+  useEffect(() => {
+    const fetchStudyMaterials = async () => {
+      console.log("Fetching materials for class:", selectedClass); // Debug log
+      const response = await fetch(`/api/studymaterials?class=${selectedClass}`);
+      const data = await response.json();
+      setStudyMaterials(data);
+    };
+  
+    if (selectedClass) {
+      fetchStudyMaterials();
+    }
+  }, [selectedClass]);
   const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newClass = e.target.value;
-    // console.log("Selected class: ", newClass); // Log the selected class to debug
-    setSelectedClass(newClass); // Set the selected class level
-    fetchStudyMaterials(); // Fetch materials for the new class
-    fetchRecentlyViewed(); // Fetch recently viewed for the new class
+    setSelectedClass(e.target.value); // Update state
   };
-
+  
   const fetchRecentlyViewed = async () => {
     try {
       const response = await fetch(`/api/recentlyviewed`);
