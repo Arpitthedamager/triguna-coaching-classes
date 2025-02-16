@@ -12,6 +12,7 @@ import FAQs from "../faqs/FAQs";
 import MapComponent from "../mapcomponent/MapComponent";
 import Footer from "../footer/Footer";
 import CoachingProcess from "../coachingprocess/CoachingProcess";
+import Gallery from "../gallery/gallery";
 
 export default function HomePageContent() {
   const { data: session, status } = useSession();
@@ -33,6 +34,7 @@ export default function HomePageContent() {
       <div className="my-20">
         <Banner />
       </div>
+      <Gallery/>
       <FeedbackSection />
       <FeaturesSection />
       <div className="overflow-hidden">
