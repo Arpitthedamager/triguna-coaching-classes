@@ -2,6 +2,11 @@ import { FC, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const StudyMaterial: FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
   const [studyMaterials, setStudyMaterials] = useState<any[]>([]);
   const [recentlyViewed, setRecentlyViewed] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,24 +66,38 @@ const StudyMaterial: FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage(null); // Reset message state
 
-    const response = await fetch("/api/studymaterials", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newMaterial),
-    });
+    try {
+      const response = await fetch("/api/studymaterials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMaterial),
+      });
 
-    if (response.ok) {
-      const addedMaterial = await response.json();
-      setStudyMaterials((prev) => [...prev, addedMaterial]);
-      setShowModal(false); // Close the modal
-    } else {
-      alert("Failed to add study material");
+      if (response.ok) {
+        const addedMaterial = await response.json();
+        setStudyMaterials((prev) => [...prev, addedMaterial]);
+        setMessage({
+          text: "Study material added successfully!",
+          type: "success",
+        });
+        setShowModal(false);
+      } else {
+        setMessage({ text: "Failed to add study material.", type: "error" });
+      }
+    } catch (error) {
+      setMessage({
+        text: "Something went wrong. Please try again.",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
     }
   };
-
   const addRecentlyViewed = async (materialId: string) => {
     try {
       const response = await fetch("/api/recentlyviewed", {
@@ -260,6 +279,16 @@ const StudyMaterial: FC = () => {
             className="bg-white p-6 rounded-lg w-96 relative z-60"
             onClick={(e) => e.stopPropagation()} // Prevent modal closure when clicking inside
           >
+            {message && (
+              <p
+                className={`text-sm mb-2 ${
+                  message.type === "success" ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {message.text}
+              </p>
+            )}
+
             <h3 className="text-lg font-semibold text-gray-700 mb-4">
               Add New Material
             </h3>
@@ -354,31 +383,38 @@ const StudyMaterial: FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary-a20 text-white py-2 px-4 rounded-lg"
+                  disabled={loading}
+                  className={`py-2 px-4 rounded-lg ${
+                    loading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-primary-a20 text-white hover:bg-primary-a30"
+                  }`}
                 >
-                  Add Material
+                  {loading ? "Adding..." : "Add Material"}
                 </button>
               </div>
             </form>
           </div>
         </div>
       )}
-      <button
-        onClick={toggleModal}
-        className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
-      >
-        Add New Material
-      </button>
-      <select
-        className="select select-bordered text-gray-600"
-        value={selectedClass}
-        onChange={handleClassChange}
-      >
-        <option value="9">Class 9</option>
-        <option value="10">Class 10</option>
-        <option value="11">Class 11</option>
-        <option value="12">Class 12</option>
-      </select>
+      <div className=" justify-between">
+        <button
+          onClick={toggleModal}
+          className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
+        >
+          Add New Material
+        </button>
+        <select
+          className="select select-bordered text-gray-600"
+          value={selectedClass}
+          onChange={handleClassChange}
+        >
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
+        </select>
+      </div>
 
       {/* Displaying search results (if any) */}
       {searchQuery && (
