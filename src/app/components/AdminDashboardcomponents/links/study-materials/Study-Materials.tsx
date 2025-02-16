@@ -40,11 +40,13 @@ const StudyMaterial: FC = () => {
   useEffect(() => {
     const fetchStudyMaterials = async () => {
       console.log("Fetching materials for class:", selectedClass); // Debug log
-      const response = await fetch(`/api/studymaterials?class=${selectedClass}`);
+      const response = await fetch(
+        `/api/studymaterials?class=${selectedClass}`
+      );
       const data = await response.json();
       setStudyMaterials(data);
     };
-  
+
     if (selectedClass) {
       fetchStudyMaterials();
     }
@@ -52,7 +54,7 @@ const StudyMaterial: FC = () => {
   const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedClass(e.target.value); // Update state
   };
-  
+
   const fetchRecentlyViewed = async () => {
     try {
       const response = await fetch(`/api/recentlyviewed`);
@@ -130,10 +132,10 @@ const StudyMaterial: FC = () => {
     }
   };
 
-  const filteredMaterials = (studyMaterials || []).filter(
-    (material) => material?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase() || "")
+  const filteredMaterials = (studyMaterials || []).filter((material) =>
+    material?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase() || "")
   );
-  
+
   const handleDelete = async (id: string) => {
     const confirmed = confirm("Are you sure you want to delete this material?");
     if (!confirmed) return;
@@ -278,13 +280,14 @@ const StudyMaterial: FC = () => {
       </header>
 
       {/* Modal for adding new study material */}
+      {/* Modal for adding new study material */}
       {showModal && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50"
           onClick={toggleModal} // Close modal when clicking outside
         >
           <div
-            className="bg-white p-6 rounded-lg w-96 relative z-60"
+            className="bg-white p-6 rounded-lg w-full max-w-md max-h-[97vh] overflow-y-auto relative z-60"
             onClick={(e) => e.stopPropagation()} // Prevent modal closure when clicking inside
           >
             {message && (
@@ -405,6 +408,7 @@ const StudyMaterial: FC = () => {
           </div>
         </div>
       )}
+
       <div className=" justify-between">
         <button
           onClick={toggleModal}
