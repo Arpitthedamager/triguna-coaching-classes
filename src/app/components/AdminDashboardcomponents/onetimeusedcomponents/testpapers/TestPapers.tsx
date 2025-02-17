@@ -153,6 +153,7 @@ const TestPapers: FC = () => {
 
       const result = await response.json();
       if (response.ok) {
+        window.location.reload()
         setTestPapers((prev) => [...prev, result]);
         setIsModalOpen(false);
       } else {

@@ -47,8 +47,9 @@ const Timetable = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ class: classSelected, ...newNotification }),
     });
-
+    
     if (response.ok) {
+      console.log("Notification Added")
       const updatedTimetable = await response.json();
       setNotifications(updatedTimetable.schedule);
       setNewNotification({ icon: "", name: "", time: "" });

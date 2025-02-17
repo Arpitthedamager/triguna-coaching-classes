@@ -127,7 +127,7 @@ const Calendar = () => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
-            src={session?.user?.image || "https://via.placeholder.com/50"}
+            src={session?.user?.image || "/default-avatar.png"}
             alt="Profile"
             className="w-12 h-12 rounded-full"
           />

@@ -16,10 +16,12 @@ const partyPhotos = [
   "/party/9.jpeg",
   "/party/10.jpeg",
   "/party/11.jpeg",
+  "/party/12.jpg",
 ];
 
 const Party = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  // console.log("Total Images:", partyPhotos.length);
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
