@@ -162,7 +162,7 @@ const Gallery = () => {
                 className="w-full h-48 object-fill rounded-lg shadow-md"
               />
               <div className="mt-4 flex-grow space-y-2">
-                <div className="bg-green-500 text-white px-3 py-1 md:mr-32 rounded-full text-xs font-bold">
+                <div className="bg-green-500 text-white px-3 py-1  rounded-full text-xs font-bold">
                   {student.grade}
                 </div>
                 <p className="text-lg font-semibold text-primary-a20">
