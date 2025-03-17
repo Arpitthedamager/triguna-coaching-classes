@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 const StudyMaterial: FC = () => {
-    const { data: session, status } = useSession(); // Getting session data with next-auth
+  const { data: session, status } = useSession(); // Getting session data with next-auth
   const [studyMaterials, setStudyMaterials] = useState<any[]>([]);
   const [recentlyViewed, setRecentlyViewed] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,7 +12,7 @@ const StudyMaterial: FC = () => {
   //   title: "",
   //   description: "",
   //   teacher: "",
-  //   image: "", 
+  //   image: "",
   //   downloadLink: "",
   //   openLink: "",
   //   classLevel: "9", // default class level
@@ -27,7 +27,9 @@ const StudyMaterial: FC = () => {
 
   // const toggleModal = () => setShowModal((prev) => !prev);
   const fetchStudyMaterials = async () => {
-    const response = await fetch(`/api/studymaterials?class=${session?.user?.class}`); // Send selected class
+    const response = await fetch(
+      `/api/studymaterials?class=${session?.user?.class}`
+    ); // Send selected class
     const data = await response.json();
     // const filteredMaterials = data.filter((material: any) => {
     //   const createdAt = new Date(material.createdAt).getTime();
@@ -51,30 +53,11 @@ const StudyMaterial: FC = () => {
     }
   };
   useEffect(() => {
-    
     fetchStudyMaterials();
     fetchRecentlyViewed();
   }, []);
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
 
-  //   const response = await fetch("/api/studymaterials", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(newMaterial),
-  //   });
-
-  //   if (response.ok) {
-  //     const addedMaterial = await response.json();
-  //     setStudyMaterials((prev) => [...prev, addedMaterial]);
-  //     setShowModal(false); // Close the modal
-  //   } else {
-  //     alert("Failed to add study material");
-  //   }
-  // };
 
   const addRecentlyViewed = async (materialId: string) => {
     try {
@@ -85,57 +68,45 @@ const StudyMaterial: FC = () => {
         },
         body: JSON.stringify({ materialId, email: "user@example.com" }), // Replace with user's email dynamically
       });
-  
+
       if (!response.ok) {
         fetchRecentlyViewed();
 
         const errorData = await response.json();
-        console.error("Failed to add recently viewed material:", errorData.error);
+        console.error(
+          "Failed to add recently viewed material:",
+          errorData.error
+        );
       }
     } catch (error) {
       console.error("Error adding recently viewed material:", error);
     }
   };
 
-
   const filteredMaterials = studyMaterials.filter((material) =>
     material.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // const handleDelete = async (id: string) => {
-  //   const confirmed = confirm("Are you sure you want to delete this material?");
-  //   if (!confirmed) return;
 
-  //   const response = await fetch(`/api/studymaterials?id=${id}`, {
-  //     method: "DELETE",
-  //   });
-  //   if (response.ok) {
-  //     setStudyMaterials((prev) =>
-  //       prev.filter((material) => material._id !== id)
-  //     );
-  //   } else {
-  //     alert("Failed to delete material");
-  //   }
-  // };
 
   const filteredRecentlyViewed = recentlyViewed
-  .map((viewed) => {
-    if (!viewed.materialId) {
-      console.warn("Invalid materialId in recentlyViewed:", viewed);
-      return null;
-    }
-    const material = studyMaterials.find(
-      (mat) => mat._id.toString() === viewed.materialId._id.toString()
+    .map((viewed) => {
+      if (!viewed.materialId) {
+        console.warn("Invalid materialId in recentlyViewed:", viewed);
+        return null;
+      }
+      const material = studyMaterials.find(
+        (mat) => mat._id.toString() === viewed.materialId._id.toString()
+      );
+      return material ? { ...material, visitedDate: viewed.visitedDate } : null; // Spread material directly
+    })
+    .filter(Boolean) // Remove null entries where material is not found
+    .sort(
+      (a, b) =>
+        new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
     );
-    return material ? { ...material, visitedDate: viewed.visitedDate } : null; // Spread material directly
-  })
-  .filter(Boolean) // Remove null entries where material is not found
-  .sort(
-    (a, b) =>
-      new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
-  );
 
-    // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
+  // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
 
   const sortedRecentlyAdded = [...studyMaterials].sort(
     (a, b) => new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
@@ -185,7 +156,7 @@ const StudyMaterial: FC = () => {
         <p className="text-sm text-gray-600 mb-2">{material.description}</p>
         <span className="text-xs text-gray-500">By {material.teacher}</span>
         <div className="mt-4 space-x-4">
-        <a
+          <a
             href={material.downloadLink}
             className="text-primary-a20 hover:underline"
             target="_blank"
@@ -204,12 +175,6 @@ const StudyMaterial: FC = () => {
           >
             Open PDF
           </a>
-          {/* <button
-            onClick={() => handleDelete(material._id)}
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-          >
-            Delete
-          </button> */}
         </div>
       </motion.div>
     ));
@@ -246,127 +211,6 @@ const StudyMaterial: FC = () => {
           </div>
         </motion.div>
       </header>
-
-      {/* Modal for adding new study material */}
-      {/* {showModal && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={toggleModal} // Close modal when clicking outside
-        >
-          <div
-            className="bg-white p-6 rounded-lg w-96 relative z-60"
-            onClick={(e) => e.stopPropagation()} // Prevent modal closure when clicking inside
-          >
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
-              Add New Material
-            </h3>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-gray-600">Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={newMaterial.title}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Description</label>
-                <input
-                  type="text"
-                  name="description"
-                  value={newMaterial.description}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Teacher</label>
-                <input
-                  type="text"
-                  name="teacher"
-                  value={newMaterial.teacher}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Image URL</label>
-                <input
-                  type="text"
-                  name="image"
-                  value={newMaterial.image}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Download Link</label>
-                <input
-                  type="text"
-                  name="downloadLink"
-                  value={newMaterial.downloadLink}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Open Link</label>
-                <input
-                  type="text"
-                  name="openLink"
-                  value={newMaterial.openLink}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-600">Class Level</label>
-                <select
-                  name="classLevel"
-                  value={newMaterial.classLevel}
-                  onChange={handleInputChange}
-                  className="input input-bordered w-full"
-                  required
-                >
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
-              </div>
-              <div className="flex justify-between">
-                <button
-                  type="button"
-                  onClick={toggleModal}
-                  className="bg-gray-500 text-white py-2 px-4 rounded-lg"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-primary-a20 text-white py-2 px-4 rounded-lg"
-                >
-                  Add Material
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )} */}
-      {/* <button
-        onClick={toggleModal}
-        className="bg-primary-a20 text-white py-2 px-4 rounded-lg hover:bg-primary-a20 transition duration-300"
-      >
-        Add New Material
-      </button> */}
-
       {/* Displaying search results (if any) */}
       {searchQuery && (
         <div className="mb-8">

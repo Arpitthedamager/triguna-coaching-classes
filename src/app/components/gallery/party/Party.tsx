@@ -21,7 +21,7 @@ const partyPhotos = [
 
 const Party = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  // console.log("Total Images:", partyPhotos.length);
+  // console.log("Tot al Images:", partyPhotos.length);
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
