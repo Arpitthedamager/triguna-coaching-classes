@@ -1,3 +1,4 @@
+"use client";
 import { FC, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -116,17 +117,16 @@ const StudyMaterial: FC = () => {
   //   }
   // };
   const filteredRecentlyViewed = recentlyViewed
-    .map((viewed) => {
-      const material = studyMaterials.find(
-        (mat) => mat._id.toString() === viewed.materialId._id.toString()
-      );
-      return material ? { ...material, visitedDate: viewed.visitedDate } : null; // Spread material directly
-    })
-    .filter(Boolean) // Remove null entries where material is not found
-    .sort(
-      (a, b) =>
-        new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
+  .map((viewed) => {
+    if (!viewed.materialId || !viewed.materialId._id) return null; // Prevent null errors
+    const material = studyMaterials.find(
+      (mat) => mat._id?.toString() === viewed.materialId._id?.toString()
     );
+    return material ? { ...material, visitedDate: viewed.visitedDate } : null;
+  })
+  .filter(Boolean) // Remove null values
+  .sort((a, b) => new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime());
+
 
   const sortedRecentlyAdded = [...studyMaterials].sort(
     (a, b) => new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()

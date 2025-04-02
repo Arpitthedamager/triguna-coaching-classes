@@ -90,21 +90,15 @@ const StudyMaterial: FC = () => {
 
 
   const filteredRecentlyViewed = recentlyViewed
-    .map((viewed) => {
-      if (!viewed.materialId) {
-        console.warn("Invalid materialId in recentlyViewed:", viewed);
-        return null;
-      }
-      const material = studyMaterials.find(
-        (mat) => mat._id.toString() === viewed.materialId._id.toString()
-      );
-      return material ? { ...material, visitedDate: viewed.visitedDate } : null; // Spread material directly
-    })
-    .filter(Boolean) // Remove null entries where material is not found
-    .sort(
-      (a, b) =>
-        new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime() // Sort by visitedDate descending
+  .map((viewed) => {
+    if (!viewed.materialId || !viewed.materialId._id) return null; // Prevent null errors
+    const material = studyMaterials.find(
+      (mat) => mat._id?.toString() === viewed.materialId._id?.toString()
     );
+    return material ? { ...material, visitedDate: viewed.visitedDate } : null;
+  })
+  .filter(Boolean) // Remove null values
+  .sort((a, b) => new Date(b.visitedDate).getTime() - new Date(a.visitedDate).getTime());
 
   // console.log("Filtered recently viewed materials:", filteredRecentlyViewed);
 
