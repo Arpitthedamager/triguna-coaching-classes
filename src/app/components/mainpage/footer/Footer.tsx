@@ -26,7 +26,6 @@ const Footer: React.FC = () => {
     { name: "Gallery", href: "/gallery" },
     { name: "Study Material", href: "/StudyMaterial" },
 
-
     // Add more links as needed
   ];
   // Generate random positions for background dots after initial render (client-side)
@@ -39,9 +38,15 @@ const Footer: React.FC = () => {
   }, []);
 
   const socialLinks = [
-    { icon: <FaFacebookF />, href: "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/" },
+    {
+      icon: <FaFacebookF />,
+      href: "https://www.facebook.com/people/Triguna-Coaching-Classes/100063716935409/",
+    },
     { icon: <FaTwitter />, href: "https://twitter.com" },
-    { icon: <FaInstagram />, href: "https://www.instagram.com/triguna_coaching_classes" },
+    {
+      icon: <FaInstagram />,
+      href: "https://www.instagram.com/triguna_coaching_classes",
+    },
     { icon: <FaLinkedinIn />, href: "https://linkedin.com" },
   ];
 
@@ -215,10 +220,11 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="hover:text-yellow-400"
             >
-            Web Tech Studio
+              Web Tech Studio
             </a>
           </p>
-            <br/>
+          <p>
+            <br />
             {/* <span className="font-semibold text-yellow-400">AdSuper</span>  */}
             <a
               href="https://instagram.com/mr.damager"
@@ -226,7 +232,7 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="hover:text-yellow-400"
             >
-            (  @mr.damager
+              ( @mr.damager
             </a>{" "}
             - Arpit Gupta)
           </p>
