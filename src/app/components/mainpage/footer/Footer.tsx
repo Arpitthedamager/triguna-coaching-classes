@@ -208,6 +208,16 @@ const Footer: React.FC = () => {
         <div className="mt-4 text-gray-500 text-lg">
           <p>
             Designed & Developed by{" "}
+            {/* <span className="font-semibold text-yellow-400">AdSuper</span>  */}
+            <a
+              href="webtechstudio.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-yellow-400"
+            >
+            Web Tech Studio
+            </a>
+          </p>
             <br/>
             {/* <span className="font-semibold text-yellow-400">AdSuper</span>  */}
             <a
